@@ -1,0 +1,26 @@
+{
+  "name": "flora-fauna-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --inspect index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/richardannowit/flora-fauna-project.git"
+  },
+  "author": "richardannowit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/richardannowit/flora-fauna-project/issues"
+  },
+  "homepage": "https://github.com/richardannowit/flora-fauna-project#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
