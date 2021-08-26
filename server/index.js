@@ -19,7 +19,7 @@ app.get('/home', authMiddleware.isAuth, (req, res) => res.send('This is home'))
 
 
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 8000
 
 app.listen(PORT, () => {
     console.log(`Example app listening at http://localhost:${PORT}`)
