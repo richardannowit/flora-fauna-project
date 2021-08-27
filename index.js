@@ -2,8 +2,8 @@ require('dotenv').config()
 require("./config/database").connect();
 const express = require('express')
 const bodyParser = require('body-parser')
-const authMiddleware = require('./middleware/AuthMiddleware')
-
+const { isAuth } = require('./middleware/AuthMiddleware')
+const { isRole } = require('./middleware/CheckRoleMiddleware')
 
 const authRouter = require('./routes/auth')
 
@@ -15,7 +15,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use('/api/auth', authRouter)
 
-app.get('/home', authMiddleware.isAuth, (req, res) => res.send('This is home'))
+app.get('/home', isAuth, isRole(['admin', 'normal']), (req, res) => {
+    return res.status(200).json('Successful')
+})
 
 
 
