@@ -14,7 +14,7 @@ let register = async (req, res) => {
             });
         }
 
-        const oldUser = await User.findOne({ username });
+        const oldUser = await User.findUser(username);
 
         if (oldUser) {
             return res.status(409).json({
@@ -22,7 +22,7 @@ let register = async (req, res) => {
             });
         }
 
-        const newUser = await User.create({
+        const newUser = await User.createUser({
             first_name,
             last_name,
             username,
@@ -36,7 +36,7 @@ let register = async (req, res) => {
 
         // return new user
         res.status(201).json({
-            data: newUser,
+            data: User.hidePassword(newUser),
             message: 'User created successfull'
         });
     } catch (err) {
@@ -56,20 +56,22 @@ let login = async (req, res) => {
             });
         }
 
-        const user = await User.findOne({ username });
+        const user = await User.findUser(username);
 
         if (user && (await bcrypt.compare(password, user.password))) {
             const token = await jwtHelpers.createToken(user, token_key, "2h")
             user.token = token;
 
             res.status(200).json({
-                data: user,
+                data: User.hidePassword(user),
                 message: 'login successfully'
             });
+        } else {
+            res.status(400).json({
+                message: "Login failed"
+            });
         }
-        res.status(400).json({
-            message: "Login failed"
-        });
+
     } catch (err) {
         console.log(err);
     }

@@ -1,46 +1,55 @@
-const mongoose = require('mongoose')
+const { connection } = require("../config/database");
 const bcrypt = require('bcrypt')
-const Schema = mongoose.Schema
 
-const UserSchema = new Schema({
-    first_name: {
-        type: String,
-        default: null
-    },
-    last_name: {
-        type: String,
-        default: null
-    },
-    username: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    role: {
-        type: String,
-        default: 'normal'
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
-    token: {
-        type: String
-    },
+var User = {}
 
-})
 
-UserSchema.pre('save', function (next) {
-    const user = this
-    bcrypt.hash(user.password, 10, (error, hash) => {
-        user.password = hash
-        next()
+User.hidePassword = (user) => {
+    let userFilter = {
+        ...user,
+        password: 'null'
+    }
+    delete userFilter.password;
+    return userFilter;
+}
+
+User.findUser = (username) => {
+    return new Promise((resolve, reject) => {
+        connection.query("SELECT * FROM USERS WHERE username=?", username, function (error, result) {
+            if (error) {
+                reject(error);
+            }
+            else {
+                if (result.length > 0) {
+                    resolve(result[0]);
+                } else {
+                    resolve(null);
+                }
+
+            }
+        });
+    });
+
+}
+
+
+User.createUser = function createUser(newUser) {
+
+    return new Promise((resolve, reject) => {
+        bcrypt.hash(newUser.password, 10, (error, hash) => {
+            newUser.password = hash
+            connection.query("INSERT INTO USERS set ?", newUser, function (error, result) {
+                if (error) {
+                    reject(error);
+                }
+                else {
+                    resolve(newUser);
+                }
+            });
+        })
     })
-})
 
 
-module.exports = mongoose.model('users', UserSchema)
+}
+
+module.exports = User;

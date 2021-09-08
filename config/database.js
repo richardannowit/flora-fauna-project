@@ -1,18 +1,25 @@
-const mongoose = require("mongoose");
+var mysql = require('mysql');
 
-const { MONGO_URI } = process.env;
+let connection = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    port: process.env.DB_PORT
+})
 
-exports.connect = () => {
-    mongoose
-        .connect(MONGO_URI, {
-            useNewUrlParser: true,
-        })
-        .then(() => {
-            console.log("Successfully connected to database");
-        })
-        .catch((error) => {
+let connect = () => {
+    connection.connect((err) => {
+        if (err) {
             console.log("database connection failed. exiting now...");
-            console.error(error);
+            console.error(err);
             process.exit(1);
-        });
+        }
+        console.log('Successfully connected to database');
+    })
 };
+
+module.exports = {
+    connect,
+    connection
+}
