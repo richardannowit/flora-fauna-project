@@ -1,0 +1,30 @@
+.product-menu-box{
+    width: 43%;
+    margin: 1%;
+    padding: 2%;
+    float: left;
+    background-color: white;
+    border-radius: 15px;
+}
+
+.product-menu-img{
+    width: 20%;
+    float: left;
+}
+
+.product-menu-desc{
+    width: 70%;
+    float: left;
+    margin-left: 8%;
+}
+
+.product-price{
+    font-size: 1.2rem;
+    margin: 2% 0;
+}
+.product-detail{
+    font-size: 1rem;
+    color: #747d8c;
+    max-height: 70px;
+    overflow-y: hidden;
+}
