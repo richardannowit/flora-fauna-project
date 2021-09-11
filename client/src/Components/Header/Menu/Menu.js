@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from "react-router-dom";
 import $ from 'jquery';
 import './Menu.scss'
 
@@ -102,13 +103,13 @@ class Menu extends Component {
             <nav className="menu text-right">
                 <ul>
                     <li className="active">
-                        <a href="/home"
+                        <Link to="/"
                             onMouseEnter={() => this.AnimationClickTabItem()}
-                        >Home</a></li>
-                    <li><a href="/categories" onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Catagories</a></li>
-                    <li><a href="/food" onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Food</a></li>
-                    <li><a href="/admin" onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Admin</a></li>
-                    <li><a href="/login" onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Login</a></li>
+                        >Home</Link></li>
+                    <li><Link to="/categories" onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Catagories</Link></li>
+                    <li><Link to="/products" onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Food</Link></li>
+                    <li><Link to="/contract" onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Contract</Link></li>
+                    <li><Link to="/login" onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Login</Link></li>
                 </ul>
             </nav>
         );
