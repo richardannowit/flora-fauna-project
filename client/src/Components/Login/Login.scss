@@ -1,0 +1,89 @@
+/* css for login */
+.background-login {
+    background-color: #ececec;
+    width: 100%;
+    text-align: center;
+	font-family: 'Open Sans', sans-serif;
+    margin: 0 auto;
+}
+
+.login-header {
+    padding-top: 5%;
+}
+
+.login {
+    width: 55%;
+    height: auto;
+    margin: 8% auto 0 auto;
+    padding-bottom: 5%;
+}
+
+.login .form-login {
+    text-align: center;
+    margin: 0 auto;
+}
+ .login .form-login h2 {
+     margin: 20pt;
+ }
+
+ .login .form-login .form-group {
+    margin:  0 auto;
+    opacity: 0.8;
+    width: 50%;
+    display: block;
+    height: 50px;
+    border-radius: 10px;
+    border: 0;
+    text-align: center;
+    font-size: 17px;
+ }
+
+ .login .form-login .submit-login {
+     margin: 0 auto;
+     width: 140px;
+     height: 40px;
+     border: 0;
+     border-radius: 5px;
+ }
+
+ .footer-login {
+    margin: 2% auto;
+    font-size: .9em;
+    color: gray;
+    letter-spacing: 2px;
+ }
+
+ .footer-login p a{
+     color: gray;
+ }
+
+.form-login .row {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.form-login .row .register {
+    float:left;
+    text-decoration: none;
+    color: blue;
+    transition: 0.1s;
+}
+
+.form-login .row .register:hover{
+    color: blueviolet;
+}
+
+.form-login .row .forgot {
+    float: right;
+    text-decoration: none;
+    color: blue;
+    transition: 0.1s;
+}
+
+.form-login .row .forgot:hover {
+    color: blueviolet;
+}
+
+.form-login .row .check-sex {
+    margin: 1%;
+}
