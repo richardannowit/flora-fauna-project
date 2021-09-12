@@ -10,7 +10,7 @@ class Search extends Component {
                     <div className="container">
                         <form action="true" method="POST">
                             <input type="search" name="search" placeholder="Search for Food.." required />
-                            <input type="submit" name="submit" defaultValue="Search" className="btn btn-primary" />
+                            <input type="submit" name="submit" value="Search" className="btn btn-primary" />
                         </form>
                     </div>
                 </section>

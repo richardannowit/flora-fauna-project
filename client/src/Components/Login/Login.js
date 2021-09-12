@@ -16,7 +16,7 @@ class Login extends Component {
                                 <br />
                                 <input className="form-group" type="password" name="password" placeholder="Enter Password" />
                                 <br />
-                                <input className="submit-login btn-primary" type="submit" name="submit" defaultValue="Login" />
+                                <input className="submit-login btn-primary" type="submit" name="submit" value="Login" />
                             </form>
                         </div>
                     </div>

@@ -106,8 +106,8 @@ class Menu extends Component {
                         <Link to="/"
                             onMouseEnter={() => this.AnimationClickTabItem()}
                         >Home</Link></li>
-                    <li><Link to="/categories" onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Catagories</Link></li>
-                    <li><Link to="/products" onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Food</Link></li>
+                    <li><Link to="/categories" onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Categories</Link></li>
+                    <li><Link to="/products" onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Foods</Link></li>
                     <li><Link to="/contract" onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Contract</Link></li>
                     <li><Link to="/login" onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Login</Link></li>
                 </ul>

@@ -1,0 +1,35 @@
+.product-order {
+    background-color: #ececec;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.product-order .container h2 {
+    color: black;
+}
+
+.order{
+    width: 50%;
+    margin: 0 auto;
+}
+
+.input-responsive{
+    width: 96%;
+    height: 35px;
+    padding: 1%;
+    margin-bottom: 3%;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.order-label{
+    margin-bottom: 1%; 
+    font-weight: bold;
+}
+
+.total-container {
+    margin: 0 auto;
+}
+

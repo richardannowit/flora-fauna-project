@@ -59,7 +59,7 @@ class Product extends Component {
         return (
             <section className="product-menu">
                 <div className="container">
-                    <h2 className="text-center">Products Menu</h2>
+                    <h2 className="text-center">Foods Menu</h2>
                     {this.state.sample_data.map((Element, Index) => {
                         return (
                             <div className="row" key={Index}>

@@ -28,7 +28,7 @@ class Category extends Component {
         return (
             <section className="categories">
                 <div className="container">
-                    <h2 className="text-center">Categorys</h2>
+                    <h2 className="text-center">Categories</h2>
                     {this.state.sample_data.map((element,index) => {
                         //render category items
                         return <CategoryItem
