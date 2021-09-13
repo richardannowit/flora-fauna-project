@@ -47,13 +47,14 @@ class Menu extends Component {
     }
 
     AnimationClickTabItem(e) {
+        console.log('click');
         //get attribute for aniamtion
         let nav = this.state.nav;
         let line = this.state.line;
         let pos = this.state.pos;
         let wid = this.state.wid;
         //Animation for Menu
-        nav.find('ul li a').hover(function (e) {
+        nav.find('ul li a').mousedown(function (e) {
             e.preventDefault();
             if (!$(this).parent().hasClass('active') && !nav.hasClass('animate')) {
 
@@ -104,7 +105,7 @@ class Menu extends Component {
                 <ul>
                     <li className="active">
                         <Link to="/"
-                            onMouseEnter={() => this.AnimationClickTabItem()}
+                            onClick={() => this.AnimationClickTabItem()}
                         >Home</Link></li>
                     <li><Link to="/categories" onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Categories</Link></li>
                     <li><Link to="/products" onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Foods</Link></li>
