@@ -8,6 +8,7 @@ import SearchProduct from './Pages/SearchProduct';
 import LoginPage from './Pages/LoginPage';
 import ContractPage from './Pages/ContractPage';
 import OrderPage from './Pages/OrderPage';
+import ProductDetailsPage from './Pages/ProductDetailsPage';
 
 class App extends Component {
   render() {
@@ -23,6 +24,7 @@ class App extends Component {
           <Route path='/login' component={LoginPage}></Route>
           <Route path='/contract' component={ContractPage}></Route>
           <Route path='/order' component={OrderPage}></Route>
+          <Route path='/productDetails' component={ProductDetailsPage}></Route>
         </Switch>
       </Router>
     </>

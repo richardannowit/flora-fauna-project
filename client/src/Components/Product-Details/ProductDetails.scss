@@ -1,0 +1,46 @@
+.product-details {
+    background-color: #ececec;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.product-details .container h2 {
+    color: black;
+}
+
+.product-details .details {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+}
+
+.product-details .col-img {
+    width: 50%;
+}
+
+.product-details .col-img img {
+    width: 400px;
+    margin: 0 auto;
+}
+
+.product-details .col-information {
+    width: 50%;
+}
+
+.product-details .col-information p {
+    width: 100%;
+    margin: 0 auto;
+    text-align: justify;
+    max-height: 190px;
+    overflow-y: scroll;
+    font-size: 18px;
+}
+
+.product-details .btn-contract {
+    padding: 15px;
+    font-size: 18px;
+    margin: 0 auto;
+    border: none;
+    border-radius: 5px;
+}
