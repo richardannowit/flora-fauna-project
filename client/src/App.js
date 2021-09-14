@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.scss';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Customer from './Components/Customer';
+import Customer from './Components/Customer/Customer';
 
 class App extends Component {
   render() {
