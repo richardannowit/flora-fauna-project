@@ -61,9 +61,11 @@ class Product extends Component {
                 <div className="container">
                     <h2 className="text-center">Foods Menu</h2>
                     {this.state.sample_data.map((Element, Index) => {
+                        //render row
                         return (
                             <div className="row" key={Index}>
                                 {Element.map((ChildElement, ChildIndex) => {
+                                    //render item
                                     return (
                                         <ProductItem
                                             key={ChildIndex}

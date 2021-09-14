@@ -47,7 +47,6 @@ class Menu extends Component {
     }
 
     AnimationClickTabItem(e) {
-        console.log('click');
         //get attribute for aniamtion
         let nav = this.state.nav;
         let line = this.state.line;
