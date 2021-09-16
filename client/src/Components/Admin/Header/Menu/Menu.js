@@ -21,6 +21,9 @@ class Menu extends React.Component {
                     <li>
                         <Link to='/admin/order'>Order</Link>
                     </li>
+                    <li>
+                        <Link to=''>Logout</Link>
+                    </li>
                 </ul>
             </div>
         )
