@@ -10,36 +10,36 @@ class Table extends React.Component {
                     id: '',
                     title: 'Burger',
                     image: '/Images/Categories/burger.jpg',
-                    feature: true,
-                    active: true,
+                    feature: 1,
+                    active: 1,
                 },
                 {
                     id: '',
                     title: 'Momo',
                     image: '/Images/Categories/momo.jpg',
-                    feature: true,
-                    active: false,
+                    feature: 1,
+                    active: 0,
                 },
                 {
                     id: '',
                     title: 'Pizza',
                     image: '/Images/Categories/pizza.jpg',
-                    feature: false,
-                    active: true,
+                    feature: 1,
+                    active: 0,
                 },
                 {
                     id: '',
                     title: 'Momo',
                     image: '/Images/Categories/momo.jpg',
-                    feature: false,
-                    active: false,
+                    feature: 1,
+                    active: 0,
                 },
                 {
                     id: '',
                     title: 'Burger',
                     image: '/Images/Categories/burger.jpg',
-                    feature: false,
-                    active: false,
+                    feature: 0,
+                    active: 0,
                 }
             ]
         }
@@ -56,7 +56,7 @@ class Table extends React.Component {
     getData(){
         return this.state.categories.map((category, idx)=>{
             return (
-                <tr className='data'>
+                <tr className='data' key={idx}>
                     <td>{idx+1}</td>
                     <td>{category.title}</td>
                     <td><img src={category.image} alt=''/></td>
@@ -77,15 +77,17 @@ class Table extends React.Component {
                 <p className='label-category'>Categories Manager</p>
                 <button className='add-category' onClick={this.onClickAddCategory}>Add Category</button>
                 <table>
-                    <tr className='header'>
-                        <th>S.N.</th>
-                        <th>Title</th>
-                        <th>Image</th>
-                        <th>Featured</th>
-                        <th>Active</th>
-                        <th>Actions</th>
-                    </tr>
-                    {this.getData()}
+                    <tbody>
+                        <tr className='header'>
+                            <th>S.N.</th>
+                            <th>Title</th>
+                            <th>Image</th>
+                            <th>Featured</th>
+                            <th>Active</th>
+                            <th>Actions</th>
+                        </tr>
+                        {this.getData()}
+                    </tbody>
                 </table>
             </div>
         )

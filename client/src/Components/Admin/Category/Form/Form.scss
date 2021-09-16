@@ -5,8 +5,9 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: rgba(#333, 0.4);
+    background-color: rgba(#333, 0.7);
     box-sizing: border-box;
+    overflow-y: scroll;
     .add-category {
         width: 400px;
         height: 400px;
