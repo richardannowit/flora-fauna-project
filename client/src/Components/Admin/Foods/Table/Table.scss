@@ -1,6 +1,7 @@
-.table {
+.table-foods {
     width: 75%;
     margin: 90px auto;
+    min-height: 100vh;
     p {
         font-size: 13px;
     }
@@ -25,6 +26,7 @@
     table {
         width: 100%;
         .header {
+            height: 55px;
             th {
                 border-bottom: 2px solid #333;
                 text-align: start;
@@ -33,6 +35,9 @@
             }
             th.description-th {
                 width: 300px;
+            }
+            th.title-th {
+                width: 100px;
             }
             th.sn-th {
                 width: 40px;
@@ -50,7 +55,6 @@
         .data {
             td {
                 padding: 0 10px;
-                height: 200px;
                 img {
                     width: 120px;
                     height: 150px;

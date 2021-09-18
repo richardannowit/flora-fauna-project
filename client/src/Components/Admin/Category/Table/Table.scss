@@ -1,6 +1,7 @@
-.table {
-    width: 70%;
+.table-categories {
+    width: 75%;
     margin: 90px auto;
+    min-height: 100vh;
     .label-category {
         margin-bottom: 15px;
         font-size: 25px;
@@ -22,10 +23,25 @@
     table {
         width: 100%;
         .header {
+            height: 55px;
             th {
                 border-bottom: 2px solid #333;
                 text-align: start;
                 padding-left: 20px;
+                font-size: 15px;
+            }
+            th.sn-th {
+                width: 60px;
+            }
+
+            th.title-th {
+                width: 150px;
+            }
+            th.image-th {
+                width: 200px;
+            }
+            th.action-th {
+                width: 350px;
             }
         }
         .data {

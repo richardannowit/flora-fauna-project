@@ -1,60 +1,10 @@
 import React from 'react'
 import './Table.scss'
+import 'axios'
 class Table extends React.Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            categories: [
-                {
-                    id: '',
-                    title: 'Burger',
-                    image: '/Images/Categories/burger.jpg',
-                    feature: 1,
-                    active: 1,
-                },
-                {
-                    id: '',
-                    title: 'Momo',
-                    image: '/Images/Categories/momo.jpg',
-                    feature: 1,
-                    active: 0,
-                },
-                {
-                    id: '',
-                    title: 'Pizza',
-                    image: '/Images/Categories/pizza.jpg',
-                    feature: 1,
-                    active: 0,
-                },
-                {
-                    id: '',
-                    title: 'Momo',
-                    image: '/Images/Categories/momo.jpg',
-                    feature: 1,
-                    active: 0,
-                },
-                {
-                    id: '',
-                    title: 'Burger',
-                    image: '/Images/Categories/burger.jpg',
-                    feature: 0,
-                    active: 0,
-                }
-            ]
-        }
-    }
-
-    onClickAddCategory = () =>{
-        this.props.onClickToAddCategory()
-    }
-
-    onClickUpdateCategory = (category) =>{
-        this.props.onClickToUpdateCategory(category)
-    }
-
     getData(){
-        return this.state.categories.map((category, idx)=>{
+        return this.props.categories.map((category, idx)=>{
             return (
                 <tr className='data' key={idx}>
                     <td>{idx+1}</td>
@@ -71,20 +21,28 @@ class Table extends React.Component {
         })
     }
 
+    onClickAddCategory = () =>{
+        this.props.onClickToAddCategory()
+    }
+
+    onClickUpdateCategory = (category) =>{
+        this.props.onClickToUpdateCategory(category)
+    }
+
     render() {
         return (
-            <div className='table'>
+            <div className='table-categories'>
                 <p className='label-category'>Categories Manager</p>
                 <button className='add-category' onClick={this.onClickAddCategory}>Add Category</button>
                 <table>
                     <tbody>
                         <tr className='header'>
-                            <th>S.N.</th>
-                            <th>Title</th>
-                            <th>Image</th>
-                            <th>Featured</th>
+                            <th className='sn-th'>S.N.</th>
+                            <th className='title-th'>Title</th>
+                            <th className='image-th'>Image</th>
+                            <th >Featured</th>
                             <th>Active</th>
-                            <th>Actions</th>
+                            <th className='action-th'>Actions</th>
                         </tr>
                         {this.getData()}
                     </tbody>

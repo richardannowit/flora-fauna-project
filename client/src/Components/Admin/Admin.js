@@ -12,14 +12,16 @@ class Admin extends React.Component {
         return (
             <Router>
                 <Header></Header>
-                <Switch>
-                    <Route path='/admin/' exact component={Home}/>
-                    <Route path='/admin/categories' component={Categories}/>
-                    <Route path='/admin/foods' component={Foods}/>
-                    <Route path='/admin/order' component={Order}/>
-                    <Route path='/admin/admin-manager' component={AdminManager}/>
-                    <Route path='' component={NotFound}/>
-                </Switch>
+                <div style={{backgroundColor: '#f1f2f6', width: '100%', height: 'auto', position: 'absolute'}}>
+                    <Switch>
+                        <Route path='/admin/' exact component={Home}/>
+                        <Route path='/admin/categories' component={Categories}/>
+                        <Route path='/admin/foods' component={Foods}/>
+                        <Route path='/admin/order' component={Order}/>
+                        <Route path='/admin/admin-manager' component={AdminManager}/>
+                        <Route path='' component={NotFound}/>
+                    </Switch>
+                </div>
             </Router>
         )
     }

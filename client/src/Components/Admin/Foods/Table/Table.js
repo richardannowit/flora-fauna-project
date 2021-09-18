@@ -2,88 +2,11 @@ import React from 'react'
 import './Table.scss'
 
 class Table extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state ={
-            foods:[
-                {
-                    id: '',
-                    title: 'Pizza',
-                    price: 10,
-                    description: 'The description The description The description The description The description The description The description',
-                    image: '',
-                    amount: 20,
-                    feature: 1,
-                    active: 1  
-                },
-                {
-                    id: '',
-                    title: 'Sandwich',
-                    price: 20,
-                    description: 'The description The description The description The description The description The description The description',
-                    image: '',
-                    amount: 90,
-                    feature: 1,
-                    active: 0  
-                },
-                {
-                    id: '',
-                    title: 'Chicken',
-                    price: 30,
-                    description: 'The description The description The description The description The description The description The description',
-                    image: '',
-                    amount: 30,
-                    feature: 0,
-                    active: 1  
-                },
-                {
-                    id: '',
-                    title: 'Burger',
-                    price: 70,
-                    description: 'The description The description The description The description The description The description The description',
-                    image: '',
-                    amount: 20,
-                    feature: 1,
-                    active: 1  
-                },
-                {
-                    id: '',
-                    title: 'Pizza',
-                    price: 50,
-                    description: 'The description The description The description The description The description The description The description',
-                    image: '',
-                    amount: 60,
-                    feature: 0,
-                    active: 0  
-                },
-                {
-                    id: '',
-                    title: 'Burger',
-                    price: 20,
-                    description: 'The description The description The description The description The description The description The description',
-                    image: '',
-                    amount: 80,
-                    feature: 0,
-                    active: 1  
-                },
-                {
-                    id: '',
-                    title: 'Pizza',
-                    price: 30,
-                    description: 'The description The description The description The description The description The description The description',
-                    image: '',
-                    amount: 20,
-                    feature: 1,
-                    active: 0  
-                }
-            ]
-        }
-    }
 
     getData() {
-        return this.state.foods.map((food, idx) => {
+        return this.props.foods.map((food, idx) => {
             return (
-                <tr className='data'>
+                <tr className='data' key={idx}>
                     <td>
                         <p>{idx+1}</p>
                     </td>
@@ -109,24 +32,32 @@ class Table extends React.Component {
                         <p>{food.active ? 'Yes' : 'No'}</p>
                     </td>
                     <td>
-                        <button class='btn btn-update'>Update</button>
-                        <button class='btn btn-delete'>Delete</button>
+                        <button className='btn btn-update' onClick={()=>{this.onShowUpdateFoodForm(food)}}>Update</button>
+                        <button className='btn btn-delete'>Delete</button>
                     </td>
                 </tr>
             )
         })
     }
 
+    onShowAddFoodForm = () =>{
+        this.props.onShowAddFoodForm()
+    }
+
+    onShowUpdateFoodForm = (food)=>{
+        this.props.onShowUpdateFoodForm(food)
+    }
+
     render() {
         return (
-            <div className='table'>
+            <div className='table-foods'>
                 <p className='label-food'>Manage Foods</p>
-                <button  className='add-food'>Add food</button>
+                <button className='add-food' onClick={this.onShowAddFoodForm}>Add food</button>
                 <table>
                     <tbody>
                         <tr className='header'>
                             <th className='sn-th'>S.N.</th>
-                            <th >Title</th>
+                            <th  className='title-th'>Title</th>
                             <th className='description-th'>Description</th>
                             <th className='image-th'>Image</th>
                             <th className='price-th'>Price</th>

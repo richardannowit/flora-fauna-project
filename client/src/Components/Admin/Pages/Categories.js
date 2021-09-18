@@ -1,49 +1,58 @@
 import React from 'react'
 import Category from '../Category/Table/Table'
 import Form from '../Category/Form/Form'
-
+import axios from 'axios'
 class Categories extends React.Component {
     constructor(props) {
         super(props)
         this.state ={
             activeAddCategory: false,
             activeUpdateCategory: false,
-            category: {}
+            category_data_update: {},
+            categories: []
         }
         this.category = React.createRef();
+    }
+
+    async componentWillMount() {
+        await axios({
+            method: 'GET',
+            url: 'http://localhost:3000/categories',
+            data: null
+        })
+        .then(res=>{
+            this.setState({categories: res.data})
+        })
+        .catch(err=>{
+            console.log(err)
+        })
     }
 
     showAddCategory =() =>{
         this.setState(preState=>({activeAddCategory: preState.activeAddCategory ? false : true}))
         document.body.style.overflow = 'hidden'
-        document.body.style.paddingRight = '15px'
+        this.category.current.style.paddingRight = '15px'
     }
 
     showUpdateCategory =(category) =>{
         this.setState(preState=>({activeUpdateCategory: preState.activeAddCategory ? false : true}))
-        this.setState({category: category})
+        this.setState({category_data_update: category})
         document.body.style.overflow = 'hidden'
-        document.body.style.paddingRight = '15px'
+        this.category.current.style.paddingRight = '15px'
     }
 
-    onCloseFormAddCategory = () =>{
-        this.setState({activeAddCategory: false})
+    onCloseFormCategory = () =>{
+        this.setState({activeAddCategory: false, activeUpdateCategory: false})
         document.body.style.overflow = 'visible'
-        document.body.style.paddingRight = '0px'
-    }
-
-    onCloseFormUpdateCategory = ()=>{
-        this.setState({activeUpdateCategory: false})
-        document.body.style.overflow = 'visible'
-        document.body.style.paddingRight = '0px'
+        this.category.current.style.paddingRight = '0px'
     }
 
     render() {
         return (
-            <div ref={this.category}>
-                {this.state.activeAddCategory && <Form onCloseForm={this.onCloseFormAddCategory}/>}
-                {this.state.activeUpdateCategory && <Form onCloseForm={this.onCloseFormUpdateCategory} data_category={this.state.category}/>}
-                <Category onClickToAddCategory={this.showAddCategory} onClickToUpdateCategory={this.showUpdateCategory}/>
+            <div ref={this.category} style={{position: 'relative'}}>
+                {this.state.activeAddCategory && <Form onCloseForm={this.onCloseFormCategory}/>}
+                {this.state.activeUpdateCategory && <Form onCloseForm={this.onCloseFormCategory} data_category={this.state.category_data_update}/>}
+                <Category onClickToAddCategory={this.showAddCategory} onClickToUpdateCategory={this.showUpdateCategory} categories={this.state.categories}/>
             </div>
         )
     }
