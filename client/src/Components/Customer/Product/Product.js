@@ -6,17 +6,17 @@ class Product extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            DataProducts: [],
+            Products: [],
         };
     }
 
     static getDerivedStateFromProps(nextProps) {
-        if (nextProps.DataProducts) {
+        if (nextProps.Products) {
             //this method run when click to category
             
             //load product in category name
             return {
-                DataProducts: nextProps.DataProducts
+                Products: nextProps.Products
             }
         }
         return {undefined}
@@ -27,7 +27,7 @@ class Product extends Component {
             <section className="product-menu">
                 <div className="container">
                     <h2 className="text-center">Foods Menu</h2>
-                    {this.state.DataProducts.map((Element, Index) => {
+                    {this.state.Products.map((Element, Index) => {
                         //render row
                         return (
                             <div className="row" key={Index}>

@@ -14,14 +14,23 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      NameCategoryWillLoad: null
+      NameCategoryWillLoad: null,
+      ClickProductsItem: true
     };
   }
 
   ClickCategoryItem = (NameCategory) => {
     //handle click category item
     this.setState({
-      NameCategoryWillLoad: NameCategory
+      NameCategoryWillLoad: NameCategory,
+      ClickProductsItem: false
+    });
+  }
+
+  ClickProductItem = () => {
+    //handle when click to product item on menu
+    this.setState({
+      ClickProductsItem: true
     });
   }
 
@@ -29,9 +38,12 @@ class App extends Component {
     return (
       <>
         <Router>
-          <Header></Header>
+          <Header
+          ClickProductItem={this.ClickProductItem}
+          ></Header>
           <Switch>
-            <Route path='/' exact render={() => {
+            <Route path='/' exact 
+            render={() => {
               return (
                 <Home
                   ClickCategoryItem={this.ClickCategoryItem}
@@ -39,13 +51,23 @@ class App extends Component {
               );
             }}
             ></Route>
-            <Route path='/categories' component={Categories}></Route>
-            <Route path='/products' render={() => {
+            <Route path='/categories' 
+            render={() => {
+              return (
+                <Categories
+                ClickCategoryItem={this.ClickCategoryItem}
+                ></Categories>
+              );
+            }}
+            ></Route>
+            <Route path='/products' 
+            render={() => {
               return (
                 <Products
                   NameCategoryWillLoad={this.state.NameCategoryWillLoad}
+                  ClickProductsItem={this.state.ClickProductsItem}
                 ></Products>
-              )
+              );
             }}
             ></Route>
             <Route path='/search' component={SearchProduct}></Route>
