@@ -13,8 +13,6 @@ class Table extends React.Component {
                     <td>{idx+1}</td>
                     <td>{category.title}</td>
                     <td><img src={category.image} alt=''/></td>
-                    <td>{category.feature ? 'Yes' : 'No'}</td>
-                    <td>{category.active ? 'Yes' : 'No'}</td>
                     <td>
                         <button className='btn btn-update' onClick={()=>{this.props.onClickToUpdateCategory(category)}}>Update</button>
                         <button className='btn btn-delete' onClick={()=>{this.HandleDeleteCategory(category.id)}}>Delete</button>
@@ -47,8 +45,6 @@ class Table extends React.Component {
                             <th className='sn-th'>S.N.</th>
                             <th className='title-th'>Title</th>
                             <th className='image-th'>Image</th>
-                            <th >Featured</th>
-                            <th>Active</th>
                             <th className='action-th'>Actions</th>
                         </tr>
                         {this.getData()}

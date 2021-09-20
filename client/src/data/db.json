@@ -1,52 +1,47 @@
 {
   "foods": [
     {
+      "id": 1,
+      "name": "The Burger 2",
+      "price": 0,
+      "description": "",
+      "active": 0,
+      "image": "/Images/Products/menu-burger.jpg"
+    },
+    {
       "id": 2,
-      "title": "The Pizza Hut",
-      "price": 320000,
-      "description": "The Pizza Hut in GO!",
-      "amount": 150,
-      "feature": 1,
+      "name": "The Pizza 3",
+      "price": 34,
+      "description": "The Pizza 4",
       "active": 0,
       "image": "/Images/Products/menu-burger.jpg"
     },
     {
       "id": 3,
-      "title": "The Burger Jollibee",
-      "price": 32000,
-      "description": "The Burger in Jollibee, Sensity, Cantho",
-      "amount": 233,
-      "feature": 1,
-      "active": 1,
+      "name": "The Pizza 3",
+      "price": 34,
+      "description": "The Pizza 4",
+      "active": 0,
       "image": "/Images/Products/menu-burger.jpg"
     },
     {
       "id": 4,
-      "title": "The Pizza Company",
-      "price": 22000,
-      "description": "The Pizza Company in Sensity Cantho",
-      "amount": 23,
-      "feature": 0,
-      "active": 1,
+      "name": "The Pizza 3",
+      "price": 34,
+      "description": "The Pizza 4",
+      "active": 0,
+      "image": "/Images/Products/menu-burger.jpg"
+    },
+    {
+      "id": 5,
+      "name": "The Pizza 3",
+      "price": 34,
+      "description": "The Pizza 4",
+      "active": 0,
       "image": "/Images/Products/menu-burger.jpg"
     }
   ],
-  "categories": [
-    {
-      "id": 1,
-      "title": "Burgers 2",
-      "image": "/Images/Categories/pizza.jpg",
-      "feature": 1,
-      "active": 1
-    },
-    {
-      "id": 3,
-      "title": "Burgers",
-      "image": "/Images/Categories/pizza.jpg",
-      "feature": 1,
-      "active": 0
-    }
-  ],
+  "categories": [],
   "profile": {
     "name": "typicode"
   }

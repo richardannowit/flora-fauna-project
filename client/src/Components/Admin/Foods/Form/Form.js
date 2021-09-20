@@ -7,11 +7,9 @@ class Form extends React.Component {
         super(props)
         this.state ={
             id: '',
-            title: '',
+            name: '',
             price: 0,
             description: '',
-            amount: 0,
-            feature: 0,
             active: 0 ,
             image: '/Images/Products/menu-burger.jpg'
         }
@@ -22,11 +20,9 @@ class Form extends React.Component {
         if(this.props.data_food)
             this.setState({
                 id: this.props.data_food.id,
-                title: this.props.data_food.title,
+                name: this.props.data_food.name,
                 price: this.props.data_food.price,
                 description: this.props.data_food.description, 
-                amount: this.props.data_food.amount,
-                feature: this.props.data_food.feature,
                 active:  this.props.data_food.active
             })
     }
@@ -79,7 +75,7 @@ class Form extends React.Component {
                         <form onSubmit={this.handleSubmit} encType='multipart/form-data'>
                             <div className='elm'>
                                 <p>Title:</p>
-                                <input type='text' name='title' value={this.state.title} onChange={this.handleChange}/>
+                                <input type='text' name='name' required value={this.state.name} onChange={this.handleChange}/>
                             </div>
                             <div className='elm elm-textarea'>
                                 <p>Description:</p>
@@ -95,26 +91,11 @@ class Form extends React.Component {
                             </div>
                             <div className='elm elm-col'>
                                 <div className='column'>
-                                    <p>Amount:</p>
-                                    <input type='number' name='amount' min={0} value={this.state.amount} onChange={this.handleChange}/>
-                                </div>
-                                <div className='column'>
                                     <p>Price:</p>
-                                    <input type='number' name='price' min={0} value={this.state.price} onChange={this.handleChange}/>
+                                    <input type='number' name='price' required min={0} value={this.state.price} onChange={this.handleChange}/>
                                 </div>             
                             </div>
                             <div className='elm elm-col'>
-                                <div className='column'>
-                                    <p>Feature:</p>
-                                    <div className='check-radio'>
-                                        <input type='radio' name='feature' value={1} onChange={this.handleChange} checked={this.state.feature}/>
-                                        <label>Yes</label>
-                                    </div>
-                                    <div className='check-radio'>
-                                        <input type='radio' name='feature' value={0} onChange={this.handleChange} checked={!this.state.feature}/>
-                                        <label>No</label>
-                                    </div>
-                                </div>
                                 <div className='column'>
                                     <p>Active:</p>
                                     <div className='check-radio'>

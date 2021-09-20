@@ -2,7 +2,6 @@ import React from 'react'
 import './Table.scss'
 
 class Table extends React.Component {
-
     getData() {
         return this.props.foods.map((food, idx) => {
             return (

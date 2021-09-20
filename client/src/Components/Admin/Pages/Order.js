@@ -5,7 +5,7 @@ class Order extends React.Component {
     render() {
         return (
             <div ref={this.food} style={{position: 'relative'}}>
-                <Form />
+                {/* <Form /> */}
                 <Table/>
             </div>
         )
