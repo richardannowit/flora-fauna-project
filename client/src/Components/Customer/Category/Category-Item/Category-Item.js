@@ -4,10 +4,15 @@ import { Link } from 'react-router-dom';
 
 class CategoryItem extends Component {
 
+    ClickComponent = () => {
+        const NameCategory = this.props.Information.NameCategory;
+        this.props.ClickCategoryItem(NameCategory);
+    }
+
     render() {
         return (
             <>
-                <Link action = "true" to="/">
+                <Link action = "true" to="/products" onClick={this.ClickComponent}>
                     <div className="box-3 float-container">
                         <img src={this.props.Information.PathImage} alt="Pizza" className="img-responsive img-curve" />
                         <h3 className="float-text text-white">{this.props.Information.NameCategory}</h3>

@@ -11,23 +11,51 @@ import OrderPage from './Pages/OrderPage';
 import ProductDetailsPage from './Pages/ProductDetailsPage';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      NameCategoryWillLoad: null
+    };
+  }
+
+  ClickCategoryItem = (NameCategory) => {
+    //handle click category item
+    this.setState({
+      NameCategoryWillLoad: NameCategory
+    });
+  }
+
   render() {
     return (
       <>
-      <Router>
-        <Header></Header>
-        <Switch>
-          <Route path='/' exact component={Home}></Route>
-          <Route path='/categories' component={Categories}></Route>
-          <Route path='/products' component={Products}></Route>
-          <Route path='/search' component={SearchProduct}></Route>
-          <Route path='/login' component={LoginPage}></Route>
-          <Route path='/contract' component={ContractPage}></Route>
-          <Route path='/order' component={OrderPage}></Route>
-          <Route path='/productDetails' component={ProductDetailsPage}></Route>
-        </Switch>
-      </Router>
-    </>
+        <Router>
+          <Header></Header>
+          <Switch>
+            <Route path='/' exact render={() => {
+              return (
+                <Home
+                  ClickCategoryItem={this.ClickCategoryItem}
+                ></Home>
+              );
+            }}
+            ></Route>
+            <Route path='/categories' component={Categories}></Route>
+            <Route path='/products' render={() => {
+              return (
+                <Products
+                  NameCategoryWillLoad={this.state.NameCategoryWillLoad}
+                ></Products>
+              )
+            }}
+            ></Route>
+            <Route path='/search' component={SearchProduct}></Route>
+            <Route path='/login' component={LoginPage}></Route>
+            <Route path='/contract' component={ContractPage}></Route>
+            <Route path='/order' component={OrderPage}></Route>
+            <Route path='/productDetails' component={ProductDetailsPage}></Route>
+          </Switch>
+        </Router>
+      </>
     );
   }
 }

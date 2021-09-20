@@ -7,11 +7,19 @@ import Footer from '../Footer/Footer';
 
 class Home extends Component {
 
+
+    componentDidMount () {
+        //handle categories load in here
+        //handle products load in here
+    }
+
     render() {
         return (
             <>
                 <Search></Search>
-                <Category></Category>
+                <Category 
+                ClickCategoryItem={this.props.ClickCategoryItem}
+                ></Category>
                 <Product></Product>
                 <Social></Social>
                 <Footer></Footer>

@@ -24,6 +24,10 @@ class Category extends Component {
         }
     }
 
+    componentDidMount () {
+        //get data for component
+    }
+
     render() {
         return (
             <section className="categories">
@@ -34,6 +38,7 @@ class Category extends Component {
                         return <CategoryItem
                             key={index}
                             Information={element}
+                            ClickCategoryItem={this.props.ClickCategoryItem}
                             ></CategoryItem>
                     })}
                     <div className="clearfix" />
