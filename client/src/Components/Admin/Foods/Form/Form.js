@@ -1,6 +1,6 @@
 import React from 'react'
 import './Form.scss'
-
+import axios from 'axios'
 class Form extends React.Component {
 
     constructor(props) {
@@ -13,7 +13,7 @@ class Form extends React.Component {
             amount: 0,
             feature: 0,
             active: 0 ,
-            image: ''
+            image: '/Images/Products/menu-burger.jpg'
         }
         this.btnAddImg = React.createRef();
     }
@@ -48,9 +48,23 @@ class Form extends React.Component {
         this.btnAddImg.current.innerHTML = files[0].name
     }
 
-    handleSubmit = (e)=>{
+    handleSubmit = async (e)=>{
         e.preventDefault()
-        console.log(this.state)
+        const res = await axios({
+            method: this.props.method,
+            url: this.props.method === 'PUT' ? `http://localhost:4000/foods/${this.state.id}`: `http://localhost:4000/foods`,
+            data: this.state
+        })
+        .then(res=>{
+            console.log('1')
+            alert('Add Successfully')
+            return res.data
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+        console.log('2')
+        this.props.onSubmit(res, this.props.method, this.state.id)
     }
 
     render() {
@@ -60,9 +74,9 @@ class Form extends React.Component {
                     <div className='header'>
                         <i className="fas fa-times" onClick={this.onHideAddFoodForm}></i>
                     </div>
-                    <p className='banner'>Add Food</p>
+                    <p className='banner'>{this.state.id === '' ? 'Add Food' : 'Update Food'}</p>
                     <div className='body'>
-                        <form className='' action='' onSubmit={this.handleSubmit} encType='multipart/form-data' method='POST'>
+                        <form onSubmit={this.handleSubmit} encType='multipart/form-data'>
                             <div className='elm'>
                                 <p>Title:</p>
                                 <input type='text' name='title' value={this.state.title} onChange={this.handleChange}/>

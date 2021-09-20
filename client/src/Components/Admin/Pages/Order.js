@@ -1,9 +1,13 @@
 import React from 'react'
-
+import Table from '../Order/Table/Table'
+import Form from '../Order//Form/Form'
 class Order extends React.Component {
     render() {
         return (
-            <div>Order</div>
+            <div ref={this.food} style={{position: 'relative'}}>
+                <Form />
+                <Table/>
+            </div>
         )
     }
 }

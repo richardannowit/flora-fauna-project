@@ -1,112 +1,53 @@
 {
-    "foods":[
-        {
-            "id": "",
-            "title": "Pizza",
-            "price": 10,
-            "description": "The description The description The description The description The description The description The description",
-            "image": "/Images/Categories/pizza.jpg",
-            "amount": 20,
-            "feature": 1,
-            "active": 1  
-        },
-        {
-            "id": "",
-            "title": "Sandwich",
-            "price": 20,
-            "description": "The description The description The description The description The description The description The description",
-            "image": "/Images/Categories/pizza.jpg",
-            "amount": 90,
-            "feature": 1,
-            "active": 0  
-        },
-        {
-            "id": "",
-            "title": "Chicken",
-            "price": 30,
-            "description": "The description The description The description The description The description The description The description",
-            "image": "/Images/Categories/pizza.jpg",
-            "amount": 30,
-            "feature": 0,
-            "active": 1  
-        },
-        {
-            "id": "",
-            "title": "Burger",
-            "price": 70,
-            "description": "The description The description The description The description The description The description The description",
-            "image": "/Images/Categories/burger.jpg",
-            "amount": 20,
-            "feature": 1,
-            "active": 1  
-        },
-        {
-            "id": "",
-            "title": "Pizza",
-            "price": 50,
-            "description": "The description The description The description The description The description The description The description",
-            "image": "/Images/Categories/pizza.jpg",
-            "amount": 60,
-            "feature": 0,
-            "active": 0  
-        },
-        {
-            "id": "",
-            "title": "Burger",
-            "price": 20,
-            "description": "The description The description The description The description The description The description The description",
-            "image": "/Images/Categories/burger.jpg",
-            "amount": 80,
-            "feature": 0,
-            "active": 1  
-        },
-        {
-            "id": "",
-            "title": "Pizza",
-            "price": 30,
-            "description": "The description The description The description The description The description The description The description",
-            "image": "/Images/Categories/pizza.jpg",
-            "amount": 20,
-            "feature": 1,
-            "active": 0  
-        }
-    ],
-    "categories": [
-        {
-            "id": "",
-            "title": "Burger",
-            "image": "/Images/Categories/burger.jpg",
-            "feature": 1,
-            "active": 1
-        },
-        {
-            "id": "",
-            "title": "Momo",
-            "image": "/Images/Categories/momo.jpg",
-            "feature": 1,
-            "active": 0
-        },
-        {
-            "id": "",
-            "title": "Pizza",
-            "image": "/Images/Categories/pizza.jpg",
-            "feature": 1,
-            "active": 0
-        },
-        {
-            "id": "",
-            "title": "Momo",
-            "image": "/Images/Categories/momo.jpg",
-            "feature": 1,
-            "active": 0
-        },
-        {
-            "id": "",
-            "title": "Burger",
-            "image": "/Images/Categories/burger.jpg",
-            "feature": 0,
-            "active": 0
-        }
-    ],
-    "profile": { "name": "typicode" }
+  "foods": [
+    {
+      "id": 2,
+      "title": "The Pizza Hut",
+      "price": 320000,
+      "description": "The Pizza Hut in GO!",
+      "amount": 150,
+      "feature": 1,
+      "active": 0,
+      "image": "/Images/Products/menu-burger.jpg"
+    },
+    {
+      "id": 3,
+      "title": "The Burger Jollibee",
+      "price": 32000,
+      "description": "The Burger in Jollibee, Sensity, Cantho",
+      "amount": 233,
+      "feature": 1,
+      "active": 1,
+      "image": "/Images/Products/menu-burger.jpg"
+    },
+    {
+      "id": 4,
+      "title": "The Pizza Company",
+      "price": 22000,
+      "description": "The Pizza Company in Sensity Cantho",
+      "amount": 23,
+      "feature": 0,
+      "active": 1,
+      "image": "/Images/Products/menu-burger.jpg"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "title": "Burgers 2",
+      "image": "/Images/Categories/pizza.jpg",
+      "feature": 1,
+      "active": 1
+    },
+    {
+      "id": 3,
+      "title": "Burgers",
+      "image": "/Images/Categories/pizza.jpg",
+      "feature": 1,
+      "active": 0
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
 }

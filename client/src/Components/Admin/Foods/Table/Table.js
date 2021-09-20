@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React from 'react'
 import './Table.scss'
 
@@ -33,7 +34,7 @@ class Table extends React.Component {
                     </td>
                     <td>
                         <button className='btn btn-update' onClick={()=>{this.onShowUpdateFoodForm(food)}}>Update</button>
-                        <button className='btn btn-delete'>Delete</button>
+                        <button className='btn btn-delete' onClick={()=>{this.HandleDeleteFood(food)}}>Delete</button>
                     </td>
                 </tr>
             )
@@ -46,6 +47,17 @@ class Table extends React.Component {
 
     onShowUpdateFoodForm = (food)=>{
         this.props.onShowUpdateFoodForm(food)
+    }
+
+    HandleDeleteFood = (food) =>{
+        axios({
+            method: 'DELETE',
+            url: `http://localhost:4000/foods/${food.id}`,
+            data: 'null'
+        })
+        .then(()=>{console.log('SUCCESS')})
+        .catch((err)=>console.log(err))
+        this.props.onDelete(food.id)
     }
 
     render() {

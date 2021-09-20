@@ -1,7 +1,10 @@
 import React from 'react'
 import './Table.scss'
-import 'axios'
+import API from '../../../../API/ConnectAPI'
+
 class Table extends React.Component {
+
+
 
     getData(){
         return this.props.categories.map((category, idx)=>{
@@ -14,7 +17,7 @@ class Table extends React.Component {
                     <td>{category.active ? 'Yes' : 'No'}</td>
                     <td>
                         <button className='btn btn-update' onClick={()=>{this.props.onClickToUpdateCategory(category)}}>Update</button>
-                        <button className='btn btn-delete' >Delete</button>
+                        <button className='btn btn-delete' onClick={()=>{this.HandleDeleteCategory(category.id)}}>Delete</button>
                     </td>
                 </tr>
             )
@@ -29,6 +32,10 @@ class Table extends React.Component {
         this.props.onClickToUpdateCategory(category)
     }
 
+    HandleDeleteCategory = (id) =>{
+        const data = API('DELETE', `http://localhost:4000/categories/${id}`, this.state)
+        this.props.onDelete(data, id)
+    }
     render() {
         return (
             <div className='table-categories'>

@@ -1,12 +1,13 @@
 import React from 'react'
 import './Form.scss'
+import API from '../../../../API/ConnectAPI'
 class Form extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             id: '',
             title: '',
-            image: '',
+            image: '/Images/Categories/pizza.jpg',
             feature: 1,
             active: 0,
         }
@@ -34,6 +35,13 @@ class Form extends React.Component {
         }})
     }
 
+    handleSubmit = async (e)=>{
+        e.preventDefault()
+        const url = this.props.method === 'POST' ? 'http://localhost:4000/categories' : `http://localhost:4000/categories/${this.state.id}`
+        const data = await API(this.props.method, url, this.state)
+        this.props.onSubmit(data, this.state.id)
+    }
+
     render() {
         return (
             <div className={'add-category-background'}>
@@ -41,46 +49,47 @@ class Form extends React.Component {
                     <div className='header'>
                         <i className="fas fa-times" onClick={this.hideAddCategory}></i>
                     </div>
-                    <p className='banner'>Add Category</p>
+                    <p className='banner'>{this.state.id === '' ? 'Add Category' : 'Update Category'}</p>
                     <div className='body' >
-                        <form action='' method='POST' className='' encType='multipart/form-data'>
+                        <form onSubmit={this.handleSubmit} encType='multipart/form-data'>
                             <div className='elm'>
                                 <p className='label'>Title: </p>
                                 <input type='text' name='title' className='' value={this.state.title} onChange={this.handleChange}/>
                             </div>
+                            <div className='elm elm-files'>
+                                <p>Image:</p>
+                                <div className='upload-file'>
+                                    <button ref={this.btnAddImg}>Choose image</button>
+                                    <input type='file' name='image' onChange={this.HandleChangeFile}/>
+                                </div>
+                            </div>
+                            <div className='elm elm-col'>
+                                <div className='column'>
+                                    <p>Feature:</p>
+                                    <div className='check-radio'>
+                                        <input type='radio' name='feature' value={1} onChange={this.handleChange} checked={this.state.feature}/>
+                                        <label>Yes</label>
+                                    </div>
+                                    <div className='check-radio'>
+                                        <input type='radio' name='feature' value={0} onChange={this.handleChange} checked={!this.state.feature}/>
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                                <div className='column'>
+                                    <p>Active:</p>
+                                    <div className='check-radio'>
+                                        <input type='radio' name='active' value={1} onChange={this.handleChange} checked={this.state.active}/>
+                                        <label>Yes</label>
+                                    </div>
+                                    <div className='check-radio'>
+                                        <input type='radio' name='active' value={0} onChange={this.handleChange} checked={!this.state.active}/>
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
                             <div className='elm'>
-                                <p className='label'>Image: </p>
-                                <input type='file' name='image-category'/>
+                                <input type='submit'/>
                             </div>
-                            <div className='elm radio'>
-                                <div className='radio-checked' >
-                                    <p className='label'>Featured:</p>
-                                    <div>
-                                        <div>
-                                            <input type='radio' name='feature' value={1} onChange={this.handleChange} checked={this.state.feature}/>
-                                            <label>Yes</label>
-                                        </div>
-                                        <div>
-                                            <input type='radio' name='feature' value={0} onChange={this.handleChange} checked={!this.state.feature}/>
-                                            <label>No</label>
-                                        </div> 
-                                    </div>
-                                </div>
-                                <div className='radio-checked'>
-                                    <p className='label'>Active:</p>
-                                    <div>
-                                        <div>
-                                            <input type='radio' name='active' value={1} onChange={this.handleChange} checked={this.state.active}/>
-                                            <label>Yes</label>
-                                        </div>
-                                        <div>
-                                            <input type='radio' name='active' value={0} onChange={this.handleChange} checked={!this.state.active}/>
-                                            <label>No</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <input  className='elm' type='submit' name='submit-category'/>
                         </form>
                     </div>
                 </div>

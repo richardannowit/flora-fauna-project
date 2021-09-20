@@ -17,7 +17,7 @@ class Categories extends React.Component {
     async componentWillMount() {
         await axios({
             method: 'GET',
-            url: 'http://localhost:3000/categories',
+            url: 'http://localhost:4000/categories',
             data: null
         })
         .then(res=>{
@@ -27,6 +27,8 @@ class Categories extends React.Component {
             console.log(err)
         })
     }
+
+
 
     showAddCategory =() =>{
         this.setState(preState=>({activeAddCategory: preState.activeAddCategory ? false : true}))
@@ -47,12 +49,30 @@ class Categories extends React.Component {
         this.category.current.style.paddingRight = '0px'
     }
 
+    HandleSubmit = (category, id)=>{
+        const {categories} = this.state
+        if(id === '') 
+            categories.push(category)
+        else {
+            const idx = categories.findIndex(elm => elm.id === id)
+            categories[idx] = category
+        }
+        this.setState({categories: categories})
+    }
+
+    HandleDelete = (category, id) =>{
+        const {categories} = this.state
+        const idx = categories.findIndex(elm => elm.id === id)
+        categories.splice(idx, 1)
+        this.setState({categories: categories})
+    }
+
     render() {
         return (
             <div ref={this.category} style={{position: 'relative'}}>
-                {this.state.activeAddCategory && <Form onCloseForm={this.onCloseFormCategory}/>}
-                {this.state.activeUpdateCategory && <Form onCloseForm={this.onCloseFormCategory} data_category={this.state.category_data_update}/>}
-                <Category onClickToAddCategory={this.showAddCategory} onClickToUpdateCategory={this.showUpdateCategory} categories={this.state.categories}/>
+                {this.state.activeAddCategory && <Form method='POST' onSubmit={this.HandleSubmit} onCloseForm={this.onCloseFormCategory}/>}
+                {this.state.activeUpdateCategory && <Form method='PUT' onSubmit={this.HandleSubmit} onCloseForm={this.onCloseFormCategory} data_category={this.state.category_data_update}/>}
+                <Category onDelete={this.HandleDelete} onClickToAddCategory={this.showAddCategory} onClickToUpdateCategory={this.showUpdateCategory} categories={this.state.categories}/>
             </div>
         )
     }
