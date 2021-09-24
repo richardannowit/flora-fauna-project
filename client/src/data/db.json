@@ -2,46 +2,89 @@
   "foods": [
     {
       "id": 1,
-      "name": "The Burger 2",
+      "name": "dpkhang2",
       "price": 0,
       "description": "",
       "active": 0,
-      "image": "/Images/Products/menu-burger.jpg"
-    },
-    {
-      "id": 2,
-      "name": "The Pizza 3",
-      "price": 34,
-      "description": "The Pizza 4",
-      "active": 0,
-      "image": "/Images/Products/menu-burger.jpg"
-    },
-    {
-      "id": 3,
-      "name": "The Pizza 3",
-      "price": 34,
-      "description": "The Pizza 4",
-      "active": 0,
-      "image": "/Images/Products/menu-burger.jpg"
-    },
+      "image": "/Images/Products/menu-burger.jpg",
+      "category": "The Sandwich"
+    }
+  ],
+  "categories": [
     {
       "id": 4,
-      "name": "The Pizza 3",
-      "price": 34,
-      "description": "The Pizza 4",
-      "active": 0,
-      "image": "/Images/Products/menu-burger.jpg"
+      "category_name": "The Sandwich",
+      "image": "/Images/Categories/pizza.jpg",
+      "active": 1
     },
     {
       "id": 5,
-      "name": "The Pizza 3",
-      "price": 34,
-      "description": "The Pizza 4",
-      "active": 0,
-      "image": "/Images/Products/menu-burger.jpg"
+      "category_name": "The Spaghetti",
+      "image": "/Images/Categories/pizza.jpg",
+      "active": 1
+    },
+    {
+      "id": 6,
+      "category_name": "The Pizza",
+      "image": "/Images/Categories/pizza.jpg",
+      "active": 0
+    },
+    {
+      "id": 7,
+      "category_name": "The Softdrink",
+      "image": "/Images/Categories/pizza.jpg",
+      "active": 1
+    },
+    {
+      "id": 8,
+      "category_name": "The Burger",
+      "image": "/Images/Categories/pizza.jpg",
+      "active": 0
+    },
+    {
+      "id": 9,
+      "category_name": "The Burger",
+      "image": "/Images/Categories/pizza.jpg",
+      "active": 0
+    },
+    {
+      "id": 10,
+      "category_name": "The Chicken",
+      "image": "/Images/Categories/pizza.jpg",
+      "active": 0
+    },
+    {
+      "id": 11,
+      "category_name": "The Pizza Hut",
+      "image": "/Images/Categories/pizza.jpg",
+      "active": 0
     }
   ],
-  "categories": [],
+  "orders": [
+    {
+      "id": 1,
+      "customer_name": "Khang",
+      "customer_email": "khang@gmail.com",
+      "customer_phone": 939305459,
+      "customer_address": "Vinh Long",
+      "food_name": "Pizza",
+      "price": 32,
+      "quantity": 1,
+      "total": 32,
+      "date": "2/2/2021"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "dpkhang",
+      "password": "08062000aB",
+      "first_name": "Đinh Phúc",
+      "last_name": "Khang",
+      "email": "khangphuc1@gmail.com",
+      "phone_number": "0939305459"
+    }
+  ],
   "profile": {
     "name": "typicode"
   }

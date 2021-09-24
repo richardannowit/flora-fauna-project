@@ -4,6 +4,13 @@ import './Table.scss'
 
 class Table extends React.Component {
 
+    constructor(props) {
+        super(props)
+        this.state ={
+            search: '',
+        }
+    }
+
     getData() {
         return this.props.foods.map((food, idx) => {
             return (
@@ -21,14 +28,17 @@ class Table extends React.Component {
                         <img src={food.image} alt=''/>
                     </td>
                     <td>
+                        <p>{food.category}</p>
+                    </td>
+                    <td>
                         <p>{food.price}</p>
                     </td>
                     <td>
                         <p>{food.active ? 'Yes' : 'No'}</p>
                     </td>
                     <td>
-                        <button className='btn btn-update' onClick={()=>{this.onShowUpdateFoodForm(food)}}>Update</button>
-                        <button className='btn btn-delete' onClick={()=>{this.HandleDeleteFood(food)}}>Delete</button>
+                        <button className='btn btn-update' onClick={()=>{this.onShowUpdateFoodForm(food)}}><i className="fas fa-pen"></i> Update</button>
+                        <button className='btn btn-delete' onClick={()=>{this.HandleDeleteFood(food)}}><i className="fas fa-eraser"></i> Delete</button>
                     </td>
                 </tr>
             )
@@ -44,28 +54,47 @@ class Table extends React.Component {
     }
 
     HandleDeleteFood = (food) =>{
-        axios({
-            method: 'DELETE',
-            url: `http://localhost:4000/foods/${food.id}`,
-            data: 'null'
+        const bool = window.confirm('Do you want to delete?')
+        if(bool){
+            axios({
+                method: 'DELETE',
+                url: `http://localhost:4000/foods/${food.id}`,
+                data: 'null'
+            })
+            .then(()=>{console.log('SUCCESS')})
+            .catch((err)=>console.log(err))
+            this.props.onDelete(food.id)
+        }
+        
+    }
+
+
+    handleChange = (e) =>{
+        const  {value, name} =  e.target
+        this.setState({
+            [name]: value
         })
-        .then(()=>{console.log('SUCCESS')})
-        .catch((err)=>console.log(err))
-        this.props.onDelete(food.id)
     }
 
     render() {
         return (
             <div className='table-foods'>
                 <p className='label-food'>Manage Foods</p>
-                <button className='add-food' onClick={this.onShowAddFoodForm}>Add food</button>
-                <table border>
+                <div className='add-and-search'>
+                    <button className='add-food' onClick={this.onShowAddFoodForm}>Add Food</button>
+                    <div className='search-box'>
+                        <input type='text' className='search-item' name='search' value={this.state.search} onChange={this.handleChange} placeholder='Click to search'/>
+                        <i className='fas fa-search search-item'></i>
+                    </div>
+                </div>
+                <table>
                     <tbody>
                         <tr className='header'>
                             <th className='sn-th'>S.N.</th>
                             <th  className='title-th'>Name</th>
                             <th className='description-th'>Description</th>
                             <th className='image-th'>Image</th>
+                            <th className='category-th'>Category</th>
                             <th className='price-th'>Price</th>
                             <th>Active</th>
                             <th className='action-th'>Action</th>
@@ -73,6 +102,7 @@ class Table extends React.Component {
                         {this.getData()}
                     </tbody>
                 </table>
+                
             </div>
 
         );

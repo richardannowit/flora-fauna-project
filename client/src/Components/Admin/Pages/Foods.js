@@ -9,7 +9,8 @@ class Foods extends React.Component {
             activeAddFoodsForm: false,
             activeUpdateFoodsForm: false,
             food_data_update: {},
-            foods:[]
+            foods:[],
+            categories:[]
         }
         this.food = React.createRef()
     }
@@ -22,6 +23,17 @@ class Foods extends React.Component {
         })
         .then(res=>{
             this.setState({foods: res.data})
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+        await axios({
+            method: 'GET',
+            url: 'http://localhost:4000/categories',
+            data: null
+        })
+        .then(res=>{
+            this.setState({categories: res.data})
         })
         .catch(err=>{
             console.log(err)
@@ -49,7 +61,7 @@ class Foods extends React.Component {
 
     HandleSubmit = (food, method, id='')=>{
         const {foods} = this.state
-        if(method === 'POST'){
+        if(method.match(/post/i)){
             foods.push(food)
         }else {
             const idx = foods.findIndex(element=>element.id === id)
@@ -68,8 +80,8 @@ class Foods extends React.Component {
     render() {
         return (
             <div ref={this.food} style={{position: 'relative'}}>
-                {this.state.activeAddFoodsForm && <Form onSubmit={this.HandleSubmit} method='POST' onHideAddFoodForm={this.onHideFoodForm}/>}
-                {this.state.activeUpdateFoodsForm && <Form onSubmit={this.HandleSubmit} method='PUT' onHideAddFoodForm={this.onHideFoodForm} data_food={this.state.food_data_update}/>}
+                {this.state.activeAddFoodsForm && <Form onSubmit={this.HandleSubmit} method='POST' onHideAddFoodForm={this.onHideFoodForm} categories={this.state.categories}/>}
+                {this.state.activeUpdateFoodsForm && <Form onSubmit={this.HandleSubmit} method='PUT' onHideAddFoodForm={this.onHideFoodForm} data_food={this.state.food_data_update} categories={this.state.categories}/>}
                 <Table onDelete={this.HandleDelete} onShowAddFoodForm={this.onShowAddFoodForm} onShowUpdateFoodForm={this.onShowUpdateFoodForm} foods={this.state.foods}/>
             </div>
         )

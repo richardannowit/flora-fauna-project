@@ -49,9 +49,9 @@ class Categories extends React.Component {
         this.category.current.style.paddingRight = '0px'
     }
 
-    HandleSubmit = (category, id)=>{
+    HandleSubmit = (category,method, id)=>{
         const {categories} = this.state
-        if(id === '') 
+        if(method.match(/post/i)) 
             categories.push(category)
         else {
             const idx = categories.findIndex(elm => elm.id === id)

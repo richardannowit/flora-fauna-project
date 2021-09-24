@@ -10,38 +10,19 @@
     box-sizing: border-box;
     .add-category {
         width: 400px;
-        height: 450px;
-        margin: 150px auto;
-        background-color: #fff;
-        border-radius: 10px;
+        height: 380px;
+        margin: 180px auto;
+        border-radius: 5px;
         overflow: hidden;
         background-color: #f1f2f6;
-
-        .header {
-            width: 100%;
-            height: 8%;
-            background-color: #fb0202;
-
-            > i {
-                display: block;
-                float: right;
-                font-size: 25px;
-                margin-right: 20px;
-                margin-top: 7px;
-                color: #fff;
-                cursor: pointer;
-            }
-        }
-
         .banner {
             width: 100%;
-            height: 50px;
+            height: 80px;
             text-align: center;
-            line-height: 50px;
+            line-height: 80px;
             font-weight: bold;
             font-size: 25px;
         }
-
         .body {
             width: 100%;
             height: 390px;
@@ -54,13 +35,13 @@
                     width: 100%;
                     height: 20%;
                     margin: 5px 0;
-
                     p {
                         width: 75%;
                         height: 40%;
                         font-size:16px;
                         font-weight: bold;
                         margin: 0 auto;
+                        color: rgb(118, 118, 118);
                     }
 
                     input {
@@ -74,10 +55,26 @@
                         border: 1px solid #b6b6b6;
                     }
 
-                    input[type='submit'] {
-                        width: 150px;
-                        margin-top: 20px;
-                        cursor: pointer;
+                    .col {
+                        width: 70%;
+                        display: flex;
+                        justify-content: center;
+                        margin: 0 auto;
+                        padding: 0 10px;
+                        input[type="radio"] {
+                            width: 15px;
+                            height: 15px;
+                            margin:0;
+                        }
+                        .check-radio {
+                            margin-left: 15px;
+                            display: flex;
+                            width: 45%;
+                            justify-content: center;
+                            label {
+                                margin-left: 10px;
+                            }
+                        }
                     }
                 }
 
@@ -113,7 +110,7 @@
                             overflow: hidden;
                             white-space: nowrap;
                             text-overflow: ellipsis;
-                            background-color: #fb0202;
+                            background-color: #2365ff;
                             color: white;
                             border: none;
                             font-weight: bold;
@@ -139,32 +136,21 @@
                 .elm-col {
                     display: flex;
                     width: 75%;
-                    margin: 0 auto;
-
-                    .column {
-                        width: 50%;
-                        height: 100%;
-                        p{
-                            width: 100%;
-                            height: 40%;
-                        }
-
-                        input[type="number"] {
-                            height: 50%;
-                        }
-
-                        input[type="radio"] {
-                            width: 15px;
-                            height: 15px;
-                            margin:0;
-                        }
-                        .check-radio {
-                            margin-left: 15px;
-                            display: flex;
-                            label {
-                                margin-left: 10px;
-                            }
-                        }
+                    margin: 30px auto;
+                    .btn {
+                        width: 150px;
+                        height: 40px;
+                        margin: 10px;
+                        cursor: pointer;
+                        border: none;
+                        background-color: #2365ff;
+                        font-weight: bold;
+                        transition: .25s;
+                        color: white;
+                        font-family: 17px;
+                    }
+                    .btn:hover {
+                        background-color: #ff6b81;
                     }
                 }
             }

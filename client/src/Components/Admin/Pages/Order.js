@@ -1,12 +1,23 @@
 import React from 'react'
 import Table from '../Order/Table/Table'
-import Form from '../Order//Form/Form'
+import API from '../../../API/ConnectAPI'
 class Order extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state ={
+            orders: []
+        }
+    }
+
+    async componentDidMount() {
+        const data = await API('GET', 'http://localhost:4000/orders')
+        this.setState({orders: data})
+    }
+
     render() {
         return (
-            <div ref={this.food} style={{position: 'relative'}}>
-                {/* <Form /> */}
-                <Table/>
+            <div style={{position: 'relative'}}>
+                <Table orders={this.state.orders}/>
             </div>
         )
     }

@@ -1,25 +1,29 @@
 import React from 'react'
 import './Form.scss'
 import API from '../../../../API/ConnectAPI'
+import uniqid from 'uniqid'
 class Form extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             id: '',
-            title: '',
+            category_name: '',
             image: '/Images/Categories/pizza.jpg',
-            feature: 1,
-            active: 0,
         }
     }
 
-    componentDidMount(){
-        this.setState({
-            id: this.props.data_category ? this.props.data_category.id : '',
-            title: this.props.data_category ? this.props.data_category.title : '',
-            feature: this.props.data_category ? this.props.data_category.feature : 0,
-            active: this.props.data_category ? this.props.data_category.active : 0,
-        })
+    generateId = ()=> {
+        return `c-${Math.floor(Math.random() * 10000)}-${uniqid()}-${Math.floor(Math.random() * 10000)}-${uniqid()}`
+    }
+
+    async componentDidMount(){
+        if(this.props.data_category) {
+            await this.setState({
+                id: this.props.data_category.id,
+                category_name: this.props.data_category.category_name,
+                active: this.props.data_category.active
+            })
+        }
     }
 
     hideAddCategory = ()=>{
@@ -37,24 +41,27 @@ class Form extends React.Component {
 
     handleSubmit = async (e)=>{
         e.preventDefault()
-        const url = this.props.method === 'POST' ? 'http://localhost:4000/categories' : `http://localhost:4000/categories/${this.state.id}`
+        const url = this.props.method.match(/post/i) ? 'http://localhost:4000/categories' : `http://localhost:4000/categories/${this.state.id}`
         const data = await API(this.props.method, url, this.state)
-        this.props.onSubmit(data, this.state.id)
+        this.props.onSubmit(data, this.props.method, this.state.id)
+        alert('Add Successfully')
+        this.setState({
+            id: '',
+            category_name: '',
+            image: '/Images/Categories/pizza.jpg',
+        })
     }
 
     render() {
         return (
             <div className={'add-category-background'}>
                 <div className='add-category'>
-                    <div className='header'>
-                        <i className="fas fa-times" onClick={this.hideAddCategory}></i>
-                    </div>
                     <p className='banner'>{this.state.id === '' ? 'Add Category' : 'Update Category'}</p>
                     <div className='body' >
                         <form onSubmit={this.handleSubmit} encType='multipart/form-data'>
                             <div className='elm'>
-                                <p className='label'>Title: </p>
-                                <input type='text' name='title' className='' value={this.state.title} onChange={this.handleChange}/>
+                                <p className='label'>Category name: </p>
+                                <input type='text' name='category_name' value={this.state.category_name} onChange={this.handleChange}/>
                             </div>
                             <div className='elm elm-files'>
                                 <p>Image:</p>
@@ -64,31 +71,8 @@ class Form extends React.Component {
                                 </div>
                             </div>
                             <div className='elm elm-col'>
-                                <div className='column'>
-                                    <p>Feature:</p>
-                                    <div className='check-radio'>
-                                        <input type='radio' name='feature' value={1} onChange={this.handleChange} checked={this.state.feature}/>
-                                        <label>Yes</label>
-                                    </div>
-                                    <div className='check-radio'>
-                                        <input type='radio' name='feature' value={0} onChange={this.handleChange} checked={!this.state.feature}/>
-                                        <label>No</label>
-                                    </div>
-                                </div>
-                                <div className='column'>
-                                    <p>Active:</p>
-                                    <div className='check-radio'>
-                                        <input type='radio' name='active' value={1} onChange={this.handleChange} checked={this.state.active}/>
-                                        <label>Yes</label>
-                                    </div>
-                                    <div className='check-radio'>
-                                        <input type='radio' name='active' value={0} onChange={this.handleChange} checked={!this.state.active}/>
-                                        <label>No</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='elm'>
-                                <input type='submit'/>
+                                <input type='submit' className='btn' value={this.state.id === '' ? 'Add':'Update'}/>
+                                <input type='button' className='btn btn-primary' value='Cancel' onClick={this.hideAddCategory}/>
                             </div>
                         </form>
                     </div>

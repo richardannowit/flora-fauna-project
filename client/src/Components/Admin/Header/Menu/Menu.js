@@ -7,19 +7,19 @@ class Menu extends React.Component {
             <div className="menu-admin">
                 <ul>
                     <li>
-                        <Link to='/admin/'>Home</Link>
+                        <Link to='/admin/'>Statistic Manage</Link>
                     </li>
                     <li>
-                        <Link to='/admin/admin-manager'>Admin Manager</Link>
+                        <Link to='/admin/admin-manager'>Member Manage</Link>
                     </li>
                     <li>
-                        <Link to='/admin/categories'>Categories</Link>
+                        <Link to='/admin/categories'>Categories Manage</Link>
                     </li>
                     <li>
-                        <Link to='/admin/foods'>Foods</Link>
+                        <Link to='/admin/foods'>Foods Manage</Link>
                     </li>
                     <li>
-                        <Link to='/admin/order'>Order</Link>
+                        <Link to='/admin/order'>Order Manage</Link>
                     </li>
                     <li>
                         <Link to=''>Logout</Link>
