@@ -14,7 +14,9 @@ class Header extends Component {
                             <img src="/Images/Logo/logo.png" alt="Restaurant Logo" className="img-responsive" />
                         </a>
                     </div>
-                    <Menu></Menu>
+                    <Menu
+                    ClickProductItem={this.props.ClickProductItem}
+                    ></Menu>
                     <div className="clearfix" />
                 </div>
             </section>

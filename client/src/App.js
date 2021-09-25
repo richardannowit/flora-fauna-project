@@ -14,6 +14,13 @@ class App extends Component {
         <Switch>
           <Route path='/' exact component={Customer}></Route>
           <Route path='/admin' component={Admin}></Route>
+          <Route path='/categories' component={Customer}></Route>
+          <Route path='/products' component={Customer}></Route>
+          <Route path='/search' component={Customer}></Route>
+          <Route path='/login' exact component={Customer}></Route>
+          <Route path='/contract' exact component={Customer}></Route>
+          <Route path='/order' exact component={Customer}></Route>
+          <Route path='/productDetails' exact component={Customer}></Route>
         </Switch>
       </Router>
     </>
