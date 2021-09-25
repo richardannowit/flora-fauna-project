@@ -2,6 +2,7 @@ require('dotenv').config()
 const { connect } = require("./config/database");
 const express = require('express')
 const bodyParser = require('body-parser')
+const cors = require('cors');
 
 
 const authRouter = require('./routes/auth')
@@ -10,6 +11,7 @@ const foodRouter = require('./routes/food')
 
 connect();
 const app = express()
+app.use(cors())
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
