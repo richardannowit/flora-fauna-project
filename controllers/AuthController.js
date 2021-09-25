@@ -6,9 +6,9 @@ const token_key = process.env.ACCESS_TOKEN_SECRET
 
 let register = async (req, res) => {
     try {
-        const { first_name, last_name, username, password } = req.body;
+        const { first_name, last_name, username, password, email, phone} = req.body;
 
-        if (!(username && password && first_name && last_name)) {
+        if (!(username && password && first_name && last_name && email && phone)) {
             res.status(400).json({
                 message: "All input is required"
             });
@@ -27,6 +27,8 @@ let register = async (req, res) => {
             last_name,
             username,
             password,
+            email,
+            phone
         });
 
         const token = await jwtHelpers.createToken(newUser, token_key, "2h")

@@ -6,7 +6,7 @@ const { isRole } = require('../middleware/CheckRoleMiddleware')
 
 const router = express.Router()
 
-router.get('/', isAuth, isRole(['admin', 'normal']), homeController.index)
+router.get('/', isAuth, homeController.index)
 // router.get('/', homeController.index)
 
 
