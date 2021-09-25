@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 24, 2021 at 03:22 PM
+-- Generation Time: Sep 25, 2021 at 09:20 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -144,7 +144,7 @@ CREATE TABLE `users` (
   `first_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `last_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` int(11) NOT NULL
+  `phone` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -152,7 +152,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `phone`) VALUES
-(3, 'annowit', '$2b$10$rnnM9vyGxcy7K/Em7o1epeIcjZymY7nTlopkapCX3CDCNdRWcesFK', 'Tran ', 'Dang Khoa', '', 0);
+(3, 'annowit', '$2b$10$rnnM9vyGxcy7K/Em7o1epeIcjZymY7nTlopkapCX3CDCNdRWcesFK', 'Tran ', 'Dang Khoa', '', '0'),
+(4, 'trung', '$2b$10$ZVNG1ZOPdJKqTFDVCc6jJusW8PFQkvl3R/uOtrXAhx1ocFkXKSdMq', 'Tran', 'Trung', 'trung@gmail.com', '123');
 
 --
 -- Indexes for dumped tables
@@ -210,7 +211,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

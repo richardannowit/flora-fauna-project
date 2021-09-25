@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 
 const authRouter = require('./routes/auth')
 const homeRouter = require('./routes/home')
+const foodRouter = require('./routes/food')
 
 connect();
 const app = express()
@@ -15,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 
 
+app.use('/api/foods', foodRouter)
 
 app.use('/api/auth', authRouter)
 
