@@ -15,7 +15,8 @@ class App extends Component {
     super(props);
     this.state = {
       NameCategoryWillLoad: null,
-      ClickProductsItem: true
+      ClickProductsItem: true,
+      ContentSearch: null
     };
   }
 
@@ -34,6 +35,13 @@ class App extends Component {
     });
   }
 
+  HandleSearch = (Content) => {
+    //handle content search
+    this.setState({
+      ContentSearch: Content
+    })
+  }
+
   render() {
     return (
       <>
@@ -47,6 +55,7 @@ class App extends Component {
               return (
                 <Home
                   ClickCategoryItem={this.ClickCategoryItem}
+                  HandleSearch={this.HandleSearch}
                 ></Home>
               );
             }}
@@ -55,7 +64,7 @@ class App extends Component {
             render={() => {
               return (
                 <Categories
-                ClickCategoryItem={this.ClickCategoryItem}
+                  ClickCategoryItem={this.ClickCategoryItem}
                 ></Categories>
               );
             }}
@@ -70,7 +79,18 @@ class App extends Component {
               );
             }}
             ></Route>
-            <Route path='/search' component={SearchProduct}></Route>
+            <Route 
+              path='/search'
+              render={() => {
+                return (
+                  <SearchProduct
+                    ContentSeach={this.state.ContentSeach}
+                    HandleSearch={this.HandleSearch}
+                    ContentSearch={this.state.ContentSearch}
+                  ></SearchProduct>
+                );
+              }}
+            ></Route>
             <Route path='/login' component={LoginPage}></Route>
             <Route path='/contract' component={ContractPage}></Route>
             <Route path='/order' component={OrderPage}></Route>

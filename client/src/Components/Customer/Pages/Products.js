@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import Footer from '../Footer/Footer';
 import Product from '../Product/Product';
 import Search from '../Search/Search';
@@ -13,149 +14,38 @@ class Products extends Component {
         };
     }
 
-    componentDidMount () {
-        //Load data
-            //sample
-        this.setState({
-            Products: [
-                [
-                    {
-                        PathImage: "/Images/Products/menu-burger.jpg",
-                        NameProduct: "Burger",
-                        Price: 10.00,
-                        Description: "A hamburger (also burger for short) is a food, typically considered a sandwich, consisting of one or more cooked patties of ground meat, usually beef, placed inside a sliced bread roll or bun. The patty may be pan fried, grilled, smoked or flame broiled."
-                    },
-                    {
-                        PathImage: "/Images/Products/menu-momo.jpg",
-                        NameProduct: "Momo",
-                        Price: 20.00,
-                        Description: "Momo is a type of steamed dumpling with some form of filling. Momo has become a traditional delicacy in Nepal, Tibet and among the Nepalese and Tibetan communities in Bhutan"
-                    }
-                ],
-                [
-                    {
-                        PathImage: "/Images/Products/menu-pizza.jpg",
-                        NameProduct: "Pizza",
-                        Price: 30.00,
-                        Description: "Pizza, dish of Italian origin consisting of a flattened disk of bread dough topped with some combination of olive oil, oregano, tomato, olives, mozzarella or other cheese, and many other"
+    async componentDidMount() {
+        //handle products load in here
+        const ResultProducts = await axios.get('http://localhost:8000/foods');
+        const products = ResultProducts.data.data;
 
-                    },
-                    {
-                        PathImage: "/Images/Products/menu-burger.jpg",
-                        NameProduct: "Burger",
-                        Price: 40.00,
-                        Description: "A hamburger (also burger for short) is a food, typically considered a sandwich."
-                    }
-                ],
-                [
-                    {
-                        PathImage: "/Images/Products/menu-momo.jpg",
-                        NameProduct: "Momo",
-                        Price: 50.00,
-                        Description: "Momo is a type of steamed dumpling with some form of filling."
-                    },
-                    {
-                        PathImage: "/Images/Products/menu-pizza.jpg",
-                        NameProduct: "Pizza",
-                        Price: 60.00,
-                        Description: "Pizza, dish of Italian origin consisting of a flattened disk of bread dough topped."
-                    }
-                ]
-            ]
+        this.setState({
+            Products: products
         });
     }
 
-    static getDerivedStateFromProps(nextProps) {
+    static async getDerivedStateFromProps(nextProps) {
         console.log(nextProps.ClickProductsItem);
-        if(nextProps.ClickProductsItem) {
+        if (nextProps.ClickProductsItem) {
             //Load data
-                //sample
-            return {
-                Products: [
-                    [
-                        {
-                            PathImage: "/Images/Products/menu-burger.jpg",
-                            NameProduct: "Burger",
-                            Price: 10.00,
-                            Description: "A hamburger (also burger for short) is a food, typically considered a sandwich, consisting of one or more cooked patties of ground meat, usually beef, placed inside a sliced bread roll or bun. The patty may be pan fried, grilled, smoked or flame broiled."
-                        },
-                        {
-                            PathImage: "/Images/Products/menu-momo.jpg",
-                            NameProduct: "Momo",
-                            Price: 20.00,
-                            Description: "Momo is a type of steamed dumpling with some form of filling. Momo has become a traditional delicacy in Nepal, Tibet and among the Nepalese and Tibetan communities in Bhutan"
-                        }
-                    ],
-                    [
-                        {
-                            PathImage: "/Images/Products/menu-pizza.jpg",
-                            NameProduct: "Pizza",
-                            Price: 30.00,
-                            Description: "Pizza, dish of Italian origin consisting of a flattened disk of bread dough topped with some combination of olive oil, oregano, tomato, olives, mozzarella or other cheese, and many other"
+            const ResultProducts = await axios.get('http://localhost:8000/foods');
+            const products = ResultProducts.data.data;
 
-                        },
-                        {
-                            PathImage: "/Images/Products/menu-burger.jpg",
-                            NameProduct: "Burger",
-                            Price: 40.00,
-                            Description: "A hamburger (also burger for short) is a food, typically considered a sandwich."
-                        }
-                    ],
-                    [
-                        {
-                            PathImage: "/Images/Products/menu-momo.jpg",
-                            NameProduct: "Momo",
-                            Price: 50.00,
-                            Description: "Momo is a type of steamed dumpling with some form of filling."
-                        },
-                        {
-                            PathImage: "/Images/Products/menu-pizza.jpg",
-                            NameProduct: "Pizza",
-                            Price: 60.00,
-                            Description: "Pizza, dish of Italian origin consisting of a flattened disk of bread dough topped."
-                        }
-                    ]
-                ]
+            return {
+                Products: products
             };
         }
         if (nextProps.NameCategoryWillLoad) {
             //this method run when click to category
             //load product in category name
-            return {
-                Products: [
-                    [
-                        {
-                            PathImage: "/Images/Products/menu-pizza.jpg",
-                            NameProduct: "Pizza",
-                            Price: 30.00,
-                            Description: "Pizza, dish of Italian origin consisting of a flattened disk of bread dough topped with some combination of olive oil, oregano, tomato, olives, mozzarella or other cheese, and many other"
+            const ResultProducts = await axios.get('http://localhost:8000/foods');
+            const products = ResultProducts.data.data;
 
-                        },
-                        {
-                            PathImage: "/Images/Products/menu-burger.jpg",
-                            NameProduct: "Burger",
-                            Price: 40.00,
-                            Description: "A hamburger (also burger for short) is a food, typically considered a sandwich."
-                        }
-                    ],
-                    [
-                        {
-                            PathImage: "/Images/Products/menu-momo.jpg",
-                            NameProduct: "Momo",
-                            Price: 50.00,
-                            Description: "Momo is a type of steamed dumpling with some form of filling."
-                        },
-                        {
-                            PathImage: "/Images/Products/menu-pizza.jpg",
-                            NameProduct: "Pizza",
-                            Price: 60.00,
-                            Description: "Pizza, dish of Italian origin consisting of a flattened disk of bread dough topped."
-                        }
-                    ]
-                ]
-            }
+            return {
+                Products: products
+            };
         }
-        return {undefined};
+        return { undefined };
     }
 
     render() {

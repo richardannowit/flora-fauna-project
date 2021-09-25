@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import Category from '../Category/Category';
 import Footer from '../Footer/Footer';
 import Search from '../Search/Search';
@@ -13,55 +14,17 @@ class Categories extends Component {
         }
     }
 
-    LoadDataCategory = () => {
-        //Load data from server
-            //sample
-            this.setState({
-                Categories: [
-                    {
-                        PathImage: "/Images/Categories/burger.jpg",
-                        NameCategory: "Burger"
-                    },
-                    {
-                        PathImage: "/Images/Categories/momo.jpg",
-                        NameCategory: "Momo"
-                    },
-                    {
-                        PathImage: "/Images/Categories/pizza.jpg",
-                        NameCategory: "Pizza"
-                    },
-                    {
-                        PathImage: "/Images/Categories/burger.jpg",
-                        NameCategory: "Burger"
-                    },
-                    {
-                        PathImage: "/Images/Categories/momo.jpg",
-                        NameCategory: "Momo"
-                    },
-                    {
-                        PathImage: "/Images/Categories/pizza.jpg",
-                        NameCategory: "Pizza"
-                    },
-                    {
-                        PathImage: "/Images/Categories/burger.jpg",
-                        NameCategory: "Burger"
-                    },
-                    {
-                        PathImage: "/Images/Categories/momo.jpg",
-                        NameCategory: "Momo"
-                    },
-                    {
-                        PathImage: "/Images/Categories/pizza.jpg",
-                        NameCategory: "Pizza"
-                    }
-                ]
-            });
-    }
+    async componentDidMount () {
+        //handle categories load in here
+        const ResultCategories = await axios.get('http://localhost:8000/categories');
+        const categories = ResultCategories.data.data;
+        
+        //set path image
 
-    componentDidMount () {
-        //Load data from server
-            //sample
-        this.LoadDataCategory();
+
+        this.setState({
+            Categories: categories
+        });
     }
 
     render() {

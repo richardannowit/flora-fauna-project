@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import Search from '../Search/Search';
 import Category from '../Category/Category';
 import Product from '../Product/Product';
@@ -15,77 +16,31 @@ class Home extends Component {
         };
     }
 
-    componentDidMount () {
+    async componentDidMount () {
+        //beacase iamge name not have path, so must add path
         //handle categories load in here
+        const ResultCategories = await axios.get('http://localhost:8000/categories');
+        const categories = ResultCategories.data.data;
         //handle products load in here
-            //sample
-        this.setState({
-            Categories: [
-                {
-                    PathImage: "/Images/Categories/burger.jpg",
-                    NameCategory: "Burger"
-                },
-                {
-                    PathImage: "/Images/Categories/momo.jpg",
-                    NameCategory: "Momo"
-                },
-                {
-                    PathImage: "/Images/Categories/pizza.jpg",
-                    NameCategory: "Pizza"
-                }
-            ],
-            Products: [
-                [
-                    {
-                        PathImage: "/Images/Products/menu-burger.jpg",
-                        NameProduct: "Burger",
-                        Price: 10.00,
-                        Description: "A hamburger (also burger for short) is a food, typically considered a sandwich, consisting of one or more cooked patties of ground meat, usually beef, placed inside a sliced bread roll or bun. The patty may be pan fried, grilled, smoked or flame broiled."
-                    },
-                    {
-                        PathImage: "/Images/Products/menu-momo.jpg",
-                        NameProduct: "Momo",
-                        Price: 20.00,
-                        Description: "Momo is a type of steamed dumpling with some form of filling. Momo has become a traditional delicacy in Nepal, Tibet and among the Nepalese and Tibetan communities in Bhutan"
-                    }
-                ],
-                [
-                    {
-                        PathImage: "/Images/Products/menu-pizza.jpg",
-                        NameProduct: "Pizza",
-                        Price: 30.00,
-                        Description: "Pizza, dish of Italian origin consisting of a flattened disk of bread dough topped with some combination of olive oil, oregano, tomato, olives, mozzarella or other cheese, and many other"
+        const ResultProducts = await axios.get('http://localhost:8000/foods');
+        const products = ResultProducts.data.data;
+        //set path image for categories
 
-                    },
-                    {
-                        PathImage: "/Images/Products/menu-burger.jpg",
-                        NameProduct: "Burger",
-                        Price: 40.00,
-                        Description: "A hamburger (also burger for short) is a food, typically considered a sandwich."
-                    }
-                ],
-                [
-                    {
-                        PathImage: "/Images/Products/menu-momo.jpg",
-                        NameProduct: "Momo",
-                        Price: 50.00,
-                        Description: "Momo is a type of steamed dumpling with some form of filling."
-                    },
-                    {
-                        PathImage: "/Images/Products/menu-pizza.jpg",
-                        NameProduct: "Pizza",
-                        Price: 60.00,
-                        Description: "Pizza, dish of Italian origin consisting of a flattened disk of bread dough topped."
-                    }
-                ]
-            ]
+        //set path image for producds
+
+
+        this.setState({
+            Categories: categories,
+            Products: products
         });
     }
 
     render() {
         return (
             <>
-                <Search></Search>
+                <Search
+                HandleSearch={this.props.HandleSearch}
+                ></Search>
                 <Category 
                 ClickCategoryItem={this.props.ClickCategoryItem}
                 Categories={this.state.Categories}
