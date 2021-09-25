@@ -18,7 +18,7 @@ class Foods extends React.Component {
     async componentWillMount() {
         await axios({
             method: 'GET',
-            url: 'http://localhost:4000/foods',
+            url: 'http://localhost:8000/api/foods',
             data: null
         })
         .then(res=>{
@@ -59,7 +59,7 @@ class Foods extends React.Component {
         this.food.current.style.paddingRight = '0px'
     }
 
-    HandleSubmit = (food, method, id='')=>{
+    handleSubmit = (food, method, id='')=>{
         const {foods} = this.state
         if(method.match(/post/i)){
             foods.push(food)
@@ -70,7 +70,7 @@ class Foods extends React.Component {
         this.setState({foods: foods})
     }
 
-    HandleDelete = (id) =>{
+    handleDelete = (id) =>{
         const {foods} = this.state
         const idx = foods.findIndex(element=>element.id === id)
         foods.splice(idx, 1)
@@ -80,9 +80,9 @@ class Foods extends React.Component {
     render() {
         return (
             <div ref={this.food} style={{position: 'relative'}}>
-                {this.state.activeAddFoodsForm && <Form onSubmit={this.HandleSubmit} method='POST' onHideAddFoodForm={this.onHideFoodForm} categories={this.state.categories}/>}
-                {this.state.activeUpdateFoodsForm && <Form onSubmit={this.HandleSubmit} method='PUT' onHideAddFoodForm={this.onHideFoodForm} data_food={this.state.food_data_update} categories={this.state.categories}/>}
-                <Table onDelete={this.HandleDelete} onShowAddFoodForm={this.onShowAddFoodForm} onShowUpdateFoodForm={this.onShowUpdateFoodForm} foods={this.state.foods}/>
+                {this.state.activeAddFoodsForm && <Form onSubmit={this.handleSubmit} method='POST' onHideAddFoodForm={this.onHideFoodForm} categories={this.state.categories}/>}
+                {this.state.activeUpdateFoodsForm && <Form onSubmit={this.handleSubmit} method='PUT' onHideAddFoodForm={this.onHideFoodForm} data_food={this.state.food_data_update} categories={this.state.categories}/>}
+                <Table onDelete={this.handleDelete} onShowAddFoodForm={this.onShowAddFoodForm} onShowUpdateFoodForm={this.onShowUpdateFoodForm} foods={this.state.foods}/>
             </div>
         )
     }

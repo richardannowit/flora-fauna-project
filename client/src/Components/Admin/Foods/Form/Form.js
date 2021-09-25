@@ -14,7 +14,7 @@ class Form extends React.Component {
             image: '/Images/Products/menu-burger.jpg',
             category: ''
         }
-        this.btnAddImg = React.createRef();
+        this.btnAddImg = React.createRef()
     }
 
     generateId = ()=> {
@@ -50,7 +50,7 @@ class Form extends React.Component {
         }})
     }
 
-    HandleChangeFile = (e)=>{
+    handleChangeFile = (e)=>{
         const {files} = e.target
         this.btnAddImg.current.innerHTML = files[0].name
     }
@@ -96,13 +96,12 @@ class Form extends React.Component {
                             <div className='elm elm-textarea'>
                                 <p>Description:</p>
                                 <textarea name='description'  value={this.state.description} onChange={this.handleChange}/>
-                                {/* <input type='text' name='description' value={this.state.description} onChange={this.handleChange}/> */}
                             </div>
                             <div className='elm elm-files'>
                                 <p>Image:</p>
                                 <div className='upload-file'>
                                     <button ref={this.btnAddImg}>Choose image</button>
-                                    <input type='file' name='image' onChange={this.HandleChangeFile}/>
+                                    <input type='file' name='image' onChange={this.handleChangeFile}/>
                                 </div>
                             </div>
                             <div className='elm elm-col'>

@@ -38,7 +38,7 @@ class Table extends React.Component {
                     </td>
                     <td>
                         <button className='btn btn-update' onClick={()=>{this.onShowUpdateFoodForm(food)}}><i className="fas fa-pen"></i> Update</button>
-                        <button className='btn btn-delete' onClick={()=>{this.HandleDeleteFood(food)}}><i className="fas fa-eraser"></i> Delete</button>
+                        <button className='btn btn-delete' onClick={()=>{this.handleDeleteFood(food)}}><i className="fas fa-eraser"></i> Delete</button>
                     </td>
                 </tr>
             )
@@ -53,7 +53,7 @@ class Table extends React.Component {
         this.props.onShowUpdateFoodForm(food)
     }
 
-    HandleDeleteFood = (food) =>{
+    handleDeleteFood = (food) =>{
         const bool = window.confirm('Do you want to delete?')
         if(bool){
             axios({

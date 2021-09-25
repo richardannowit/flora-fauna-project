@@ -28,18 +28,13 @@ class AdminManager extends React.Component {
         this.users.current.style.paddingRight = '15px'
     }
 
-    showUpdateMemberForm = (user)=>{
-        this.setState({activeShowUpdateForm: this.state.activeShowForm ? false: true})
-        this.setState({data_user: user})
-    }
-
     hideMemberForm = ()=> {
         this.setState({activeShowForm: false,  activeShowUpdateForm: false,})
         document.body.style.overflow = 'visible'
         this.users.current.style.paddingRight = '0px'
     }
 
-    HandleSubmit = (user, method)=>{
+    handleSubmit = (user, method)=>{
         const {users} = this.state
         if(method.match(/post/i)) 
             users.push(user)
@@ -53,8 +48,7 @@ class AdminManager extends React.Component {
     render() {
         return (
             <div ref={this.users} style={{position: 'relative'}}>
-                {this.state.activeShowForm && <Form onSubmit={this.HandleSubmit} onHideMemberForm={this.hideMemberForm} method='post'/>}
-                {this.state.activeShowUpdateForm && <Form onSubmit={this.handleSubmit} onHideMemberForm={this.hideMemberForm} method='put' data_user={this.state.data_user}/>}
+                {this.state.activeShowForm && <Form onSubmit={this.handleSubmit} onHideMemberForm={this.hideMemberForm} method='post'/>}
                 <Profile/>
                 <Table users={this.state.users} onShowMemberForm={this.showMemberForm} onShowUpdateMemberForm={this.showUpdateMemberForm}/>
             </div>

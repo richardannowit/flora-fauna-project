@@ -1,22 +1,6 @@
 {
-  "foods": [
-    {
-      "id": 1,
-      "name": "dpkhang2",
-      "price": 0,
-      "description": "",
-      "active": 0,
-      "image": "/Images/Products/menu-burger.jpg",
-      "category": "The Sandwich"
-    }
-  ],
+  "foods": [],
   "categories": [
-    {
-      "id": 4,
-      "category_name": "The Sandwich",
-      "image": "/Images/Categories/pizza.jpg",
-      "active": 1
-    },
     {
       "id": 5,
       "category_name": "The Spaghetti",
@@ -58,6 +42,11 @@
       "category_name": "The Pizza Hut",
       "image": "/Images/Categories/pizza.jpg",
       "active": 0
+    },
+    {
+      "id": 12,
+      "category_name": "The Spaghetti 2",
+      "image": "/Images/Categories/pizza.jpg"
     }
   ],
   "orders": [

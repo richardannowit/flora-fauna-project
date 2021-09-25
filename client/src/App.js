@@ -3,8 +3,11 @@ import './App.scss';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Customer from './Components/Customer/Customer';
 import Admin from './Components/Admin/Admin';
+
+import axios from 'axios';
 class App extends Component {
   render() {
+
     return (
       <>
       <Router>

@@ -38,15 +38,11 @@ class Table extends React.Component {
         })
     }
 
-    HandleShowMemberForm = () =>{
+    handleShowMemberForm = () =>{
         this.props.onShowMemberForm()
     }
 
-    HandleShowUpdateMemberForm = (user)=>{
-        this.props.onShowUpdateMemberForm(user)
-    }
-
-    HandleDeleteFood = (food) =>{
+    handleDeleteFood = (food) =>{
         axios({
             method: 'DELETE',
             url: `http://localhost:4000/foods/${food.id}`,
@@ -69,7 +65,7 @@ class Table extends React.Component {
             <div className='table-managers'>
                 <p className='label-manager'>Manage User</p>
                 <div className='add-and-search'>
-                    <button className='add-user' onClick={this.HandleShowMemberForm}>Add Member</button>
+                    <button className='add-user' onClick={this.handleShowMemberForm}>Add Member</button>
                     <div className='search-box'>
                         <input type='text' className='search-item' name='search' value={this.state.search} onChange={this.handleChange} placeholder='Click to search'/>
                         <i className='fas fa-search search-item'></i>

@@ -49,7 +49,7 @@ class Categories extends React.Component {
         this.category.current.style.paddingRight = '0px'
     }
 
-    HandleSubmit = (category,method, id)=>{
+    handleSubmit = (category,method, id)=>{
         const {categories} = this.state
         if(method.match(/post/i)) 
             categories.push(category)
@@ -60,7 +60,7 @@ class Categories extends React.Component {
         this.setState({categories: categories})
     }
 
-    HandleDelete = (category, id) =>{
+    handleDelete = (category, id) =>{
         const {categories} = this.state
         const idx = categories.findIndex(elm => elm.id === id)
         categories.splice(idx, 1)
@@ -70,9 +70,9 @@ class Categories extends React.Component {
     render() {
         return (
             <div ref={this.category} style={{position: 'relative'}}>
-                {this.state.activeAddCategory && <Form method='POST' onSubmit={this.HandleSubmit} onCloseForm={this.onCloseFormCategory}/>}
-                {this.state.activeUpdateCategory && <Form method='PUT' onSubmit={this.HandleSubmit} onCloseForm={this.onCloseFormCategory} data_category={this.state.category_data_update}/>}
-                <Category onDelete={this.HandleDelete} onClickToAddCategory={this.showAddCategory} onClickToUpdateCategory={this.showUpdateCategory} categories={this.state.categories}/>
+                {this.state.activeAddCategory && <Form method='POST' onSubmit={this.handleSubmit} onCloseForm={this.onCloseFormCategory}/>}
+                {this.state.activeUpdateCategory && <Form method='PUT' onSubmit={this.handleSubmit} onCloseForm={this.onCloseFormCategory} data_category={this.state.category_data_update}/>}
+                <Category onDelete={this.handleDelete} onClickToAddCategory={this.showAddCategory} onClickToUpdateCategory={this.showUpdateCategory} categories={this.state.categories}/>
             </div>
         )
     }

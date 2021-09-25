@@ -32,7 +32,7 @@ class Form extends React.Component {
         await this.setState({user})
     }
 
-    HandleHideMemberForm = ()=> {
+    onHideMemberForm = ()=> {
         this.props.onHideMemberForm()
     }
 
@@ -47,7 +47,7 @@ class Form extends React.Component {
             [name]: value
         }
         await this.setState({user})
-        let validUsername = 0, validPassword = 0, validEmail = 0, validPhone = 0, validConfirm = 0
+        let validUsername = 0, validPassword = 0, validEmail = 0, validPhone = 0
         const existUser = await API('Get', `http://localhost:4000/users?username=${this.state.username}`)
         if(!regexp_username.test(this.state.user.username)){
             if(name === 'username'){
@@ -134,36 +134,28 @@ class Form extends React.Component {
         }
     }
 
-    PasswordComponent = ()=>{
-        return (
-            <>
-                <div className='elm'>
-                    <p>Password:</p>
-                    <input type='password' name='password' required value={this.state.user.password} onChange={this.handleChange} placeholder='The length is from 10-20 chars:  number, upper & lower.'/>
-                    <p className='error-message' ref={this.error_password}></p>
-                </div>
-                <div className='elm'>
-                    <p>Confirm Password:</p>
-                    <input type='password' name='confirm_password' required value={this.state.confirm_password} onChange={this.handleChangeConfirmPassword} placeholder='Confirm password.'/>
-                    <p className='error-message error-message-re-password' ref={this.error_confirm_password}></p>
-                </div>
-            </>
-        )
-    }
-
     render() {
         return (
             <div className='add-member-background'>
-                <div className='add-member' style={{height: this.state.user.id !== '' && '350px', margin: this.state.user.id !== '' && '200px auto'}}>
+                <div className='add-member'>
                     <p className='banner'>{this.state.user.id === '' ? 'Add Member' : 'Update Member'}</p>
                     <div className='body'>
                         <form onSubmit={this.handleSubmit} encType='multipart/form-data'>
                             <div className='elm'>
                                 <p>Username:</p>
-                                <input type='text' name='username' required value={this.state.user.username} onChange={this.handleChange} placeholder='The length is from 10 characters.'/>
+                                <input type='text' name='username' required value={this.state.user.username} onChange={this.handleChange} placeholder='The length is from 7 characters.'/>
                                 <p className='error-message' ref={this.error_username}></p>
                             </div>
-                            {this.state.user.id === '' && this.PasswordComponent()}
+                            <div className='elm'>
+                                <p>Password:</p>
+                                <input type='password' name='password' required value={this.state.user.password} onChange={this.handleChange} placeholder='The length is from 10-20 chars:  number, upper & lower.'/>
+                                <p className='error-message' ref={this.error_password}></p>
+                            </div>
+                            <div className='elm'>
+                                <p>Confirm Password:</p>
+                                <input type='password' name='confirm_password' required value={this.state.confirm_password} onChange={this.handleChangeConfirmPassword} placeholder='Confirm password.'/>
+                                <p className='error-message error-message-re-password' ref={this.error_confirm_password}></p>
+                            </div>
                             <div className='elm'>
                                 <p>Phone number:</p>
                                 <input type='text' name='phone_number' required value={this.state.user.phone_number} onChange={this.handleChange} placeholder='The number phone is consist of 10-11 numbers.'/>
@@ -185,8 +177,8 @@ class Form extends React.Component {
                                 </div>
                             </div>
                             <div className='elm elm-col'>
-                                <input type='submit' className='btn' value={this.state.user.id === '' ? 'Add':'Update'} style={{margin:this.state.user.id !== '' && '35px 5px'}}/>
-                                <input type='button' className='btn btn-primary' style={{margin:this.state.user.id !== '' && '35px 5px'}} value='Cancel' onClick={this.HandleHideMemberForm}/>
+                                <input type='submit' className='btn' value={this.state.user.id === '' ? 'Add':'Update'}/>
+                                <input type='button' className='btn btn-primary' value='Cancel' onClick={this.onHideMemberForm}/>
                             </div>
                         </form>
                     </div>

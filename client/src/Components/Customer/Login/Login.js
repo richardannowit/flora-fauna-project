@@ -1,7 +1,32 @@
 import React, { Component } from 'react';
 import "./Login.scss";
-
+import axios from 'axios'
 class Login extends Component {
+
+    constructor(props){
+        super(props)
+        this.state = {
+            username: '',
+            password: ''
+        }
+    }
+
+    handleChange = (e)=>{
+        const {name, value} = this.state
+        this.setState({
+            [name]: value
+        })
+    }
+
+    handleSubmit = async  (e)=>{
+        e.preventDefault()
+        const data = await axios({
+            method: 'POST',
+            url: 'http://localhost:8000/login',
+            data: {username: this.state.username, password: this.state.password}
+        }).then(res=>res.data)
+        console.log(data)
+    }
 
     render() {
         return (
@@ -11,10 +36,10 @@ class Login extends Component {
                     <div className="login">
                         <div className="form-login">
                             <h2>LOGIN FORM</h2>
-                            <form action="true" method="POST">
-                                <input className="form-group" type="text" name="username" placeholder="Enter Username" />
+                            <form onSubmit={this.handleSubmit}>
+                                <input className="form-group" type="text" name="username" placeholder="Enter Username" onChange={this.handleChange}/>
                                 <br />
-                                <input className="form-group" type="password" name="password" placeholder="Enter Password" />
+                                <input className="form-group" type="password" name="password" placeholder="Enter Password" onChange={this.handleChange}/>
                                 <br />
                                 <input className="submit-login btn-primary" type="submit" name="submit" value="Login" />
                             </form>

@@ -20,7 +20,7 @@ class Table extends React.Component {
                     <td><img src={category.image} alt=''/></td>
                     <td>
                         <button className='btn btn-update' onClick={()=>{this.props.onClickToUpdateCategory(category)}}><i className="fas fa-pen"></i>Update</button>
-                        <button className='btn btn-delete' onClick={()=>{this.HandleDeleteCategory(category.id)}}><i className="fas fa-eraser"></i>Delete</button>
+                        <button className='btn btn-delete' onClick={()=>{this.handleDeleteCategory(category.id)}}><i className="fas fa-eraser"></i>Delete</button>
                     </td>
                 </tr>
             )
@@ -35,7 +35,7 @@ class Table extends React.Component {
         this.props.onClickToUpdateCategory(category)
     }
 
-    HandleDeleteCategory = (id) =>{
+    handleDeleteCategory = (id) =>{
         const confirm = window.confirm('Do you want to delete?')
         if(confirm){
             const data = API('DELETE', `http://localhost:4000/categories/${id}`, this.state)
