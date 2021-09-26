@@ -38,8 +38,10 @@ class Order extends Component {
                             <legend>Delivery Details</legend>
                             <div className="order-label">Phone Number</div>
                             <input type="tel" name="contact" placeholder="E.g. 9843xxxxxx" className="input-responsive" required />
+                            <div className="order-label">Name</div>
+                            <input type="email" name="name" placeholder="E.g. Mai Trong Nhan" className="input-responsive" required />
                             <div className="order-label">Email</div>
-                            <input type="email" name="email" placeholder="E.g. hi@vijaythapa.com" className="input-responsive" required />
+                            <input type="email" name="email" placeholder="E.g. Maitrongnhan@gmail.com" className="input-responsive" required />
                             <div className="order-label">Address</div>
                             <textarea name="address" rows={10} placeholder="E.g. Street, City, Country" className="input-responsive" required defaultValue={""} />
                             <input type="submit" name="submit" value="Confirm Order" className="btn btn-primary" />
