@@ -19,10 +19,10 @@ class Home extends Component {
     async componentDidMount () {
         //beacase iamge name not have path, so must add path
         //handle categories load in here
-        const ResultCategories = await axios.get('http://localhost:8000/categories');
+        const ResultCategories = await axios.get('http://localhost:8000/api/categories?limit=3');
         const categories = ResultCategories.data.data;
         //handle products load in here
-        const ResultProducts = await axios.get('http://localhost:8000/foods');
+        const ResultProducts = await axios.get('http://localhost:8000/api/foods?limit=6');
         const products = ResultProducts.data.data;
         //set path image for categories
 

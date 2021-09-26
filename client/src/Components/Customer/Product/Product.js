@@ -30,7 +30,7 @@ class Product extends Component {
                     {this.state.Products.map((Element, Index) => {
                         //render row
                         return (
-                            <div className="row" key={Index}>
+                            <div className="row product-reposive" key={Index}>
                                 {Element.map((ChildElement, ChildIndex) => {
                                     //render item
                                     return (
