@@ -28,7 +28,7 @@ class Table extends React.Component {
     }
 
     onClickAddCategory = () =>{
-        this.props.onClickToAddCategory()
+       this.props.onClickToAddCategory()
     }
 
     onClickUpdateCategory = (category) =>{
@@ -43,11 +43,12 @@ class Table extends React.Component {
         }
     }
 
-    handleChange = (e) =>{
+    handleChange = async (e) =>{
         const  {value, name} =  e.target
-        this.setState({
+        await this.setState({
             [name]: value
         })
+        this.props.onSearch(this.state.search)
     }
 
     render() {
@@ -57,8 +58,8 @@ class Table extends React.Component {
                 <div className='add-and-search'>
                     <button className='add-category' onClick={this.onClickAddCategory}>Add Category</button>
                     <div className='search-box'>
-                        <input type='text' className='search-item' name='search' value={this.state.search} onChange={this.handleChange} placeholder='Click to search'/>
-                        <i className='fas fa-search search-item'></i>
+                        <input type='text' className='search-item' name='search' value={this.state.search} onKeyPress={this.handleSearch} onChange={this.handleChange} placeholder='Click to search by categories name'/>
+                        <i className='fas fa-search search-item' onClick={this.handleSearch} onKeyPress={this.handleSearch}></i>
                     </div>
                 </div>
                 <table>
@@ -72,6 +73,7 @@ class Table extends React.Component {
                         {this.getData()}
                     </tbody>
                 </table>
+                {this.props.categories.length === 0 && <p>No data found!</p>}
             </div>
         )
     }

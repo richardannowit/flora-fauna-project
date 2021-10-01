@@ -15,7 +15,7 @@ User.hidePassword = (user) => {
 
 User.findUser = (username) => {
     return new Promise((resolve, reject) => {
-        connection.query("SELECT * FROM USERS WHERE username=?", username, function (error, result) {
+        connection.query("SELECT * FROM users WHERE username=?", username, function (error, result) {
             if (error) {
                 reject(error);
             }
@@ -38,7 +38,7 @@ User.createUser = function createUser(newUser) {
     return new Promise((resolve, reject) => {
         bcrypt.hash(newUser.password, 10, (error, hash) => {
             newUser.password = hash
-            connection.query("INSERT INTO USERS set ?", newUser, function (error, result) {
+            connection.query("INSERT INTO users set ?", newUser, function (error, result) {
                 if (error) {
                     reject(error);
                 }

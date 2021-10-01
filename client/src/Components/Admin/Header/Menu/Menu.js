@@ -1,33 +1,38 @@
 import React from 'react'
-import {Link} from 'react-router-dom' 
+import {Link, useHistory} from 'react-router-dom' 
 import './Menu.scss'
-class Menu extends React.Component {
-    render() {
-        return (
+import axios from 'axios'
+import cookie from 'react-cookies'
+
+
+export default function Menu(props){
+    const history = useHistory()
+    const handleLogout = (e)=>{
+        cookie.remove('token')
+        history.push('/login')
+    }
+    return (
             <div className="menu-admin">
                 <ul>
                     <li>
-                        <Link to='/admin/'>Statistic Manage</Link>
+                        <Link className='menu-elm' to='/admin'>Home</Link>
                     </li>
                     <li>
-                        <Link to='/admin/admin-manager'>Member Manage</Link>
+                        <Link className='menu-elm' to='/admin/admin-manager'>Member Manage</Link>
                     </li>
                     <li>
-                        <Link to='/admin/categories'>Categories Manage</Link>
+                        <Link className='menu-elm' to='/admin/categories'>Categories Manage</Link>
                     </li>
                     <li>
-                        <Link to='/admin/foods'>Foods Manage</Link>
+                        <Link className='menu-elm' to='/admin/foods'>Foods Manage</Link>
                     </li>
                     <li>
-                        <Link to='/admin/order'>Order Manage</Link>
+                        <Link className='menu-elm' to='/admin/order'>Order Manage</Link>
                     </li>
                     <li>
-                        <Link to=''>Logout</Link>
+                        <p className='menu-elm' onClick={handleLogout}>Logout</p>
                     </li>
                 </ul>
             </div>
         )
-    }
 }
-
-export default Menu

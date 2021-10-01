@@ -2,6 +2,7 @@ import React from 'react'
 import Table from '../Foods/Table/Table'
 import Form from '../Foods/Form/Form'
 import axios from 'axios'
+import {Redirect} from 'react-router-dom'
 class Foods extends React.Component {
     constructor(props) {
         super(props)
@@ -22,18 +23,18 @@ class Foods extends React.Component {
             data: null
         })
         .then(res=>{
-            this.setState({foods: res.data})
+            this.setState({foods: res.data.data})
         })
         .catch(err=>{
             console.log(err)
         })
         await axios({
             method: 'GET',
-            url: 'http://localhost:4000/categories',
+            url: 'http://localhost:8000/api/categories',
             data: null
         })
         .then(res=>{
-            this.setState({categories: res.data})
+            this.setState({categories: res.data.data})
         })
         .catch(err=>{
             console.log(err)
@@ -77,12 +78,18 @@ class Foods extends React.Component {
         this.setState({foods: foods})
     }
 
+    handleSearch = async (food_name)=>{
+        const data = await axios.get(`http://localhost:8000/api/foods/search?search=${food_name}`).then(res=>res.status !== 404 ? res.data: []).catch(err=>err.message)
+        console.log(data)
+        await this.setState({foods: data.data})
+    }
+
     render() {
         return (
             <div ref={this.food} style={{position: 'relative'}}>
                 {this.state.activeAddFoodsForm && <Form onSubmit={this.handleSubmit} method='POST' onHideAddFoodForm={this.onHideFoodForm} categories={this.state.categories}/>}
                 {this.state.activeUpdateFoodsForm && <Form onSubmit={this.handleSubmit} method='PUT' onHideAddFoodForm={this.onHideFoodForm} data_food={this.state.food_data_update} categories={this.state.categories}/>}
-                <Table onDelete={this.handleDelete} onShowAddFoodForm={this.onShowAddFoodForm} onShowUpdateFoodForm={this.onShowUpdateFoodForm} foods={this.state.foods}/>
+                <Table onSearch={this.handleSearch} onDelete={this.handleDelete} onShowAddFoodForm={this.onShowAddFoodForm} onShowUpdateFoodForm={this.onShowUpdateFoodForm} foods={this.state.foods}/>
             </div>
         )
     }

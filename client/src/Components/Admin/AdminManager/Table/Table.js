@@ -53,11 +53,12 @@ class Table extends React.Component {
         this.props.onDelete(food.id)
     }
 
-    handleChange = (e) =>{
+    handleChange = async (e) =>{
         const  {value, name} =  e.target
-        this.setState({
+        await this.setState({
             [name]: value
         })
+        this.props.onSearch(this.state.search)
     }
 
     render() {
@@ -67,7 +68,7 @@ class Table extends React.Component {
                 <div className='add-and-search'>
                     <button className='add-user' onClick={this.handleShowMemberForm}>Add Member</button>
                     <div className='search-box'>
-                        <input type='text' className='search-item' name='search' value={this.state.search} onChange={this.handleChange} placeholder='Click to search'/>
+                        <input type='text' className='search-item' name='search' value={this.state.search} onChange={this.handleChange} placeholder='Click to search by username'/>
                         <i className='fas fa-search search-item'></i>
                     </div>
                 </div>
@@ -84,6 +85,7 @@ class Table extends React.Component {
                         {this.getData()}
                     </tbody>
                 </table>
+                {this.props.users.length === 0 && <p>No data found!</p>}
             </div>
 
         );

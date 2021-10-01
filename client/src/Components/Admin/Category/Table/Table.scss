@@ -107,8 +107,12 @@
                         margin-right: 5px;
                     }
                 }
-                .btn:hover {
+                .btn-update:hover {
                     background-color: #2365ff;
+                    color: #fff;
+                }
+                .btn-delete:hover {
+                    background-color: #ff6b81;
                     color: #fff;
                 }
             }

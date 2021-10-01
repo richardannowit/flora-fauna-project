@@ -1,15 +1,17 @@
 import React from 'react'
 import Table from '../AdminManager/Table/Table'
-import Form from '../AdminManager/Form/Form'
+import Add from '../AdminManager/Form/Add/AddForm'
+import Update from '../AdminManager/Form/Update/UpdateForm'
 import Profile from '../AdminManager/AdminProfile/Profile'
 import API from '../../../API/ConnectAPI'
+import axios from 'axios'
 class AdminManager extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
             activeShowForm: false,
-            activeShowUpdateForm: false,
+            activeUpdateForm: true,
             data_user: null,
             users: [
             ]
@@ -45,12 +47,18 @@ class AdminManager extends React.Component {
         this.setState({users})
     }
 
+    handleSearch = async (username)=>{
+        const data = await axios.get(`http://localhost:4000/users?username_like=${username}`).then(res=>res.data).catch(err=>err.message)
+        await this.setState({users: data})
+    }
+
     render() {
         return (
             <div ref={this.users} style={{position: 'relative'}}>
-                {this.state.activeShowForm && <Form onSubmit={this.handleSubmit} onHideMemberForm={this.hideMemberForm} method='post'/>}
-                <Profile/>
-                <Table users={this.state.users} onShowMemberForm={this.showMemberForm} onShowUpdateMemberForm={this.showUpdateMemberForm}/>
+                {this.state.activeShowForm && <Add onSubmit={this.handleSubmit} onHideMemberForm={this.hideMemberForm} method='post'/>}
+                {this.state.activeUpdateForm && <Update onSubmit={this.handleSubmit}/>}
+                <Profile user = {this.props.user}/>
+                <Table onSearch={this.handleSearch} users={this.state.users} onShowMemberForm={this.showMemberForm} onShowUpdateMemberForm={this.showUpdateMemberForm}/>
             </div>
         )
     }

@@ -42,6 +42,9 @@ class Table extends React.Component {
                         <p>{order.total}</p>
                     </td>
                     <td>
+                        <p>{order.active ? 'Yes': 'No'}</p>
+                    </td>
+                    <td>
                         <p>{order.date}</p>
                     </td>
                 </tr>
@@ -49,11 +52,12 @@ class Table extends React.Component {
         })
     }
 
-    handleChange = (e) =>{
+    handleChange = async (e) =>{
         const  {value, name} =  e.target
-        this.setState({
+        await this.setState({
             [name]: value
         })
+        this.props.onSearch(this.state.search)
     }
 
     render() {
@@ -62,7 +66,7 @@ class Table extends React.Component {
                 <p className='label-order'>Manage Orders</p>
                 <div className='add-and-search'>
                     <div className='search-box'>
-                        <input type='text' className='search-item' name='search' value={this.state.search} onChange={this.handleChange} placeholder='Click to search'/>
+                        <input type='text' className='search-item' name='search' value={this.state.search} onChange={this.handleChange} placeholder='Click to search by customer name'/>
                         <i className='fas fa-search search-item'></i>
                     </div>
                 </div>
@@ -78,11 +82,13 @@ class Table extends React.Component {
                             <th>Price</th>
                             <th>Quantity</th>
                             <th>Total</th>
+                            <th className='active-th'>Active</th>
                             <th className='day-th'>Date</th>
                         </tr>
                         {this.getData()}
                     </tbody>
                 </table>
+                {this.props.orders.length === 0 && <p>No data found!</p>}
                 {/* <p>See more</p> */}
             </div>
         );

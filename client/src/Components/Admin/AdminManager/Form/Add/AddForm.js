@@ -1,6 +1,6 @@
 import React from 'react'
-import './Form.scss'
-import API from '../../../../API/ConnectAPI'
+import './AddForm.scss'
+import API from '../../../../../API/ConnectAPI'
 class Form extends React.Component {
 
     constructor(props) {
@@ -46,9 +46,13 @@ class Form extends React.Component {
             ...this.state.user,
             [name]: value
         }
-        await this.setState({user})
-        let validUsername = 0, validPassword = 0, validEmail = 0, validPhone = 0
-        const existUser = await API('Get', `http://localhost:4000/users?username=${this.state.username}`)
+        if(name === 'confirm_password') {
+            await this.setState({[name]: value})
+        }else {
+            await this.setState({user})
+        }
+        let validUsername = 0, validPassword = 0, validEmail = 0, validPhone = 0, validConfirm = 0
+        const existUser = await API('Get', `http://localhost:4000/users?username=${this.state.user.username}`)
         if(!regexp_username.test(this.state.user.username)){
             if(name === 'username'){
                 validUsername = 0
@@ -93,16 +97,21 @@ class Form extends React.Component {
             this.error_phone_number.current.innerHTML = ''
         }
 
-        if(validEmail && validPassword && validPhone && validUsername)
+        if(this.state.user.password !== this.state.confirm_password){
+            if(name === 'confirm_password'){
+                validConfirm = 0
+                this.error_confirm_password.current.innerHTML = 'Password do not match'
+            }  
+        }else {
+                validConfirm = 1
+                this.error_confirm_password.current.innerHTML = ''
+        }
+
+        if(validEmail && validPassword && validPhone && validUsername && validConfirm)
             this.setState({isInvalid: 1})
         else {
             this.setState({isInvalid: 0})
         }
-    }
-
-    handleChangeConfirmPassword= async (e)=>{
-        const {name, value} = e.target
-        await this.setState({[name]: value})
     }
 
     handleSubmit = async (e)=>{
@@ -119,18 +128,12 @@ class Form extends React.Component {
             phone_number: ''
         }
         if(this.state.isInvalid){
-            if(this.state.user.password === this.state.confirm_password)
-            {
-                url= method.match(/POST/i) && 'http://localhost:4000/users'
-                const data = await API(method, url, this.state.user)
-                this.props.onSubmit(data, method)
-                alert('Add Successfully')
-                this.setState({user: object})
-                this.setState({confirm_password: ''})
-            }else {
-                this.error_confirm_password.current.innerHTML = 'Password do not match'
-            }
-
+            url= method.match(/POST/i) && 'http://localhost:4000/users'
+            const data = await API(method, url, this.state.user)
+            this.props.onSubmit(data, method)
+            alert('Add Successfully')
+            await this.setState({user: object})
+            await this.setState({confirm_password: ''})     
         }
     }
 
@@ -138,7 +141,7 @@ class Form extends React.Component {
         return (
             <div className='add-member-background'>
                 <div className='add-member'>
-                    <p className='banner'>{this.state.user.id === '' ? 'Add Member' : 'Update Member'}</p>
+                    <p className='banner'>Add Member</p>
                     <div className='body'>
                         <form onSubmit={this.handleSubmit} encType='multipart/form-data'>
                             <div className='elm'>
@@ -153,7 +156,7 @@ class Form extends React.Component {
                             </div>
                             <div className='elm'>
                                 <p>Confirm Password:</p>
-                                <input type='password' name='confirm_password' required value={this.state.confirm_password} onChange={this.handleChangeConfirmPassword} placeholder='Confirm password.'/>
+                                <input type='password' name='confirm_password' required value={this.state.confirm_password} onChange={this.handleChange} placeholder='Confirm password.'/>
                                 <p className='error-message error-message-re-password' ref={this.error_confirm_password}></p>
                             </div>
                             <div className='elm'>
@@ -177,7 +180,7 @@ class Form extends React.Component {
                                 </div>
                             </div>
                             <div className='elm elm-col'>
-                                <input type='submit' className='btn' value={this.state.user.id === '' ? 'Add':'Update'}/>
+                                <input type='submit' className='btn' value='Add'/>
                                 <input type='button' className='btn btn-primary' value='Cancel' onClick={this.onHideMemberForm}/>
                             </div>
                         </form>

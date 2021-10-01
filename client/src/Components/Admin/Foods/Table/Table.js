@@ -19,7 +19,7 @@ class Table extends React.Component {
                         <p>{idx+1}</p>
                     </td>
                     <td>
-                        <p>{food.name}</p>
+                        <p>{food.food_name}</p>
                     </td>
                     <td >
                         <p style={{textAlign: 'justify'}}>{food.description}</p>
@@ -53,10 +53,10 @@ class Table extends React.Component {
         this.props.onShowUpdateFoodForm(food)
     }
 
-    handleDeleteFood = (food) =>{
+    handleDeleteFood = async (food) =>{
         const bool = window.confirm('Do you want to delete?')
         if(bool){
-            axios({
+            await axios({
                 method: 'DELETE',
                 url: `http://localhost:4000/foods/${food.id}`,
                 data: 'null'
@@ -68,12 +68,12 @@ class Table extends React.Component {
         
     }
 
-
-    handleChange = (e) =>{
+    handleChange = async (e) =>{
         const  {value, name} =  e.target
-        this.setState({
+        await this.setState({
             [name]: value
         })
+        this.props.onSearch(this.state.search)
     }
 
     render() {
@@ -83,7 +83,7 @@ class Table extends React.Component {
                 <div className='add-and-search'>
                     <button className='add-food' onClick={this.onShowAddFoodForm}>Add Food</button>
                     <div className='search-box'>
-                        <input type='text' className='search-item' name='search' value={this.state.search} onChange={this.handleChange} placeholder='Click to search'/>
+                        <input type='text' className='search-item' name='search' value={this.state.search} onChange={this.handleChange} placeholder='Click to search by food name'/>
                         <i className='fas fa-search search-item'></i>
                     </div>
                 </div>
@@ -102,7 +102,7 @@ class Table extends React.Component {
                         {this.getData()}
                     </tbody>
                 </table>
-                
+                {this.props.foods.length === 0 && <p>No data found!</p>}
             </div>
 
         );

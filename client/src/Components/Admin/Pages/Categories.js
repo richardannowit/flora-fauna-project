@@ -9,25 +9,25 @@ class Categories extends React.Component {
             activeAddCategory: false,
             activeUpdateCategory: false,
             category_data_update: {},
-            categories: []
+            categories: [],
+            search: []
         }
-        this.category = React.createRef();
+        this.category = React.createRef()
     }
 
     async componentWillMount() {
         await axios({
             method: 'GET',
-            url: 'http://localhost:4000/categories',
+            url: 'http://localhost:8000/api/categories',
             data: null
         })
         .then(res=>{
-            this.setState({categories: res.data})
+            this.setState({categories: res.data.data})
         })
         .catch(err=>{
             console.log(err)
         })
     }
-
 
 
     showAddCategory =() =>{
@@ -43,7 +43,7 @@ class Categories extends React.Component {
         this.category.current.style.paddingRight = '15px'
     }
 
-    onCloseFormCategory = () =>{
+    closeFormCategory = () =>{
         this.setState({activeAddCategory: false, activeUpdateCategory: false})
         document.body.style.overflow = 'visible'
         this.category.current.style.paddingRight = '0px'
@@ -67,12 +67,17 @@ class Categories extends React.Component {
         this.setState({categories: categories})
     }
 
+    handleSearch = async (name)=>{
+        const data = await  axios.get(`http://localhost:4000/categories?category_name_like=${name}`).then(res=>res.data).catch(err=>err.message)
+        this.setState({categories: data})
+    }
+
     render() {
         return (
             <div ref={this.category} style={{position: 'relative'}}>
-                {this.state.activeAddCategory && <Form method='POST' onSubmit={this.handleSubmit} onCloseForm={this.onCloseFormCategory}/>}
-                {this.state.activeUpdateCategory && <Form method='PUT' onSubmit={this.handleSubmit} onCloseForm={this.onCloseFormCategory} data_category={this.state.category_data_update}/>}
-                <Category onDelete={this.handleDelete} onClickToAddCategory={this.showAddCategory} onClickToUpdateCategory={this.showUpdateCategory} categories={this.state.categories}/>
+                {this.state.activeAddCategory && <Form method='POST' onSubmit={this.handleSubmit} onCloseForm={this.closeFormCategory}/>}
+                {this.state.activeUpdateCategory && <Form method='PUT' onSubmit={this.handleSubmit} onCloseForm={this.closeFormCategory} data_category={this.state.category_data_update}/>}
+                <Category onSearch={this.handleSearch} onDelete={this.handleDelete} onClickToAddCategory={this.showAddCategory} onClickToUpdateCategory={this.showUpdateCategory} categories={this.state.categories}/>
             </div>
         )
     }

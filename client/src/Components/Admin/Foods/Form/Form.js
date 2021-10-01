@@ -25,7 +25,7 @@ class Form extends React.Component {
         if(this.props.data_food)
             this.setState({
                 id: this.props.data_food.id,
-                name: this.props.data_food.name,
+                food_name: this.props.data_food.name,
                 price: this.props.data_food.price,
                 description: this.props.data_food.description, 
                 active:  this.props.data_food.active,
@@ -91,7 +91,7 @@ class Form extends React.Component {
                         <form onSubmit={this.handleSubmit} encType='multipart/form-data'>
                             <div className='elm'>
                                 <p>Title:</p>
-                                <input type='text' name='name' required value={this.state.name} onChange={this.handleChange}/>
+                                <input type='text' name='food_name' required value={this.state.name} onChange={this.handleChange}/>
                             </div>
                             <div className='elm elm-textarea'>
                                 <p>Description:</p>

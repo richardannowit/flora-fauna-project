@@ -32,11 +32,9 @@ class Form extends React.Component {
 
     handleChange = async (e)=>{
         const {name, value} = e.target
-        await this.setState(()=>{
-            console.log('1');
-            return{
+        await this.setState(()=>({
             [name]: e.target.type === 'radio' ? parseInt(value):value
-        }})
+        }))
     }
 
     handleSubmit = async (e)=>{
@@ -61,7 +59,7 @@ class Form extends React.Component {
                         <form onSubmit={this.handleSubmit} encType='multipart/form-data'>
                             <div className='elm'>
                                 <p className='label'>Category name: </p>
-                                <input type='text' name='category_name' value={this.state.category_name} onChange={this.handleChange}/>
+                                <input type='text' name='category_name' required value={this.state.category_name} onChange={this.handleChange}/>
                             </div>
                             <div className='elm elm-files'>
                                 <p>Image:</p>

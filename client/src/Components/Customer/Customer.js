@@ -16,7 +16,7 @@ class App extends Component {
     this.state = {
       NameCategoryWillLoad: null,
       ClickProductsItem: true,
-      ContentSearch: null
+      ContentSearch: null,
     };
   }
 
@@ -43,6 +43,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props.history)
     return (
       <>
         <Router>
