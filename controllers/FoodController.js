@@ -1,41 +1,78 @@
-let register = async (req, res) => {
+const upload  = require('../helpers/upload.helper');
+const food = require('../models/Food');
+
+
+module.exports.viewFood = async (req, res) => {
+    try {
+        const foods = await food.viewFood();
+        if(foods){
+            res.status(200).json({
+                data: foods
+            });
+        }
+        // else{
+        //     res.status(501).json({
+        //         message: "Can't not find food"
+        //     })
+        // }
+      
+    }catch(err) {
+        console.error(err);
+    }
+}
+
+module.exports.findFood = async (req, res) => {
+    let searchTerm = req.body.search;
+    try{
+        const foods = await food.findFood([`%${searchTerm}%`]);
+        if(foods.length > 0){
+            res.status(200).json({
+                data: foods
+            });
+        }else{
+            res.status(404).json({
+                message:"Can't not find food."
+            })
+        }
+            
+
+    }catch(err) {
+      console.log(err);
+    }
+}
+
+
+module.exports.addFood = async (req, res) => {
     try {
         const { food_name,price, description, image_name} = req.body;
 
-        if (!(username && password && first_name && last_name && email && phone)) {
+        if (!(food_name && price && description && image_name)) {
             res.status(400).json({
                 message: "All input is required"
             });
         }
 
-        const oldUser = await User.findUser(username);
+        const oldFood = await food.findFood(food_name);
 
-        if (oldUser) {
+        if (oldFood) {
             return res.status(409).json({
-                message: "User already Exist. Please Login"
+                message: "Food already Exist. Please enter another food name"
             });
         }
-
-        const newUser = await User.createUser({
-            first_name,
-            last_name,
-            username,
-            password,
-            email,
-            phone
+        let path = req.file.path.split('\\').slice(2).join('\\');
+        const newFood = await food.createFood({
+            food_name,
+            price,
+            description,
+            image_name
         });
-
-        const token = await jwtHelpers.createToken(newUser, token_key, "2h")
-
-        // save user token
-        newUser.token = token;
 
         // return new user
         res.status(201).json({
-            data: User.hidePassword(newUser),
-            message: 'User created successfull'
+            message: 'Food created successfull'
         });
     } catch (err) {
         console.log(err);
     }
 }
+
