@@ -1,6 +1,5 @@
 import React from 'react'
 import './Profile.scss'
-import cookie from 'react-cookies'
 import {useHistory} from 'react-router-dom'
 
 export default function Profile(props) {
@@ -9,7 +8,7 @@ export default function Profile(props) {
 
     //Delete user
     const handleDelete = ()=>{
-        cookie.remove('token')
+        localStorage.removeItem('accessToken')
         history.push('/login')
     }
 

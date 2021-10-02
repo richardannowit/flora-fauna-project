@@ -1,7 +1,6 @@
 import React from 'react'
 import Table from '../Order/Table/Table'
-import API from '../../../API/ConnectAPI'
-import axios from 'axios'
+import {getOrders, getOrdersByName} from '../API/ConnectAPI'
 class Order extends React.Component {
     constructor(props) {
         super(props)
@@ -12,14 +11,14 @@ class Order extends React.Component {
 
     //Load data
     async componentDidMount() {
-        const data = await API('GET', 'http://localhost:8000/api/orders')
-        this.setState({orders: data.data})
+        const orders = await getOrders()
+        this.setState({orders: orders.data})
     }
 
     //Search engine
     handleSearch = async (customer_name)=>{
-        const data = await axios.get(`http://localhost:8000/api/orders?customer_name=${customer_name}`).then(res=>res.data).catch(err=>err.message)
-        await this.setState({orders: data.data})
+        const orders = await getOrdersByName(customer_name)
+        await this.setState({orders: orders.data})
     }
 
     render() {

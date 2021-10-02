@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.scss';
-import LoginPage from './Components/Customer/Pages/LoginPage';
+import LoginPage from './Components/Admin/Pages/Login';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Customer from './Components/Customer/Customer';
 import Admin from './Components/Admin/Admin';

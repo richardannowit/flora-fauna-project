@@ -1,7 +1,7 @@
 import React from 'react'
 import Category from '../Category/Table/Table'
 import Form from '../Category/Form/Form'
-import axios from 'axios'
+import {getCategories, getCategoriesByName} from '../API/ConnectAPI'
 class Categories extends React.Component {
     constructor(props) {
         super(props)
@@ -16,17 +16,8 @@ class Categories extends React.Component {
     }
 
     async componentWillMount() {
-        await axios({
-            method: 'GET',
-            url: 'http://localhost:8000/api/categories',
-            data: null
-        })
-        .then(res=>{
-            this.setState({categories: res.data.data})
-        })
-        .catch(err=>{
-            console.log(err)
-        })
+        const categories = await getCategories()
+        await this.setState({categories: categories.data})
     }
 
     //Set state to show added form
@@ -73,8 +64,8 @@ class Categories extends React.Component {
 
     //Search engine
     handleSearch = async (category_name)=>{
-        const data = await  axios.get(`http://localhost:8000/api/categories?category_name=${category_name}`).then(res=>res.data).catch(err=>err.message)
-        this.setState({categories: data.data})
+        const data = await getCategoriesByName(category_name)
+        await this.setState({categories: data.data})
     }
 
     render() {

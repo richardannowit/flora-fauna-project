@@ -7,7 +7,6 @@ import Foods from './Pages/Foods'
 import Order from './Pages/Order'
 import NotFound from './Pages/NotFound'
 import Header from './Header/Header'
-import cookie from 'react-cookies'
 import axios from 'axios'
 class Admin extends React.Component {
     constructor(props) {
@@ -23,12 +22,8 @@ class Admin extends React.Component {
         }
     }
 
-    async componentDidMount() {
-        const token = cookie.load('token')
-    }
-
     render() {
-        if(!cookie.load('token'))
+        if(!localStorage.getItem('accessToken'))
              return(<Redirect to='/login'/>) 
         return (
             <div>

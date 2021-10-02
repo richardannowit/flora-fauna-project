@@ -1,7 +1,6 @@
 import React from 'react'
 import './Form.scss'
-import axios from 'axios'
-import uniqid from 'uniqid'
+import {postFood, putFood} from '../../API/ConnectAPI'
 class Form extends React.Component {
     constructor(props) {
         super(props)
@@ -15,10 +14,6 @@ class Form extends React.Component {
             category: ''
         }
         this.btnAddImg = React.createRef()
-    }
-
-    generateId = ()=> {
-        return `f-${Math.floor(Math.random() * 10000)}-${uniqid()}-${Math.floor(Math.random() * 10000)}-${uniqid()}`
     }
 
     //Updating form if updated form show
@@ -64,22 +59,19 @@ class Form extends React.Component {
     handleSubmit = async (e)=>{
         e.preventDefault()
         const image = new FormData()
+        let data = []
         image.append('image', this.state.image)
-        const data = await axios({
-            method: this.props.method,
-            url: this.props.method.match(/put/i) ? `http://localhost:8000/api/foods/${this.state.id}`: `http://localhost:8000/api/foods`,
-            data: {
-                ...this.state,
-                image: image
-            }
-        })
-        .then(res=>{
-            return res.data
-        })
-        .catch(err=>err)
-        alert('Add Successfully')
-        this.props.onSubmit(data, this.props.method, this.state.id)
-        this.setState({
+        let data_submit = {
+            ...this.state,
+            image
+        }
+        if(this.props.method.match(/post/i)) {
+            data = await postFood(data_submit)
+        }else
+            data = await putFood(this.state.id, data_submit)
+        alert(data.message)
+        this.props.onSubmit(data.data, this.props.method, this.state.id)
+        await this.setState({
             id: '',
             name: '',
             price: 0,

@@ -1,6 +1,6 @@
 import React from 'react'
 import './Form.scss'
-import axios from 'axios'
+import {postCategory, putCategory} from '../../API/ConnectAPI'
 class Form extends React.Component {
     constructor(props) {
         super(props)
@@ -48,19 +48,18 @@ class Form extends React.Component {
         e.preventDefault()
         const image = new FormData()
         image.append('image', this.state.image)
-        const url = this.props.method.match(/post/i) ? 'http://localhost:8000/api/categories' : `http://localhost:4000/api/categories/${this.state.id}`
-        const data = await axios({
-            method: this.props.method,
-            url,
-            data: {
-                category_name: this.state.category_name,
-                image
-            }
-        })
-        .then(res=>res.data)
-        .catch(err=>err)
-        this.props.onSubmit(data, this.props.method, this.state.id)
-        alert('Add Successfully')
+        let data = []
+        let data_submit = {
+            ...this.state,
+            image
+        }
+        if(this.props.method.match(/post/i)){
+            data = await postCategory(data_submit)
+        }else {
+            data = await putCategory(this.state.id, data_submit)
+        }
+        this.props.onSubmit(data.data, this.props.method, this.state.id)
+        alert(data.message)
         await this.setState({
             id: '',
             category_name: '',

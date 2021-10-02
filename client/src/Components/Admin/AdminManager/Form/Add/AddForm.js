@@ -1,6 +1,6 @@
 import React from 'react'
 import './AddForm.scss'
-import API from '../../../../../API/ConnectAPI'
+import {getUserByName, userRegister} from '../../../API/ConnectAPI'
 class Form extends React.Component {
 
     constructor(props) {
@@ -47,7 +47,7 @@ class Form extends React.Component {
             await this.setState({user})
         }
         let validUsername = 0, validPassword = 0, validEmail = 0, validPhone = 0, validConfirm = 0
-        const existUser = await API('Get', `http://localhost:8000/api/users?username=${this.state.user.username}`)
+        const existUser = await getUserByName(this.state.user.username)
         if(!regexp_username.test(this.state.user.username)){
             if(name === 'username'){
                 validUsername = 0
@@ -113,7 +113,6 @@ class Form extends React.Component {
     handleSubmit = async (e)=>{
         e.preventDefault()
         let {method} = this.props
-        let url
         let object = {                
             id: '',
             username: '',
@@ -124,9 +123,8 @@ class Form extends React.Component {
             phone_number: ''
         }
         if(this.state.isInvalid){
-            url= method.match(/POST/i) && 'http://localhost:8000/api/users'
-            const data = await API(method, url, this.state.user)
-            this.props.onSubmit(data, method)
+            const user = await userRegister(this.state.user)
+            this.props.onSubmit(user.data, method)
             alert('Add Successfully')
             await this.setState({user: object})
             await this.setState({confirm_password: ''})     

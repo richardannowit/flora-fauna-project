@@ -1,18 +1,15 @@
 import React from 'react'
 import {Link, useHistory} from 'react-router-dom' 
 import './Menu.scss'
-import axios from 'axios'
-import cookie from 'react-cookies'
-
 
 export default function Menu(props){
     const history = useHistory()
 
     const handleLogout = (e)=>{
-        cookie.remove('token')
+        localStorage.removeItem('accessToken')
         history.push('/login')
     }
-    
+
     return (
             <div className="menu-admin">
                 <ul>

@@ -1,7 +1,7 @@
 import React from 'react'
 import Table from '../Foods/Table/Table'
 import Form from '../Foods/Form/Form'
-import axios from 'axios'
+import { getFoods, getCategories, getFoodByName} from '../API/ConnectAPI'
 class Foods extends React.Component {
     constructor(props) {
         super(props)
@@ -17,28 +17,10 @@ class Foods extends React.Component {
 
     //Load data
     async componentWillMount() {
-        await axios({
-            method: 'GET',
-            url: 'http://localhost:8000/api/foods',
-            data: null
-        })
-        .then(res=>{
-            this.setState({foods: res.data.data})
-        })
-        .catch(err=>{
-            console.log(err)
-        })
-        await axios({
-            method: 'GET',
-            url: 'http://localhost:8000/api/categories',
-            data: null
-        })
-        .then(res=>{
-            this.setState({categories: res.data.data})
-        })
-        .catch(err=>{
-            console.log(err)
-        })
+        const foods= await getFoods()
+        const categories = await getCategories()
+        this.setState({foods: foods.data})
+        this.setState({categories: categories.data})
     }
 
     //Set state to show added form
@@ -85,9 +67,8 @@ class Foods extends React.Component {
 
     //Search engine
     handleSearch = async (food_name)=>{
-        const data = await axios.get(`http://localhost:8000/api/foods?search=${food_name}`).then(res=>res.status !== 404 ? res.data: []).catch(err=>err.message)
-        console.log(data)
-        await this.setState({foods: data.data})
+        const food = await getFoodByName(food_name)
+        await this.setState({foods: food.data})
     }
 
     render() {

@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import './UpdateForm.scss'
 
 class UpdateForm extends React.Component {

@@ -1,6 +1,6 @@
 import React from 'react'
 import './Table.scss'
-import API from '../../../../API/ConnectAPI'
+import {deleteCategory} from '../../API/ConnectAPI'
 
 class Table extends React.Component {
 
@@ -38,11 +38,11 @@ class Table extends React.Component {
     }
 
     //Delete category 
-    handleDeleteCategory = (id) =>{
+    handleDeleteCategory = async (id) =>{
         const confirm = window.confirm('Do you want to delete?')
         if(confirm){
-            const data = API('DELETE', `http://localhost:4000/categories/${id}`, this.state)
-            this.props.onDelete(data, id)
+            const data = await deleteCategory(id)
+            this.props.onDelete(data.data, id)
         }
     }
 
