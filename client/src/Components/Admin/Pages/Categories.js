@@ -74,7 +74,7 @@ class Categories extends React.Component {
     //Search engine
     handleSearch = async (category_name)=>{
         const data = await  axios.get(`http://localhost:8000/api/categories?category_name=${category_name}`).then(res=>res.data).catch(err=>err.message)
-        this.setState({categories: data})
+        this.setState({categories: data.data})
     }
 
     render() {

@@ -20,8 +20,8 @@ class AdminManager extends React.Component {
 
     //Load data
     async componentDidMount() {
-        const users = await axios.get('http://localhost:4000/users').then(res=>res.data).catch(err=>err)
-        this.setState({users})
+        const users = await axios.get('http://localhost:8000/api/users').then(res=>res.data).catch(err=>err)
+        this.setState({users: users.data})
     }
 
     //Set state to Show added form
@@ -67,7 +67,7 @@ class AdminManager extends React.Component {
     //Search engine
     handleSearch = async (username)=>{
         const data = await axios.get(`http://localhost:8000/api/users?username=${username}`).then(res=>res.data).catch(err=>err.message)
-        await this.setState({users: data})
+        await this.setState({users: data.data})
     }
 
     render() {
