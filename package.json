@@ -23,11 +23,7 @@
     "argon2": "^0.28.2",
     "axios": "^0.21.4",
     "bcrypt": "^5.0.1",
-<<<<<<< HEAD
-    "create-react-app": "^4.0.3",
-=======
     "cors": "^2.8.5",
->>>>>>> b7b81a51a74b22509338ad10b159a12ff5ef3398
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
