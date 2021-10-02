@@ -1,0 +1,29 @@
+
+.menu-admin {
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid #333;
+    box-shadow: 3px 0 3px #333;
+    >ul {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        li {
+            height: 100%;
+            list-style-type: none;
+            margin: 0 15px;
+            .menu-elm {
+                display: block;
+                width: 100%;
+                height: 100%;
+                line-height: 55px;
+                text-align: center;
+                font-weight: bold;
+                font-size: 15px;
+                color: #ff6b81;
+                cursor: pointer;
+            } 
+        }
+    } 
+}

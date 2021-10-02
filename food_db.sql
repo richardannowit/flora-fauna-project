@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 13, 2021 at 05:26 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.3.30
+-- Generation Time: Sep 24, 2021 at 03:22 PM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 7.3.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -142,15 +142,17 @@ CREATE TABLE `users` (
   `username` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `first_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `last_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL
+  `last_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`) VALUES
-(3, 'annowit', '$2b$10$rnnM9vyGxcy7K/Em7o1epeIcjZymY7nTlopkapCX3CDCNdRWcesFK', 'Tran ', 'Dang Khoa');
+INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `phone`) VALUES
+(3, 'annowit', '$2b$10$rnnM9vyGxcy7K/Em7o1epeIcjZymY7nTlopkapCX3CDCNdRWcesFK', 'Tran ', 'Dang Khoa', '', 0);
 
 --
 -- Indexes for dumped tables

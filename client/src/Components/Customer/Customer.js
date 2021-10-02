@@ -16,7 +16,7 @@ class App extends Component {
     this.state = {
       NameCategoryWillLoad: null,
       ClickProductsItem: true,
-      ContentSearch: null
+      ContentSearch: null,
     };
   }
 
@@ -43,9 +43,9 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props.history)
     return (
       <>
-        <Router>
           <Header
           ClickProductItem={this.ClickProductItem}
           ></Header>
@@ -96,7 +96,6 @@ class App extends Component {
             <Route path='/order' component={OrderPage}></Route>
             <Route path='/productDetails' component={ProductDetailsPage}></Route>
           </Switch>
-        </Router>
       </>
     );
   }
