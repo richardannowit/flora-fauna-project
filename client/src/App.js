@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.scss';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Customer from './Components/Customer/Customer';
 import Admin from './Components/Admin/Admin';
 class App extends Component {

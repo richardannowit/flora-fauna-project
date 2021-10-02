@@ -10,20 +10,25 @@ class Order extends React.Component {
         }
     }
 
+    //Load data
     async componentDidMount() {
         const data = await API('GET', 'http://localhost:4000/orders')
         this.setState({orders: data})
     }
 
+    //Search engine
     handleSearch = async (customer_name)=>{
-        const data = await axios.get(`http://localhost:4000/orders?customer_name_like=${customer_name}`).then(res=>res.data).catch(err=>err.message)
+        const data = await axios.get(`http://localhost:8000/api/orders?customer_name=${customer_name}`).then(res=>res.data).catch(err=>err.message)
         await this.setState({orders: data})
     }
 
     render() {
         return (
             <div style={{position: 'relative'}}>
-                <Table onSearch={this.handleSearch} orders={this.state.orders}/>
+                <Table 
+                    onSearch={this.handleSearch} 
+                    orders={this.state.orders}
+                />
             </div>
         )
     }

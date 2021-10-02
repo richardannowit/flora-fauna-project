@@ -38,21 +38,12 @@ class Table extends React.Component {
         })
     }
 
+    //Show added form
     handleShowMemberForm = () =>{
         this.props.onShowMemberForm()
     }
 
-    handleDeleteFood = (food) =>{
-        axios({
-            method: 'DELETE',
-            url: `http://localhost:4000/foods/${food.id}`,
-            data: 'null'
-        })
-        .then(()=>{console.log('SUCCESS')})
-        .catch((err)=>console.log(err))
-        this.props.onDelete(food.id)
-    }
-
+    //Update input form
     handleChange = async (e) =>{
         const  {value, name} =  e.target
         await this.setState({

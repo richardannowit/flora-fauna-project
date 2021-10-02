@@ -20,7 +20,7 @@ export default function Login(props){
 
     const handleSubmit = async (e)=>{
         e.preventDefault()
-        console.log(user.username, user.password)
+        console.log(token)
         const api = await axios({
             method: 'POST',
             url: 'http://localhost:8000/api/auth/login',

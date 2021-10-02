@@ -45,14 +45,17 @@ class Table extends React.Component {
         })
     }
 
+    //Show added form
     onShowAddFoodForm = () =>{
         this.props.onShowAddFoodForm()
     }
 
+    //Show updated form
     onShowUpdateFoodForm = (food)=>{
         this.props.onShowUpdateFoodForm(food)
     }
 
+    //Delete food
     handleDeleteFood = async (food) =>{
         const bool = window.confirm('Do you want to delete?')
         if(bool){
@@ -68,6 +71,7 @@ class Table extends React.Component {
         
     }
 
+    //Update input items
     handleChange = async (e) =>{
         const  {value, name} =  e.target
         await this.setState({

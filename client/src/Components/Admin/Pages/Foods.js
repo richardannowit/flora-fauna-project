@@ -2,7 +2,6 @@ import React from 'react'
 import Table from '../Foods/Table/Table'
 import Form from '../Foods/Form/Form'
 import axios from 'axios'
-import {Redirect} from 'react-router-dom'
 class Foods extends React.Component {
     constructor(props) {
         super(props)
@@ -16,6 +15,7 @@ class Foods extends React.Component {
         this.food = React.createRef()
     }
 
+    //Load data
     async componentWillMount() {
         await axios({
             method: 'GET',
@@ -41,12 +41,14 @@ class Foods extends React.Component {
         })
     }
 
+    //Set state to show added form
     onShowAddFoodForm = ()=>{
         this.setState({activeAddFoodsForm: this.state.activeAddFoodsForm ? false: true})
         document.body.style.overflow = 'hidden'
         this.food.current.style.paddingRight = '15px'
     }
 
+    //Set state to show updated form
     onShowUpdateFoodForm = (food)=>{
         this.setState({activeUpdateFoodsForm: this.state.activeUpdateFoodsForm ? false: true})
         this.setState({food_data_update : food})
@@ -54,12 +56,14 @@ class Foods extends React.Component {
         this.food.current.style.paddingRight = '15px'
     }
 
+    //Set state to hide form
     onHideFoodForm = () =>{
         this.setState({activeAddFoodsForm: false, activeUpdateFoodsForm: false})
         document.body.style.overflow = 'visible'
         this.food.current.style.paddingRight = '0px'
     }
 
+    //Load new state
     handleSubmit = (food, method, id='')=>{
         const {foods} = this.state
         if(method.match(/post/i)){
@@ -71,6 +75,7 @@ class Foods extends React.Component {
         this.setState({foods: foods})
     }
 
+    //Set state to delete
     handleDelete = (id) =>{
         const {foods} = this.state
         const idx = foods.findIndex(element=>element.id === id)
@@ -78,8 +83,9 @@ class Foods extends React.Component {
         this.setState({foods: foods})
     }
 
+    //Search engine
     handleSearch = async (food_name)=>{
-        const data = await axios.get(`http://localhost:8000/api/foods/search?search=${food_name}`).then(res=>res.status !== 404 ? res.data: []).catch(err=>err.message)
+        const data = await axios.get(`http://localhost:8000/api/foods?search=${food_name}`).then(res=>res.status !== 404 ? res.data: []).catch(err=>err.message)
         console.log(data)
         await this.setState({foods: data.data})
     }
@@ -87,9 +93,26 @@ class Foods extends React.Component {
     render() {
         return (
             <div ref={this.food} style={{position: 'relative'}}>
-                {this.state.activeAddFoodsForm && <Form onSubmit={this.handleSubmit} method='POST' onHideAddFoodForm={this.onHideFoodForm} categories={this.state.categories}/>}
-                {this.state.activeUpdateFoodsForm && <Form onSubmit={this.handleSubmit} method='PUT' onHideAddFoodForm={this.onHideFoodForm} data_food={this.state.food_data_update} categories={this.state.categories}/>}
-                <Table onSearch={this.handleSearch} onDelete={this.handleDelete} onShowAddFoodForm={this.onShowAddFoodForm} onShowUpdateFoodForm={this.onShowUpdateFoodForm} foods={this.state.foods}/>
+                {this.state.activeAddFoodsForm && <Form 
+                                                    onSubmit={this.handleSubmit} 
+                                                    method='POST' 
+                                                    onHideAddFoodForm={this.onHideFoodForm} 
+                                                    categories={this.state.categories}
+                                                    />}
+                {this.state.activeUpdateFoodsForm && <Form 
+                                                    onSubmit={this.handleSubmit} 
+                                                    method='PUT' 
+                                                    onHideAddFoodForm={this.onHideFoodForm} 
+                                                    data_food={this.state.food_data_update} 
+                                                    categories={this.state.categories}
+                                                    />}
+                <Table 
+                    onSearch={this.handleSearch} 
+                    onDelete={this.handleDelete} 
+                    onShowAddFoodForm={this.onShowAddFoodForm} 
+                    onShowUpdateFoodForm={this.onShowUpdateFoodForm} 
+                    foods={this.state.foods}
+                />
             </div>
         )
     }

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Route, BrowserRouter as Router, Switch, Redirect} from 'react-router-dom'
+import {Route, Switch, Redirect} from 'react-router-dom'
 import AdminManager from './Pages/AdminManager'
 import Categories from './Pages/Categories'
 import Home from './Pages/Home'
@@ -14,7 +14,11 @@ class Admin extends React.Component {
         super(props)
         this.state = {
             user: {
-
+                username: 'dpkhang',
+                first_name: 'Dinh',
+                last_name: 'Khang',
+                phone_number: '0939305459',
+                email: 'khang1@gmail.com'
             }
         }
     }
@@ -35,7 +39,9 @@ class Admin extends React.Component {
                         <Route path='/admin/categories'  component={Categories}/>
                         <Route path='/admin/foods'  component={Foods}/>
                         <Route path='/admin/order' component={Order}/>
-                        <Route path='/admin/admin-manager' render={()=><AdminManager user={this.state.user}/>}/>
+                        <Route path='/admin/admin-manager'>
+                            <AdminManager user={this.state.user}/>
+                        </Route>
                         <Route path='' component={NotFound}/>
                     </Switch>
                 </div>

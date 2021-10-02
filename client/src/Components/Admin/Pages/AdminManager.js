@@ -3,39 +3,56 @@ import Table from '../AdminManager/Table/Table'
 import Add from '../AdminManager/Form/Add/AddForm'
 import Update from '../AdminManager/Form/Update/UpdateForm'
 import Profile from '../AdminManager/AdminProfile/Profile'
-import API from '../../../API/ConnectAPI'
+import ChangePassword from '../AdminManager/Form/ChangePasword/ChangePassword'
 import axios from 'axios'
 class AdminManager extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            activeShowForm: false,
-            activeUpdateForm: true,
-            data_user: null,
-            users: [
-            ]
+            activeAddForm: false,
+            activeUpdateForm: false,
+            activeChangePasswordForm: false,
+            users: []
         }
         this.users = React.createRef()
     }
 
+    //Load data
     async componentDidMount() {
-        const users = await API('GET', 'http://localhost:4000/users')
+        const users = await axios.get('http://localhost:4000/users').then(res=>res.data).catch(err=>err)
         this.setState({users})
     }
 
-    showMemberForm = ()=>{
-        this.setState({activeShowForm: this.state.activeShowForm ? false: true})
+    //Set state to Show added form
+    showAddMemberForm = ()=>{
+        this.setState({activeAddForm: this.state.activeAddForm ? false: true})
         document.body.style.overflow = 'hidden'
         this.users.current.style.paddingRight = '15px'
     }
 
+    //Set state to Show updated form
+    showUpdateMemberForm = (user)=>{
+        this.setState({activeUpdateForm: this.state.activeUpdateForm ? false: true})
+        document.body.style.overflow = 'hidden'
+        this.users.current.style.paddingRight = '15px'
+    }
+
+    //Set state to Show changed password form
+    onShowChangePasswordForm = ()=>{
+        this.setState({activeChangePasswordForm: this.state.activeChangePasswordForm ? false: true})
+        document.body.style.overflow = 'hidden'
+        this.users.current.style.paddingRight = '15px'
+    }
+
+    //Hide form
     hideMemberForm = ()=> {
-        this.setState({activeShowForm: false,  activeShowUpdateForm: false,})
+        this.setState({activeAddForm: false,  activeUpdateForm: false, activeChangePasswordForm: false,})
         document.body.style.overflow = 'visible'
         this.users.current.style.paddingRight = '0px'
     }
 
+    //Load new state
     handleSubmit = (user, method)=>{
         const {users} = this.state
         if(method.match(/post/i)) 
@@ -47,18 +64,38 @@ class AdminManager extends React.Component {
         this.setState({users})
     }
 
+    //Search engine
     handleSearch = async (username)=>{
-        const data = await axios.get(`http://localhost:4000/users?username_like=${username}`).then(res=>res.data).catch(err=>err.message)
+        const data = await axios.get(`http://localhost:8000/api/users?username=${username}`).then(res=>res.data).catch(err=>err.message)
         await this.setState({users: data})
     }
 
     render() {
         return (
             <div ref={this.users} style={{position: 'relative'}}>
-                {this.state.activeShowForm && <Add onSubmit={this.handleSubmit} onHideMemberForm={this.hideMemberForm} method='post'/>}
-                {this.state.activeUpdateForm && <Update onSubmit={this.handleSubmit}/>}
-                <Profile user = {this.props.user}/>
-                <Table onSearch={this.handleSearch} users={this.state.users} onShowMemberForm={this.showMemberForm} onShowUpdateMemberForm={this.showUpdateMemberForm}/>
+                {this.state.activeAddForm && <Add 
+                                            onSubmit={this.handleSubmit} 
+                                            onHideMemberForm={this.hideMemberForm} 
+                                            method='post'
+                                            />}
+                {this.state.activeUpdateForm && <Update 
+                                                onHideMemberForm={this.hideMemberForm} 
+                                                onSubmit={this.handleSubmit} 
+                                                data_user={this.props.user}
+                                                />}
+                {this.state.activeChangePasswordForm && <ChangePassword 
+                                                        onHideChangePasswordForm= {this.hideMemberForm} 
+                                                        />}
+                <Profile 
+                    onShowUpdateMemberForm={this.showUpdateMemberForm} 
+                    onShowChangePasswordForm={this.onShowChangePasswordForm} 
+                    user={this.props.user}
+                />
+                <Table 
+                    onSearch={this.handleSearch} 
+                    users={this.state.users} 
+                    onShowMemberForm={this.showAddMemberForm}
+                />
             </div>
         )
     }

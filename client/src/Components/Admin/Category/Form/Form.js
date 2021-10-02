@@ -1,21 +1,18 @@
 import React from 'react'
 import './Form.scss'
-import API from '../../../../API/ConnectAPI'
-import uniqid from 'uniqid'
+import axios from 'axios'
 class Form extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             id: '',
             category_name: '',
-            image: '/Images/Categories/pizza.jpg',
+            image: null,
         }
+        this.btnAddImg = React.createRef()
     }
 
-    generateId = ()=> {
-        return `c-${Math.floor(Math.random() * 10000)}-${uniqid()}-${Math.floor(Math.random() * 10000)}-${uniqid()}`
-    }
-
+    //Updating state if updated form show  
     async componentDidMount(){
         if(this.props.data_category) {
             await this.setState({
@@ -26,10 +23,12 @@ class Form extends React.Component {
         }
     }
 
+    //Hide added form
     hideAddCategory = ()=>{
         this.props.onCloseForm()
     }
 
+    //Update input items
     handleChange = async (e)=>{
         const {name, value} = e.target
         await this.setState(()=>({
@@ -37,16 +36,35 @@ class Form extends React.Component {
         }))
     }
 
+    //Update image file
+    handleChangeFile = async (e)=>{
+        const file = e.target.files[0]
+        this.btnAddImg.current.innerHTML = file.name
+        await this.setState({image: file})
+    }
+
+    //Submit form
     handleSubmit = async (e)=>{
         e.preventDefault()
-        const url = this.props.method.match(/post/i) ? 'http://localhost:4000/categories' : `http://localhost:4000/categories/${this.state.id}`
-        const data = await API(this.props.method, url, this.state)
+        const image = new FormData()
+        image.append('image', this.state.image)
+        const url = this.props.method.match(/post/i) ? 'http://localhost:8000/api/categories' : `http://localhost:4000/api/categories/${this.state.id}`
+        const data = await axios({
+            method: this.props.method,
+            url,
+            data: {
+                category_name: this.state.category_name,
+                image
+            }
+        })
+        .then(res=>res.data)
+        .catch(err=>err)
         this.props.onSubmit(data, this.props.method, this.state.id)
         alert('Add Successfully')
-        this.setState({
+        await this.setState({
             id: '',
             category_name: '',
-            image: '/Images/Categories/pizza.jpg',
+            image: null,
         })
     }
 
@@ -65,7 +83,7 @@ class Form extends React.Component {
                                 <p>Image:</p>
                                 <div className='upload-file'>
                                     <button ref={this.btnAddImg}>Choose image</button>
-                                    <input type='file' name='image' onChange={this.HandleChangeFile}/>
+                                    <input type='file' name='image' onChange={this.handleChangeFile}/>
                                 </div>
                             </div>
                             <div className='elm elm-col'>

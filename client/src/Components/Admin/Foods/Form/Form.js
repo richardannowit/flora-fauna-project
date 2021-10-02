@@ -7,11 +7,11 @@ class Form extends React.Component {
         super(props)
         this.state ={
             id: '',
-            name: '',
+            food_name: '',
             price: 0,
             description: '',
             active: 0 ,
-            image: '/Images/Products/menu-burger.jpg',
+            image: null,
             category: ''
         }
         this.btnAddImg = React.createRef()
@@ -21,6 +21,7 @@ class Form extends React.Component {
         return `f-${Math.floor(Math.random() * 10000)}-${uniqid()}-${Math.floor(Math.random() * 10000)}-${uniqid()}`
     }
 
+    //Updating form if updated form show
     componentDidMount() {
         if(this.props.data_food)
             this.setState({
@@ -38,10 +39,12 @@ class Form extends React.Component {
         }
     }
 
+    //Hide added form
     onHideAddFoodForm = ()=> {
         this.props.onHideAddFoodForm()
     }
 
+    //Update input items
     handleChange= (e)=>{
         const {name, value} = e.target
         this.setState(()=>{
@@ -50,34 +53,39 @@ class Form extends React.Component {
         }})
     }
 
+    //Update image file
     handleChangeFile = (e)=>{
-        const {files} = e.target
-        this.btnAddImg.current.innerHTML = files[0].name
+        const file = e.target.files[0]
+        this.btnAddImg.current.innerHTML = file.name
+        this.setState({image: file})
     }
 
+    //Submit form
     handleSubmit = async (e)=>{
         e.preventDefault()
-        const res = await axios({
+        const image = new FormData()
+        image.append('image', this.state.image)
+        const data = await axios({
             method: this.props.method,
-            url: this.props.method.match(/put/i) ? `http://localhost:4000/foods/${this.state.id}`: `http://localhost:4000/foods`,
-            data: this.state
+            url: this.props.method.match(/put/i) ? `http://localhost:8000/api/foods/${this.state.id}`: `http://localhost:8000/api/foods`,
+            data: {
+                ...this.state,
+                image: image
+            }
         })
         .then(res=>{
-            console.log('1')
             return res.data
         })
-        .catch(err=>{
-            console.log(err)
-        })
+        .catch(err=>err)
         alert('Add Successfully')
-        this.props.onSubmit(res, this.props.method, this.state.id)
+        this.props.onSubmit(data, this.props.method, this.state.id)
         this.setState({
             id: '',
             name: '',
             price: 0,
             description: '',
             active: 0 ,
-            image: '/Images/Products/menu-burger.jpg',
+            image: null,
             category: ''
         })
     }
@@ -91,7 +99,7 @@ class Form extends React.Component {
                         <form onSubmit={this.handleSubmit} encType='multipart/form-data'>
                             <div className='elm'>
                                 <p>Title:</p>
-                                <input type='text' name='food_name' required value={this.state.name} onChange={this.handleChange}/>
+                                <input type='text' name='food_name' required value={this.state.food_name} onChange={this.handleChange}/>
                             </div>
                             <div className='elm elm-textarea'>
                                 <p>Description:</p>

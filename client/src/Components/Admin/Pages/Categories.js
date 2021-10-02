@@ -29,13 +29,14 @@ class Categories extends React.Component {
         })
     }
 
-
+    //Set state to show added form
     showAddCategory =() =>{
         this.setState(preState=>({activeAddCategory: preState.activeAddCategory ? false : true}))
         document.body.style.overflow = 'hidden'
         this.category.current.style.paddingRight = '15px'
     }
 
+    //Set state to show updated form
     showUpdateCategory =(category) =>{
         this.setState(preState=>({activeUpdateCategory: preState.activeAddCategory ? false : true}))
         this.setState({category_data_update: category})
@@ -43,12 +44,14 @@ class Categories extends React.Component {
         this.category.current.style.paddingRight = '15px'
     }
 
-    closeFormCategory = () =>{
+    //Set state to hide form
+    hideFormCategory = () =>{
         this.setState({activeAddCategory: false, activeUpdateCategory: false})
         document.body.style.overflow = 'visible'
         this.category.current.style.paddingRight = '0px'
     }
 
+    //Load new state
     handleSubmit = (category,method, id)=>{
         const {categories} = this.state
         if(method.match(/post/i)) 
@@ -60,6 +63,7 @@ class Categories extends React.Component {
         this.setState({categories: categories})
     }
 
+    //Delete
     handleDelete = (category, id) =>{
         const {categories} = this.state
         const idx = categories.findIndex(elm => elm.id === id)
@@ -67,17 +71,33 @@ class Categories extends React.Component {
         this.setState({categories: categories})
     }
 
-    handleSearch = async (name)=>{
-        const data = await  axios.get(`http://localhost:4000/categories?category_name_like=${name}`).then(res=>res.data).catch(err=>err.message)
+    //Search engine
+    handleSearch = async (category_name)=>{
+        const data = await  axios.get(`http://localhost:8000/api/categories?category_name=${category_name}`).then(res=>res.data).catch(err=>err.message)
         this.setState({categories: data})
     }
 
     render() {
         return (
             <div ref={this.category} style={{position: 'relative'}}>
-                {this.state.activeAddCategory && <Form method='POST' onSubmit={this.handleSubmit} onCloseForm={this.closeFormCategory}/>}
-                {this.state.activeUpdateCategory && <Form method='PUT' onSubmit={this.handleSubmit} onCloseForm={this.closeFormCategory} data_category={this.state.category_data_update}/>}
-                <Category onSearch={this.handleSearch} onDelete={this.handleDelete} onClickToAddCategory={this.showAddCategory} onClickToUpdateCategory={this.showUpdateCategory} categories={this.state.categories}/>
+                {this.state.activeAddCategory && <Form 
+                                                    method='POST' 
+                                                    onSubmit={this.handleSubmit} 
+                                                    onCloseForm={this.hideFormCategory}
+                                                    />}
+                {this.state.activeUpdateCategory && <Form 
+                                                    method='PUT' 
+                                                    onSubmit={this.handleSubmit} 
+                                                    onCloseForm={this.hideFormCategory} 
+                                                    data_category={this.state.category_data_update}
+                                                    />}
+                <Category 
+                    onSearch={this.handleSearch} 
+                    onDelete={this.handleDelete} 
+                    onClickToAddCategory={this.showAddCategory} 
+                    onClickToUpdateCategory={this.showUpdateCategory} 
+                    categories={this.state.categories}
+                />
             </div>
         )
     }

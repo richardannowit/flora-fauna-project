@@ -7,10 +7,12 @@ import cookie from 'react-cookies'
 
 export default function Menu(props){
     const history = useHistory()
+
     const handleLogout = (e)=>{
         cookie.remove('token')
         history.push('/login')
     }
+    
     return (
             <div className="menu-admin">
                 <ul>

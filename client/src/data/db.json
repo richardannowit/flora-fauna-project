@@ -8,6 +8,32 @@
       "active": 1,
       "image": "/Images/Products/menu-burger.jpg",
       "category": "The Pizza"
+    },
+    {
+      "id": 2,
+      "food_name": "The Biger",
+      "price": 324,
+      "description": "sdfdsfdsf",
+      "active": 1,
+      "image": null,
+      "category": "Fruits"
+    },
+    {
+      "id": 3,
+      "food_name": "The Biger",
+      "price": 2,
+      "description": "214",
+      "active": 0,
+      "image": {},
+      "category": "Vegetables"
+    },
+    {
+      "id": 4,
+      "food_name": "Winner",
+      "price": 701842,
+      "description": "Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.",
+      "active": 1,
+      "image": {}
     }
   ],
   "categories": [
@@ -85,6 +111,31 @@
       "id": 17,
       "category_name": "The Pizza 10",
       "image": "/Images/Categories/pizza.jpg"
+    },
+    {
+      "category_name": "The Burger",
+      "image": {},
+      "id": 18
+    },
+    {
+      "category_name": "The Softdrink",
+      "image": {},
+      "id": 19
+    },
+    {
+      "category_name": "The Burger",
+      "image": {},
+      "id": 20
+    },
+    {
+      "category_name": "The Burger",
+      "image": {},
+      "id": 21
+    },
+    {
+      "category_name": "The Spaghetti",
+      "image": {},
+      "id": 22
     }
   ],
   "orders": [

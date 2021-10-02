@@ -52,6 +52,7 @@ class Table extends React.Component {
         })
     }
 
+    //Update input form
     handleChange = async (e) =>{
         const  {value, name} =  e.target
         await this.setState({

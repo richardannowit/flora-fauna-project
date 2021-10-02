@@ -27,14 +27,17 @@ class Table extends React.Component {
         })
     }
 
+    //Show added form
     onClickAddCategory = () =>{
        this.props.onClickToAddCategory()
     }
 
+    //Show update form
     onClickUpdateCategory = (category) =>{
         this.props.onClickToUpdateCategory(category)
     }
 
+    //Delete category 
     handleDeleteCategory = (id) =>{
         const confirm = window.confirm('Do you want to delete?')
         if(confirm){
@@ -43,6 +46,7 @@ class Table extends React.Component {
         }
     }
 
+    //Update input form
     handleChange = async (e) =>{
         const  {value, name} =  e.target
         await this.setState({
