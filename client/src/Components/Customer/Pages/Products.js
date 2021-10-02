@@ -16,7 +16,7 @@ class Products extends Component {
 
     async componentDidMount() {
         //handle products load in here
-        const ResultProducts = await axios.get('http://localhost:8000/foods');
+        const ResultProducts = await axios.get('http://localhost:8000/api/foods?limit=6');
         const products = ResultProducts.data.data;
 
         this.setState({
@@ -25,10 +25,9 @@ class Products extends Component {
     }
 
     static async getDerivedStateFromProps(nextProps) {
-        console.log(nextProps.ClickProductsItem);
         if (nextProps.ClickProductsItem) {
             //Load data
-            const ResultProducts = await axios.get('http://localhost:8000/foods');
+            const ResultProducts = await axios.get('http://localhost:8000/api/foods?limit=6');
             const products = ResultProducts.data.data;
 
             return {
@@ -38,7 +37,7 @@ class Products extends Component {
         if (nextProps.NameCategoryWillLoad) {
             //this method run when click to category
             //load product in category name
-            const ResultProducts = await axios.get('http://localhost:8000/foods');
+            const ResultProducts = await axios.get('http://localhost:8000/api/foods');
             const products = ResultProducts.data.data;
 
             return {

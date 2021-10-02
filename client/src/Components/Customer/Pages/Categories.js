@@ -16,7 +16,7 @@ class Categories extends Component {
 
     async componentDidMount () {
         //handle categories load in here
-        const ResultCategories = await axios.get('http://localhost:8000/categories');
+        const ResultCategories = await axios.get('http://localhost:8000/api/categories?limit=9');
         const categories = ResultCategories.data.data;
         
         //set path image

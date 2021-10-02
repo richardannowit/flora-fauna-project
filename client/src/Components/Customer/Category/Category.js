@@ -12,12 +12,12 @@ class Category extends Component {
 
     static getDerivedStateFromProps(nextProps) {
         //Set all data
-        if(nextProps.Categories) {
+        if (nextProps.Categories) {
             return {
                 Categories: nextProps.Categories
             }
         }
-        return {undefined};
+        return { undefined };
     }
 
     render() {
@@ -25,14 +25,16 @@ class Category extends Component {
             <section className="categories">
                 <div className="container">
                     <h2 className="text-center">Categories</h2>
-                    {this.state.Categories.map((element,index) => {
-                        //render category items
-                        return <CategoryItem
-                            key={index}
-                            Information={element}
-                            ClickCategoryItem={this.props.ClickCategoryItem}
+                    <div className="category-reposive">
+                        {this.state.Categories.map((element, index) => {
+                            //render category items
+                            return <CategoryItem
+                                key={index}
+                                Information={element}
+                                ClickCategoryItem={this.props.ClickCategoryItem}
                             ></CategoryItem>
-                    })}
+                        })}
+                    </div>
                     <div className="clearfix" />
                 </div>
             </section>
