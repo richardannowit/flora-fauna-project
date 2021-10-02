@@ -1,0 +1,183 @@
+
+.add-food-background {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 4;
+    background-color: rgba(#333, 0.7);
+    box-sizing: border-box;
+    .add-food {
+        width: 450px;
+        height: 580px;
+        margin: 100px auto;
+        border-radius: 5px;
+        overflow: hidden;
+        background-color: #f1f2f6;
+        .banner {
+            width: 100%;
+            height: 80px;
+            text-align: center;
+            line-height: 80px;
+            font-weight: bold;
+            font-size: 25px;
+        }
+        .body {
+            width: 100%;
+            height: 390px;
+
+            form {
+                width: 100%;
+                height: 100%;
+
+                .elm {
+                    width: 100%;
+                    height: 17%;
+                    margin: 5px 0;
+                    p {
+                        width: 75%;
+                        height: 40%;
+                        font-size:16px;
+                        font-weight: bold;
+                        margin: 0 auto;
+                        color: rgb(118, 118, 118);
+                    }
+
+                    input {
+                        width: 70%;
+                        height: 50%;
+                        display: block;
+                        margin: 0 auto;
+                        padding: 0 10px;
+                        position: relative;
+                        border-radius: 5px;
+                        border: 1px solid #b6b6b6;
+                    }
+                    .col {
+                        width: 50%;
+                        display: flex;
+                        justify-content: center;
+                        margin: 0 auto;
+                        padding: 0 10px;
+                        input[type="radio"] {
+                            width: 15px;
+                            height: 15px;
+                            margin:0;
+                        }
+                        .check-radio {
+                            margin-left: 15px;
+                            display: flex;
+                            width: 45%;
+                            justify-content: center;
+                            label {
+                                margin-left: 10px;
+                            }
+                        }
+                    }
+                }
+
+                .elm-textarea {
+                    height: 130px;
+                     p{
+                         height: 20%;
+                     }
+                    textarea {
+                        width: 70%;
+                        height: 70%;
+                        display: block;
+                        margin: 0 auto;
+                        padding: 5px 10px;
+                        position: relative;
+                        border-radius: 5px;
+                        border: 1px solid #b6b6b6;
+                    }
+                }
+
+                .elm-files {
+                    .upload-file {
+                        width: 70%;
+                        margin: 0 auto;
+                        position: relative;
+                        button {
+                            position: absolute;
+                            top: 0;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            width: 150px;
+                            height: 30px;
+                            overflow: hidden;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                            background-color: #2365ff;
+                            color: white;
+                            border: none;
+                            font-weight: bold;
+                            font-size: 16px;
+                            border-radius: 5px;
+                            padding: 0 5px;
+                            display: block;
+                        }
+                        input {
+                            position: absolute;
+                            top: 0;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            width: 150px;
+                            height: 30px;
+                            padding: 0;
+                            opacity: 0;
+                        }
+                    }
+
+                }
+
+                .elm-col {
+                    display: flex;
+                    width: 75%;
+                    margin: 0 auto;
+                    .col {
+                        padding: 0;
+                        width: 50%;
+                        display: block;
+                        p {
+                            width: 100%;
+                        }
+                        input[type='number'] {
+                            width: 80%;
+                            height: 50%;
+                            border-radius: 5px;
+                            border: 1px solid #b6b6b6;
+                            margin: 0;
+                        }
+                        
+                        select {
+                            width: 100%;
+                            height: 50%;
+                            border-radius: 5px;
+                            border: 1px solid #b6b6b6;
+                            background: white;
+                        }
+                    }
+
+                    .btn {
+                        width: 150px;
+                        height: 35px;
+                        margin: 10px;
+                        cursor: pointer;
+                        border: none;
+                        margin: 0 5px;
+                        background-color: #2365ff;
+                        font-weight: bold;
+                        transition: .25s;
+                        color: white;
+                        font-family: 17px;
+                    }
+                    .btn:hover {
+                        background-color: #ff6b81;
+                    }
+                }
+            }
+        }
+    }
+}
