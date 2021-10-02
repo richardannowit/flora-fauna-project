@@ -124,7 +124,7 @@ class Form extends React.Component {
             phone_number: ''
         }
         if(this.state.isInvalid){
-            url= method.match(/POST/i) && 'http://localhost:4000/users'
+            url= method.match(/POST/i) && 'http://localhost:8000/api/users'
             const data = await API(method, url, this.state.user)
             this.props.onSubmit(data, method)
             alert('Add Successfully')
