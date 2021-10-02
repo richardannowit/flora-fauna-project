@@ -10,11 +10,11 @@ module.exports.viewFood = async (req, res) => {
                 data: foods
             });
         }
-        // else{
-        //     res.status(501).json({
-        //         message: "Can't not find food"
-        //     })
-        // }
+        else{
+            res.status(404).json({
+                message: "Can't not find food"
+            })
+        }
       
     }catch(err) {
         console.error(err);
@@ -22,22 +22,34 @@ module.exports.viewFood = async (req, res) => {
 }
 
 module.exports.findFood = async (req, res) => {
-    let searchTerm = req.body.search;
+    const search = req.params.search;
     try{
-        const foods = await food.findFood([`%${searchTerm}%`]);
+        const foods = await food.findFood(`%${search}%`);
+        // const foods = await food.findFood(`%${search}%`);
+
         if(foods.length > 0){
             res.status(200).json({
                 data: foods
             });
         }else{
-            res.status(404).json({
-                message:"Can't not find food."
+            res.status(200).json({
+                data:[]
             })
         }
-            
-
     }catch(err) {
       console.log(err);
+    }
+}
+
+module.exports.delete= async (req, res) => {
+    const id = req.params.id;
+    try{
+        const food = await food.delete(id);
+        res.status(200).json({
+            message: 'Food delete successfull'
+        })
+    }catch(err) {
+        console.log(err);
     }
 }
 

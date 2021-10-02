@@ -9,6 +9,7 @@ const authRouter = require('./routes/auth')
 const homeRouter = require('./routes/home')
 const foodRouter = require('./routes/food')
 const categoryRouter = require('./routes/category')
+const orderRouter = require('./routes/order')
 
 connect();
 const app = express()
@@ -22,6 +23,7 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+app.use('/api/orders', orderRouter)
 
 app.use('/api/categories', categoryRouter)
 

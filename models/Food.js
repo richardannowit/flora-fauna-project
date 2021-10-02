@@ -3,7 +3,7 @@ const { connection } = require("../config/database");
 
 module.exports.viewFood = function viewFood(){
     return new Promise((resolve, reject)=>{
-        connection.query("SELECT * FROM foods", function(error, result){
+        connection.query("SELECT * FROM foods ", function(error, result){
             if (error) {
                 reject(error);
             }else{
@@ -31,6 +31,7 @@ module.exports.findFood = (search)=>{
 }
 
 
+
 module.exports.createFood = function createFood(newFood) {
 
     return new Promise((resolve, reject) => {
@@ -44,5 +45,18 @@ module.exports.createFood = function createFood(newFood) {
         });
     })
 
+}
+
+
+module.exports.delete = (iddelete) => {
+    return new Promise((resolve, reject) => {
+        connection.query('DELETE FROM foods WHERE id = ?', iddelete , (error, result)=>{
+            if(error){
+                reject(error);
+            }else{
+                resolve(result);
+            }
+        });
+    })
 }
 

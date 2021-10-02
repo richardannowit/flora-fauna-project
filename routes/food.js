@@ -4,10 +4,14 @@ const foodController = require('../controllers/FoodController')
 
 const router = express.Router()
 
-router.get('/',foodController.viewFood);
-router.post('/', foodController.findFood);
 
-// router.post('/add',foodController.add);
+
+router.get('/', foodController.viewFood);
+
+
+router.get('/food_name/:search', foodController.findFood);//search
+
+
 
 
 module.exports = router

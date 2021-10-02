@@ -24,7 +24,11 @@ module.exports.findCategories = (search)=>{
             if(error) {
                 reject(error);
             }else{
-                resolve(result);
+                if (result.length > 0) {
+                    resolve(result);
+                } else {
+                    resolve(null);
+                }
             }
         })
     })
