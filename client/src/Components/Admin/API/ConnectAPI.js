@@ -92,7 +92,7 @@ async function putUser(user_id, data) {
 }
 
 async function deleteUser(user_id) {
-    const res = await connectAPI('delete', `users/${user_id}`)
+    const res = await connectAPI('delete', `/users/${user_id}`)
     return res
 }
 
