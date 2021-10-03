@@ -20,7 +20,7 @@ module.exports.viewCategories = async (req, res) => {
 
 module.exports.findCategory = async (req, res)=>{
     try{
-        const search = req.query.search;
+        const search = req.params.search;
         const categories = await category.findCategories(`%${search}%`);
         if(categories != null){
             res.status(200).json({

@@ -10,6 +10,7 @@ const homeRouter = require('./routes/home')
 const foodRouter = require('./routes/food')
 const categoryRouter = require('./routes/category')
 const orderRouter = require('./routes/order')
+const userRouter = require('./routes/user')
 
 connect();
 const app = express()
@@ -22,6 +23,8 @@ app.use(cors())
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+
+app.use('/api/users', userRouter)
 
 app.use('/api/orders', orderRouter)
 

@@ -53,3 +53,21 @@ User.createUser = function createUser(newUser) {
 }
 
 module.exports = User;
+
+
+module.exports.viewUser = function viewUser(){
+    return new Promise((resolve, reject)=>{
+        connection.query("SELECT * FROM users ", function(error, result){
+            if (error) {
+                reject(error);
+            }else{
+                if (result.length > 0) {
+                    resolve(result);
+                } else {
+                    resolve(null);
+                }
+            }
+        })
+    })
+}
+

@@ -8,7 +8,6 @@ const router = express.Router()
 
 router.get('/', foodController.viewFood);
 
-
 router.get('/food_name/:search', foodController.findFood);//search
 
 

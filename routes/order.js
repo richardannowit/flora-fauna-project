@@ -5,6 +5,8 @@ const orderController = require('../controllers/OrdersController')
 
 const router = express.Router()
 
-router.get('/', orderController.findOrder)
+router.get('/', orderController.viewOrder)
+
+// router.get('/', orderController.findOrder)
 
 module.exports = router
