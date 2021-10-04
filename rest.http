@@ -3,12 +3,12 @@ POST http://localhost:8000/api/auth/register
 Content-Type: application/json
 
  {
-     "username": "trung",
+     "username": "namvt002",
      "password": "123456789aB",
      "last_name": "Trung",
-     "first_name": "Tran",
-     "email": "trung@gmail.com",
-     "phone": "123"
+     "first_name": "Tran Viet",
+     "email": "viettrung@gmail.com",
+     "phone": "123467788"
  }
 
 ###
@@ -17,11 +17,11 @@ POST http://localhost:8000/api/auth/login
 Content-Type: application/json
 
  {
-     "username": "trung",
+     "username": "namvt002",
      "password": "123456789aB"
  }
 
 ###
 
 GET http://localhost:8000/api/home
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidHJ1bmciLCJmaXJzdF9uYW1lIjoiVHJhbiIsImxhc3RfbmFtZSI6IlRydW5nIn0sImlhdCI6MTYzMjU0OTgyMSwiZXhwIjoxNjMyNTU3MDIxfQ.9e8n8qRzreKEnhyAx47ZjjrpZctq6_qdas6aziL2jYk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoibmFtdnQwMDIiLCJmaXJzdF9uYW1lIjoiVHJhbiBWaWV0IiwibGFzdF9uYW1lIjoiVHJ1bmcifSwiaWF0IjoxNjMzMzUzNjc4LCJleHAiOjE2MzMzNjA4Nzh9.rxg9KzbT3AtvVJsND47shISuFejsUiuTlhnPAa_hy7w

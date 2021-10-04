@@ -7,6 +7,6 @@ const router = express.Router()
 
 router.get('/', orderController.viewOrder)
 
-// router.get('/', orderController.findOrder)
+router.get('/customer_name/:search', orderController.findOrder);//search
 
 module.exports = router

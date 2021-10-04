@@ -54,7 +54,7 @@ User.createUser = function createUser(newUser) {
 
 module.exports = User;
 
-
+//view all User
 module.exports.viewUser = function viewUser(){
     return new Promise((resolve, reject)=>{
         connection.query("SELECT * FROM users ", function(error, result){
@@ -70,4 +70,46 @@ module.exports.viewUser = function viewUser(){
         })
     })
 }
+
+// search user by username
+module.exports.findUserName = (search)=>{
+    return new Promise((resolve, reject) => {
+        connection.query("SELECT * FROM users WHERE username LIKE ?", search, (error, result)=>{
+            if(error) {
+                reject(error);
+            }else{
+                resolve(result);
+            }
+        })
+    })
+}
+
+// search user by ID
+module.exports.findUserID = (search)=>{
+    return new Promise((resolve, reject) => {
+        connection.query("SELECT * FROM users WHERE id LIKE ?", search, (error, result)=>{
+            if(error) {
+                reject(error);
+            }else{
+                resolve(result);
+            }
+        })
+    })
+}
+
+
+//delete user by ID
+
+module.exports.delete = (iddelete) => {
+    return new Promise((resolve, reject) => {
+        connection.query('DELETE FROM users WHERE id = ?', iddelete , (error, result)=>{
+            if(error){
+                reject(error);
+            }else{
+                resolve(result);
+            }
+        });
+    })
+}
+
 

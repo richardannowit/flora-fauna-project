@@ -44,7 +44,7 @@ module.exports.findFood = async (req, res) => {
 module.exports.delete= async (req, res) => {
     const id = req.params.id;
     try{
-        const food = await food.delete(id);
+        const foods = await food.delete(id);
         res.status(200).json({
             message: 'Food delete successfull'
         })

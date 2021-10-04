@@ -35,3 +35,16 @@ module.exports.findCategory = async (req, res)=>{
         console.error(err);
     }
 }
+
+
+module.exports.delete = async (req, res) => {
+    const id = req.params.id;
+    try{
+        const categorys = await category.delete(id);
+        res.status(200).json({
+            message: 'Category delete successfull'
+        })
+    }catch(err) {
+        console.log(err);
+    }
+}

@@ -8,7 +8,13 @@ const router = express.Router()
 
 router.get('/', userController.viewUser);
 
-// router.get('/food_name/:search', foodController.findFood);//search
+router.get('/username/:search', userController.findUserName);//search
+
+router.get('/user_id/:search', userController.findUserID);//search
+
+router.delete('/:id', userController.delete);
+
+
 
 
 

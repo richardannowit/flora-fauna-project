@@ -1,6 +1,6 @@
 const { connection } = require("../config/database");
 
-
+//view all Categories
 module.exports.viewCategories = function viewCategories(){
     return new Promise((resolve, reject)=>{
         connection.query("SELECT * FROM categories", function(error, result){
@@ -17,7 +17,7 @@ module.exports.viewCategories = function viewCategories(){
     })
 }
 
-
+//search all Categories by category name
 module.exports.findCategories = (search)=>{
     return new Promise((resolve, reject) => {
         connection.query("SELECT * FROM categories WHERE category_name LIKE ?", search, (error, result)=>{
@@ -34,3 +34,17 @@ module.exports.findCategories = (search)=>{
     })
 }
 
+
+//delete categories by ID
+
+module.exports.delete = (iddelete) => {
+    return new Promise((resolve, reject) => {
+        connection.query('DELETE FROM categories WHERE id = ?', iddelete , (error, result)=>{
+            if(error){
+                reject(error);
+            }else{
+                resolve(result);
+            }
+        });
+    })
+}

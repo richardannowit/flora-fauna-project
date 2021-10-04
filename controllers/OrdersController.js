@@ -22,7 +22,7 @@ module.exports.viewOrder = async (req, res) => {
 
 module.exports.findOrder = async (req, res)=>{
     try{
-        const search = req.query.search;
+        const search = req.params.search;
         const orders = await order.findOrder(`%${search}%`);
         if(orders != null){
             res.status(200).json({

@@ -7,10 +7,11 @@ const router = express.Router()
 
 router.get('/', categoryController.viewCategories);
 
-// router.get('/',categoryController.findCategory);
-// router.post('/', foodController.findFood);
+//url = /api/categories/categories_name/:search
+router.get('/categories_name/:search',categoryController.findCategory);
 
-// router.post('/add',foodController.add);
+router.delete('/:id', categoryController.delete);
+
 
 
 module.exports = router
