@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import './UpdateForm.scss'
 
 class UpdateForm extends React.Component {
@@ -10,7 +9,6 @@ class UpdateForm extends React.Component {
                 phone_number: '',
                 last_name: '',
                 first_name: '',
-                last_name: '',
                 email: '',
             },
             invalid: 0

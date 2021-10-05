@@ -1,7 +1,6 @@
-import axios from 'axios'
 import React from 'react'
 import './Table.scss'
-
+import {deleteFood} from '../../API/ConnectAPI'
 class Table extends React.Component {
 
     constructor(props) {
@@ -25,7 +24,7 @@ class Table extends React.Component {
                         <p style={{textAlign: 'justify'}}>{food.description}</p>
                     </td>
                     <td>
-                        <img src={food.image} alt=''/>
+                        <img src={food.image_name} alt=''/>
                     </td>
                     <td>
                         <p>{food.category}</p>
@@ -38,7 +37,7 @@ class Table extends React.Component {
                     </td>
                     <td>
                         <button className='btn btn-update' onClick={()=>{this.onShowUpdateFoodForm(food)}}><i className="fas fa-pen"></i> Update</button>
-                        <button className='btn btn-delete' onClick={()=>{this.handleDeleteFood(food)}}><i className="fas fa-eraser"></i> Delete</button>
+                        <button className='btn btn-delete' onClick={()=>{this.handleDeleteFood(food.id)}}><i className="fas fa-eraser"></i> Delete</button>
                     </td>
                 </tr>
             )
@@ -56,17 +55,11 @@ class Table extends React.Component {
     }
 
     //Delete food
-    handleDeleteFood = async (food) =>{
+    handleDeleteFood = async (id) =>{
         const bool = window.confirm('Do you want to delete?')
         if(bool){
-            await axios({
-                method: 'DELETE',
-                url: `http://localhost:4000/foods/${food.id}`,
-                data: 'null'
-            })
-            .then(()=>{console.log('SUCCESS')})
-            .catch((err)=>console.log(err))
-            this.props.onDelete(food.id)
+            const delete_food = await deleteFood(id)
+            console.log(delete_food.message)
         }
         
     }
@@ -108,7 +101,6 @@ class Table extends React.Component {
                 </table>
                 {this.props.foods.length === 0 && <p>No data found!</p>}
             </div>
-
         );
     }
 }

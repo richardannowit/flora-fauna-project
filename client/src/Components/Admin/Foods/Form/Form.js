@@ -1,7 +1,6 @@
 import React from 'react'
 import './Form.scss'
-import axios from 'axios'
-import uniqid from 'uniqid'
+import {postFood, putFood} from '../../API/ConnectAPI'
 class Form extends React.Component {
     constructor(props) {
         super(props)
@@ -11,14 +10,10 @@ class Form extends React.Component {
             price: 0,
             description: '',
             active: 0 ,
-            image: null,
+            image_name: null,
             category: ''
         }
         this.btnAddImg = React.createRef()
-    }
-
-    generateId = ()=> {
-        return `f-${Math.floor(Math.random() * 10000)}-${uniqid()}-${Math.floor(Math.random() * 10000)}-${uniqid()}`
     }
 
     //Updating form if updated form show
@@ -26,7 +21,7 @@ class Form extends React.Component {
         if(this.props.data_food)
             this.setState({
                 id: this.props.data_food.id,
-                food_name: this.props.data_food.name,
+                food_name: this.props.data_food.food_name,
                 price: this.props.data_food.price,
                 description: this.props.data_food.description, 
                 active:  this.props.data_food.active,
@@ -63,25 +58,22 @@ class Form extends React.Component {
     //Submit form
     handleSubmit = async (e)=>{
         e.preventDefault()
-        const image = new FormData()
-        image.append('image', this.state.image)
-        const data = await axios({
-            method: this.props.method,
-            url: this.props.method.match(/put/i) ? `http://localhost:8000/api/foods/${this.state.id}`: `http://localhost:8000/api/foods`,
-            data: {
-                ...this.state,
-                image: image
-            }
-        })
-        .then(res=>{
-            return res.data
-        })
-        .catch(err=>err)
-        alert('Add Successfully')
-        this.props.onSubmit(data, this.props.method, this.state.id)
-        this.setState({
+        const image_name = new FormData()
+        let data = []
+        image_name.append('image_name', this.state.image)
+        let data_submit = {
+            ...this.state,
+            image_name
+        }
+        if(this.props.method.match(/post/i)) {
+            data = await postFood(data_submit)
+        }else
+            data = await putFood(this.state.id, data_submit)
+        alert(data.message)
+        this.props.onSubmit(data.data, this.props.method, this.state.id)
+        await this.setState({
             id: '',
-            name: '',
+            food_name: '',
             price: 0,
             description: '',
             active: 0 ,
@@ -109,7 +101,7 @@ class Form extends React.Component {
                                 <p>Image:</p>
                                 <div className='upload-file'>
                                     <button ref={this.btnAddImg}>Choose image</button>
-                                    <input type='file' name='image' onChange={this.handleChangeFile}/>
+                                    <input type='file' name='image_name' onChange={this.handleChangeFile}/>
                                 </div>
                             </div>
                             <div className='elm elm-col'>

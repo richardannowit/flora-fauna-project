@@ -7,8 +7,7 @@ import Foods from './Pages/Foods'
 import Order from './Pages/Order'
 import NotFound from './Pages/NotFound'
 import Header from './Header/Header'
-import cookie from 'react-cookies'
-import axios from 'axios'
+import {getUserById} from  './API/ConnectAPI'
 class Admin extends React.Component {
     constructor(props) {
         super(props)
@@ -17,28 +16,29 @@ class Admin extends React.Component {
                 username: 'dpkhang',
                 first_name: 'Dinh',
                 last_name: 'Khang',
-                phone_number: '0939305459',
+                phone: '0939305459',
                 email: 'khang1@gmail.com'
             }
         }
     }
 
     async componentDidMount() {
-        const token = cookie.load('token')
+        const user = await getUserById(localStorage.getItem('id'))
+        await this.setState({user: user.data})
     }
 
     render() {
-        if(!cookie.load('token'))
+        if(!localStorage.getItem('accessToken'))
              return(<Redirect to='/login'/>) 
         return (
             <div>
                 <Header></Header>
-                <div style={{backgroundColor: '#f1f2f6', width: '100%', height: 'auto', position: 'absolute'}}>
+                <div style={{width: '100%', height: 'auto', position: 'absolute'}}>
                     <Switch>
                         <Route path='/admin/' exact component={Home}/>
                         <Route path='/admin/categories'  component={Categories}/>
-                        <Route path='/admin/foods'  component={Foods}/>
-                        <Route path='/admin/order' component={Order}/>
+                        <Route path='/admin/foods'  component={Foods} />
+                        <Route path='/admin/orders' component={Order}/>
                         <Route path='/admin/admin-manager'>
                             <AdminManager user={this.state.user}/>
                         </Route>

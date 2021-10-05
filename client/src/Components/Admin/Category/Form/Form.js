@@ -1,13 +1,13 @@
 import React from 'react'
 import './Form.scss'
-import axios from 'axios'
+import {postCategory, putCategory} from '../../API/ConnectAPI'
 class Form extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             id: '',
             category_name: '',
-            image: null,
+            image_name: null,
         }
         this.btnAddImg = React.createRef()
     }
@@ -46,25 +46,24 @@ class Form extends React.Component {
     //Submit form
     handleSubmit = async (e)=>{
         e.preventDefault()
-        const image = new FormData()
-        image.append('image', this.state.image)
-        const url = this.props.method.match(/post/i) ? 'http://localhost:8000/api/categories' : `http://localhost:4000/api/categories/${this.state.id}`
-        const data = await axios({
-            method: this.props.method,
-            url,
-            data: {
-                category_name: this.state.category_name,
-                image
-            }
-        })
-        .then(res=>res.data)
-        .catch(err=>err)
-        this.props.onSubmit(data, this.props.method, this.state.id)
-        alert('Add Successfully')
+        const image_name = new FormData()
+        image_name.append('image_name', this.state.image)
+        let data = []
+        let data_submit = {
+            ...this.state,
+            image_name
+        }
+        if(this.props.method.match(/post/i)){
+            data = await postCategory(data_submit)
+        }else {
+            data = await putCategory(this.state.id, data_submit)
+        }
+        this.props.onSubmit(data.data, this.props.method, this.state.id)
+        alert(data.message)
         await this.setState({
             id: '',
             category_name: '',
-            image: null,
+            image_name: null,
         })
     }
 
@@ -83,7 +82,7 @@ class Form extends React.Component {
                                 <p>Image:</p>
                                 <div className='upload-file'>
                                     <button ref={this.btnAddImg}>Choose image</button>
-                                    <input type='file' name='image' onChange={this.handleChangeFile}/>
+                                    <input type='file' name='image_name' onChange={this.handleChangeFile}/>
                                 </div>
                             </div>
                             <div className='elm elm-col'>

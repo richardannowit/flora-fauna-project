@@ -24,7 +24,7 @@ class Table extends React.Component {
                         <p>{order.customer_email}</p>
                     </td>
                     <td >
-                        <p>{order.customer_phone}</p>
+                        <p>{order.customer_phone_number}</p>
                     </td>
                     <td>
                         <p>{order.customer_address}</p>
@@ -39,10 +39,10 @@ class Table extends React.Component {
                         <p>{order.quantity}</p>
                     </td>
                     <td>
-                        <p>{order.total}</p>
+                        <p>{parseInt(order.quantity)*parseInt(order.price)}</p>
                     </td>
                     <td>
-                        <p>{order.active ? 'Yes': 'No'}</p>
+                        <p>{order.active ? 'Waiting': 'Delivering'}</p>
                     </td>
                     <td>
                         <p>{order.date}</p>

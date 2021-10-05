@@ -22,7 +22,7 @@
             font-size: 16px;
             border-radius: 5px;
             border: none;
-            background: #2365ff;
+            background: #23b6ff;
             color: #fff;
             cursor: pointer;
             font-weight: bold;
@@ -56,20 +56,25 @@
     }
     table {
         width: 100%;
+        border-collapse: collapse;
+        border-radius: 3px 3px 0 0;
+        overflow: hidden;
         .header {
             width: 100%;
-            height: 60px;
+            height: 40px;
             th {
                 text-align: start;
                 padding: 0 10px;
                 font-size: 17px;
-                border-bottom: 1.5px solid #cacaca;
+                box-sizing: border-box;
+                background-color: #23b6ff;
+                color: white;
             }
             th.description-th {
-                width: 200px;
+                width: 250px;
             }
             th.title-th {
-                width: 100px;
+                width: 200px;
             }
             th.sn-th {
                 width: 50px;
@@ -78,7 +83,7 @@
                 width: 70px;
             }
             th.image-th {
-                width: 150px;
+                width: 120px;
             }
             th.action-th {
                 width: 250px;
@@ -88,7 +93,6 @@
             td {
                 padding:10px 10px;
                 font-size: 15px;
-                border-bottom: 1.5px solid #cacaca;
                 img {
                     width: 90px;
                     height: 100px;
@@ -101,11 +105,11 @@
                     margin: 0 5px;
                     cursor: pointer;
                     font-weight: bold;
-                    background-color: #dadada;
+                    background-color: #e7e7e7;
                     transition: .25s;
                 }
                 .btn-update:hover {
-                    background-color: #2365ff;
+                    background-color: #23b6ff;
                     color: #fff;
                 }
                 .btn-delete:hover {
@@ -117,6 +121,9 @@
                 font-weight: bold;
                 font-size: 16px;
             }
+        }
+        .data:nth-child(odd){
+            background-color: #ebf8ff;
         }
     }
 }

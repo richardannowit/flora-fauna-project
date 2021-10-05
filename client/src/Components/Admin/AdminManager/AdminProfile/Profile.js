@@ -1,6 +1,5 @@
 import React from 'react'
 import './Profile.scss'
-import cookie from 'react-cookies'
 import {useHistory} from 'react-router-dom'
 
 export default function Profile(props) {
@@ -9,7 +8,7 @@ export default function Profile(props) {
 
     //Delete user
     const handleDelete = ()=>{
-        cookie.remove('token')
+        localStorage.removeItem('accessToken')
         history.push('/login')
     }
 
@@ -28,7 +27,7 @@ export default function Profile(props) {
             <p className='text profile-title'>Login Information</p>
             <p className='text profile-username'>Username: {props.user.username}</p>
             <p className='text profile-name'>Full name: {props.user.first_name + ' ' + props.user.last_name}</p>
-            <p className='text profile-phone'>Phone number: {props.user.phone_number}</p>
+            <p className='text profile-phone'>Phone number: {props.user.phone}</p>
             <p className='text profile-phone'>Email: {props.user.email}</p>
             <div className='profile-action'>
                 <button className='profile-btn' onClick={handleShowUpdateMemberForm}><i className="fas fa-pen"></i> Update Profile</button>
