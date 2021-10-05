@@ -2,10 +2,11 @@ import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:8000/api'
 
-export default async function connectAPI(method, url, data=null){
-    return axios({
+export default async function connectAPI(method, url, token=null, data=null){
+    return await axios({
         method,
         url,
+        headers: {'Authorization': token !== null && 'Bearer ' + token},
         data
     })
     .then(res=>res.data)
@@ -15,8 +16,8 @@ export default async function connectAPI(method, url, data=null){
 
 
 //API FOOD
-async function getFoods() {
-    const res = await connectAPI('get', '/foods')
+async function getFoods(token) {
+    const res = await connectAPI('get', '/foods', token)
     return res
 } 
 
@@ -25,13 +26,13 @@ async function getFoodByName(food_name) {
     return res
 }
 
-async function postFood(data) {
-    const res = await connectAPI('post', `/foods`, data)
+async function postFood(data, token=null) {
+    const res = await connectAPI('post', `/foods`, token, data)
     return res
 }
 
-async function putFood(food_id, data) {
-    const res = await connectAPI('put', `/foods/${food_id}`, data)
+async function putFood(food_id, data, token=null) {
+    const res = await connectAPI('put', `/foods/${food_id}`, token, data)
     return res
 }
 
@@ -53,13 +54,13 @@ async function getCategoriesByName(category_name) {
     return res
 }
 
-async function postCategory(data) {
-    const res = await connectAPI('post', `/categories`, data)
+async function postCategory(data, token=null) {
+    const res = await connectAPI('post', `/categories`, token, data)
     return res
 }
 
-async function putCategory(category_id, data) {
-    const res = await connectAPI('put', `/categories/${category_id}`, data)
+async function putCategory(category_id, data, token=null) {
+    const res = await connectAPI('put', `/categories/${category_id}`, token, data)
     return res
 }
 
@@ -86,8 +87,8 @@ async function getUserById(user_id) {
     return res
 }
 
-async function putUser(user_id, data) {
-    const res = await connectAPI('put', `/users/${user_id}`, data)
+async function putUser(user_id, data, token=null) {
+    const res = await connectAPI('put', `/users/${user_id}`,token, data)
     return res
 }
 
@@ -112,13 +113,13 @@ async function getOrdersByName(customer_name) {
 
 
 //API Auth
-async function userLogin(data){
-    const res = await connectAPI('post', '/auth/login', data)
+async function userLogin(data, token=null){
+    const res = await connectAPI('post', '/auth/login',token, data)
     return res
 }
 
-async function userRegister(data) {
-    const res = await connectAPI('post', '/auth/register', data)
+async function userRegister(data, token=null) {
+    const res = await connectAPI('post', '/auth/register', token, data)
     return res
 }
 

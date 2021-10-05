@@ -53,7 +53,7 @@ class Form extends React.Component {
                 validUsername = 0
                 this.error_username.current.innerHTML = 'The length is from 7 characters.'
             }
-        }else if(existUser.length > 0) {
+        }else if(existUser.data.length > 0) {
                 validUsername = 0
                 this.error_username.current.innerHTML = 'Username is Existed'
             }

@@ -17,7 +17,7 @@ class Foods extends React.Component {
 
     //Load data
     async componentWillMount() {
-        const foods= await getFoods()
+        const foods= await getFoods(localStorage.getItem('accessToken'))
         const categories = await getCategories()
         this.setState({foods: foods.data})
         this.setState({categories: categories.data})
@@ -67,7 +67,11 @@ class Foods extends React.Component {
 
     //Search engine
     handleSearch = async (food_name)=>{
-        const food = await getFoodByName(food_name)
+        let food;
+        if(food_name === '')
+            food = await getFoods()
+        else
+            food = await getFoodByName(food_name)
         await this.setState({foods: food.data})
     }
 

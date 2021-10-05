@@ -10,7 +10,7 @@ class Form extends React.Component {
             price: 0,
             description: '',
             active: 0 ,
-            image: null,
+            image_name: null,
             category: ''
         }
         this.btnAddImg = React.createRef()
@@ -21,7 +21,7 @@ class Form extends React.Component {
         if(this.props.data_food)
             this.setState({
                 id: this.props.data_food.id,
-                food_name: this.props.data_food.name,
+                food_name: this.props.data_food.food_name,
                 price: this.props.data_food.price,
                 description: this.props.data_food.description, 
                 active:  this.props.data_food.active,
@@ -58,12 +58,12 @@ class Form extends React.Component {
     //Submit form
     handleSubmit = async (e)=>{
         e.preventDefault()
-        const image = new FormData()
+        const image_name = new FormData()
         let data = []
-        image.append('image', this.state.image)
+        image_name.append('image_name', this.state.image)
         let data_submit = {
             ...this.state,
-            image
+            image_name
         }
         if(this.props.method.match(/post/i)) {
             data = await postFood(data_submit)
@@ -73,7 +73,7 @@ class Form extends React.Component {
         this.props.onSubmit(data.data, this.props.method, this.state.id)
         await this.setState({
             id: '',
-            name: '',
+            food_name: '',
             price: 0,
             description: '',
             active: 0 ,
@@ -101,7 +101,7 @@ class Form extends React.Component {
                                 <p>Image:</p>
                                 <div className='upload-file'>
                                     <button ref={this.btnAddImg}>Choose image</button>
-                                    <input type='file' name='image' onChange={this.handleChangeFile}/>
+                                    <input type='file' name='image_name' onChange={this.handleChangeFile}/>
                                 </div>
                             </div>
                             <div className='elm elm-col'>

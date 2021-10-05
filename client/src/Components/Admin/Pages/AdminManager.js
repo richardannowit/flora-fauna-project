@@ -4,7 +4,7 @@ import Add from '../AdminManager/Form/Add/AddForm'
 import Update from '../AdminManager/Form/Update/UpdateForm'
 import Profile from '../AdminManager/AdminProfile/Profile'
 import ChangePassword from '../AdminManager/Form/ChangePasword/ChangePassword'
-import {getUser, getUserByName} from '../API/ConnectAPI'
+import {getUsers, getUserByName} from '../API/ConnectAPI'
 class AdminManager extends React.Component {
 
     constructor(props) {
@@ -20,8 +20,8 @@ class AdminManager extends React.Component {
 
     //Load data
     async componentDidMount() {
-     //    const users = await getUser()
-    //    await this.setState({users: users.data})
+        const users = await getUsers()
+        await this.setState({users: users.data})
     }
 
     //Set state to Show added form
@@ -66,8 +66,12 @@ class AdminManager extends React.Component {
 
     //Search engine
     handleSearch = async (username)=>{
-        const data = await getUserByName(username)
-        await this.setState({users: data.data})
+        let users
+        if(username === ''){
+            users = await getUsers()
+        }else
+            users = await getUserByName(username)
+        await this.setState({users: users.data})
     }
 
     render() {

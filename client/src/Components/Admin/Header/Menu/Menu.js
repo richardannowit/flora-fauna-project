@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link, useHistory} from 'react-router-dom' 
+import {Link, useHistory, Route} from 'react-router-dom' 
 import './Menu.scss'
 
 export default function Menu(props){
@@ -10,24 +10,28 @@ export default function Menu(props){
         history.push('/login')
     }
 
+    const ListItemLink = (to, exact, label) =>{
+        return (
+          <Route
+            path={to}
+            exact={exact}
+            children={({ match }) => (
+              <li>
+                <Link className={match ? "menu-elm active" : "menu-elm"} to={to}>{label}</Link>
+              </li>
+            )}
+          />
+        );
+      }
+
     return (
             <div className="menu-admin">
                 <ul>
-                    <li>
-                        <Link className='menu-elm' to='/admin'>Home</Link>
-                    </li>
-                    <li>
-                        <Link className='menu-elm' to='/admin/admin-manager'>Member Manage</Link>
-                    </li>
-                    <li>
-                        <Link className='menu-elm' to='/admin/categories'>Categories Manage</Link>
-                    </li>
-                    <li>
-                        <Link className='menu-elm' to='/admin/foods'>Foods Manage</Link>
-                    </li>
-                    <li>
-                        <Link className='menu-elm' to='/admin/order'>Order Manage</Link>
-                    </li>
+                    {ListItemLink('/admin',true, 'Home')}
+                    {ListItemLink('/admin/admin-manager', false, 'Member Manage')}
+                    {ListItemLink('/admin/categories', false, 'Categories Manage')}
+                    {ListItemLink('/admin/foods', false, 'Foods Manage')}
+                    {ListItemLink('/admin/orders', false, 'Orders Manage')}
                     <li>
                         <p className='menu-elm' onClick={handleLogout}>Logout</p>
                     </li>

@@ -64,8 +64,13 @@ class Categories extends React.Component {
 
     //Search engine
     handleSearch = async (category_name)=>{
-        const data = await getCategoriesByName(category_name)
-        await this.setState({categories: data.data})
+        let categories
+        if(category_name===''){
+            categories = await getCategories()
+        }else{
+            categories = await getCategoriesByName(category_name)
+        }
+        await this.setState({categories: categories.data})
     }
 
     render() {
@@ -88,6 +93,7 @@ class Categories extends React.Component {
                     onClickToAddCategory={this.showAddCategory} 
                     onClickToUpdateCategory={this.showUpdateCategory} 
                     categories={this.state.categories}
+                    history={this.props.history}
                 />
             </div>
         )

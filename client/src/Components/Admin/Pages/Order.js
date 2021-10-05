@@ -12,12 +12,16 @@ class Order extends React.Component {
     //Load data
     async componentDidMount() {
         const orders = await getOrders()
-        this.setState({orders: orders.data})
+        this.setState({orders: orders ? orders.data: []})
     }
 
     //Search engine
     handleSearch = async (customer_name)=>{
-        const orders = await getOrdersByName(customer_name)
+        let orders
+        if(customer_name === '')
+            orders = await getOrders()
+        else
+            orders = await getOrdersByName(customer_name)
         await this.setState({orders: orders.data})
     }
 

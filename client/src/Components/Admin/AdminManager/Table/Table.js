@@ -21,7 +21,7 @@ class Table extends React.Component {
                         <p>{user.username}</p>
                     </td>
                     <td>
-                        <p>{user.phone_number}</p>
+                        <p>{user.phone}</p>
                     </td>
                     <td>
                         <p>{user.email}</p>
