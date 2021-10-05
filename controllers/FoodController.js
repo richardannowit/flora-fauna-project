@@ -11,7 +11,7 @@ module.exports.viewFood = async (req, res) => {
             });
         }
         else{
-            res.status(404).json({
+            res.json({
                 message: "Can't not find food"
             })
         }

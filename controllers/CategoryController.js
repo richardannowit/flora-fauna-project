@@ -9,7 +9,7 @@ module.exports.viewCategories = async (req, res) => {
             });
         }
         else{
-            res.status(501).json({
+            res.json({
                 message: "Can't not find category"
             })
         }

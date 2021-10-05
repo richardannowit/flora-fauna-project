@@ -11,11 +11,10 @@ module.exports.viewUser = async (req, res) => {
             });
         }
         else{
-            res.status(404).json({
+            res.json({
                 message: "Can't not find food"
             })
         }
-      
     }catch(err) {
         console.error(err);
     }
@@ -28,7 +27,7 @@ module.exports.findUserName = async (req, res) => {
         const users = await user.findUserName(`%${search}%`);
         // const foods = await food.findFood(`%${search}%`);
 
-        if(users.length > 0){
+        if(users){
             res.status(200).json({
                 data: users
             });
@@ -46,9 +45,9 @@ module.exports.findUserName = async (req, res) => {
 module.exports.findUserID = async (req, res) => {
     const search = req.params.search;
     try{
-        const users = await user.findUserID(`%${search}%`);
+        const users = await user.findUserID(`${search}`);
         // const foods = await food.findFood(`%${search}%`);
-        if(users.length > 0){
+        if(users){
             res.status(200).json({
                 data: users
             });

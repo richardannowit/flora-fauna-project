@@ -57,7 +57,7 @@ module.exports = User;
 //view all User
 module.exports.viewUser = function viewUser(){
     return new Promise((resolve, reject)=>{
-        connection.query("SELECT * FROM users ", function(error, result){
+        connection.query("SELECT id, username, first_name, last_name, email, phone FROM users ", function(error, result){
             if (error) {
                 reject(error);
             }else{
@@ -75,10 +75,14 @@ module.exports.viewUser = function viewUser(){
 module.exports.findUserName = (search)=>{
     return new Promise((resolve, reject) => {
         connection.query("SELECT * FROM users WHERE username LIKE ?", search, (error, result)=>{
-            if(error) {
+            if (error) {
                 reject(error);
             }else{
-                resolve(result);
+                if (result.length > 0) {
+                    resolve(result);
+                } else {
+                    resolve(null);
+                }
             }
         })
     })
@@ -88,10 +92,14 @@ module.exports.findUserName = (search)=>{
 module.exports.findUserID = (search)=>{
     return new Promise((resolve, reject) => {
         connection.query("SELECT * FROM users WHERE id LIKE ?", search, (error, result)=>{
-            if(error) {
+            if (error) {
                 reject(error);
             }else{
-                resolve(result);
+                if (result.length > 0) {
+                    resolve(result);
+                } else {
+                    resolve(null);
+                }
             }
         })
     })

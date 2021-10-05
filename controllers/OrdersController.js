@@ -9,8 +9,8 @@ module.exports.viewOrder = async (req, res) => {
             });
         }
         else{
-            res.status(404).json({
-                message: "Can't not find food"
+            res.json({
+                message: "Can't not find order"
             })
         }
       

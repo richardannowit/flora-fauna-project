@@ -4,7 +4,7 @@ const { connection } = require("../config/database");
 
 module.exports.viewOrder = function viewFood(){
     return new Promise((resolve, reject)=>{
-        connection.query("SELECT * FROM orders ", function(error, result){
+        connection.query("SELECT orders.customer_name, orders.customer_email, orders.customer_phone_number, orders.customer_address, orders.quantity, foods.food_name, foods.price FROM orders INNER JOIN foods ON orders.food_id = foods.id ORDER BY orders.id;", function(error, result){
             if (error) {
                 reject(error);
             }else{
