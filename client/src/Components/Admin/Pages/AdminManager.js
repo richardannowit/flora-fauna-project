@@ -20,7 +20,7 @@ class AdminManager extends React.Component {
 
     //Load data
     async componentDidMount() {
-        const users = await getUsers()
+        const users = await getUsers(localStorage.getItem('accessToken'))
         await this.setState({users: users.data})
     }
 
@@ -68,9 +68,9 @@ class AdminManager extends React.Component {
     handleSearch = async (username)=>{
         let users
         if(username === ''){
-            users = await getUsers()
+            users = await getUsers(localStorage.getItem('accessToken'))
         }else
-            users = await getUserByName(username)
+            users = await getUserByName(username, localStorage.getItem('accessToken'))
         await this.setState({users: users.data})
     }
 

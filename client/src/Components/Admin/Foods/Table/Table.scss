@@ -1,7 +1,7 @@
 .table-foods {
     width: 75%;
     margin: 90px auto;
-    min-height: 100vh;
+    min-height: 80vh;
     .label-food {
         margin-bottom: 15px;
         font-size: 25px;
@@ -71,10 +71,10 @@
                 color: white;
             }
             th.description-th {
-                width: 250px;
+                width: 220px;
             }
             th.title-th {
-                width: 200px;
+                width: 210px;
             }
             th.sn-th {
                 width: 50px;
@@ -83,10 +83,13 @@
                 width: 70px;
             }
             th.image-th {
-                width: 120px;
+                width: 130px;
             }
             th.action-th {
                 width: 250px;
+            }
+            th.category-th {
+                width: 110px;
             }
         }
         .data {
@@ -125,5 +128,14 @@
         .data:nth-child(odd){
             background-color: #ebf8ff;
         }
+    }
+    .no-data {
+        width: 100%;
+        text-align: center;
+        height: 40px;
+        font-weight: 600;
+        letter-spacing: .5px;
+        font-size: 17px;
+        line-height:40px;
     }
 }

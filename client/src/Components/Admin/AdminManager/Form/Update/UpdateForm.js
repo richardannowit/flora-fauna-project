@@ -1,6 +1,6 @@
 import React from 'react'
 import './UpdateForm.scss'
-
+import  {putUser} from '../../../API/ConnectAPI'
 class UpdateForm extends React.Component {
     constructor(props) {
         super(props)
@@ -22,11 +22,6 @@ class UpdateForm extends React.Component {
         this.setState({user: this.props.data_user})
     }
 
-    //Submit form
-    handleSubmit = (e)=>{
-        e.preventDefault()
-    }
-
     //Hide updated form
     onHideMemberForm = ()=>{
         this.props.onHideMemberForm()
@@ -39,7 +34,6 @@ class UpdateForm extends React.Component {
         const regexp_phone =/^\d{10,11}$/
         let validEmail = 0, validPhone = 0
         await this.setState(pre=>({user: {...pre.user, [name]: value}}))
-        console.log(this.state.user.phone_number)
         if(!regexp_email.test(this.state.user.email)){
             if(name === 'email'){
                 validEmail = 0
@@ -61,10 +55,27 @@ class UpdateForm extends React.Component {
         }
 
         if(validEmail && validPhone){
-            this.setState({invalid: 0})
-        }else{
             this.setState({invalid: 1})
+        }else{
+            this.setState({invalid: 0})
         }
+    }
+
+    //Submit form
+    handleSubmit = async (e)=>{
+        e.preventDefault()
+        if(this.state.invalid){
+            const put = await putUser(localStorage.getItem('id'), this.state.user, localStorage.getItem('accessToken')) 
+            console.log(put)
+        }
+        const user = {
+            phone_number: '',
+            last_name: '',
+            first_name: '',
+            email: '',
+        }
+        await this.setState({user})
+
     }
 
     render(){

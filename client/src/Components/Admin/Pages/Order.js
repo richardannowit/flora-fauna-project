@@ -11,17 +11,17 @@ class Order extends React.Component {
 
     //Load data
     async componentDidMount() {
-        const orders = await getOrders()
-        this.setState({orders: orders ? orders.data: []})
+        const orders = await getOrders(localStorage.getItem('accessToken'))
+        this.setState({orders: orders.data ? orders.data: []})
     }
 
     //Search engine
     handleSearch = async (customer_name)=>{
         let orders
         if(customer_name === '')
-            orders = await getOrders()
+            orders = await getOrders(localStorage.getItem('accessToken'))
         else
-            orders = await getOrdersByName(customer_name)
+            orders = await getOrdersByName(customer_name, localStorage.getItem('accessToken'))
         await this.setState({orders: orders.data})
     }
 

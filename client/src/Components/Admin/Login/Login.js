@@ -1,8 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react'
 import "./Login.scss";
 import {userLogin} from '../API/ConnectAPI'
 import { useHistory } from 'react-router-dom'
-import axios from 'axios';
 
 export default function Login(props){
     const [user, setUser] = useState({username:'', password:''})

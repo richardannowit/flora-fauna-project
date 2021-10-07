@@ -1,7 +1,7 @@
 .table-categories {
     width: 75%;
     margin: 90px auto;
-    min-height: 100vh;
+    min-height: 80vh;
     .label-category {
         margin-bottom: 15px;
         font-size: 25px;
@@ -127,5 +127,14 @@
         .data:nth-child(odd){
             background-color: #ebf8ff;
         }
+    }
+    .no-data {
+        width: 100%;
+        text-align: center;
+        height: 40px;
+        font-weight: 600;
+        letter-spacing: .5px;
+        font-size: 17px;
+        line-height:40px;
     }
 }

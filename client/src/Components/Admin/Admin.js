@@ -7,24 +7,32 @@ import Foods from './Pages/Foods'
 import Order from './Pages/Order'
 import NotFound from './Pages/NotFound'
 import Header from './Header/Header'
+import Footer from './Footer/Footer'
 import {getUserById} from  './API/ConnectAPI'
 class Admin extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             user: {
-                username: 'dpkhang',
-                first_name: 'Dinh',
-                last_name: 'Khang',
-                phone: '0939305459',
-                email: 'khang1@gmail.com'
+                username: '',
+                first_name: '',
+                last_name: '',
+                phone: '',
+                email: ''
             }
         }
     }
 
     async componentDidMount() {
-        const user = await getUserById(localStorage.getItem('id'))
-        await this.setState({user: user.data})
+        window.addEventListener('storage', e=>{
+            if(e.key === 'id' && e.oldValue !== e.newValue){
+                localStorage.removeItem('id')
+                localStorage.removeItem('accessToken')
+                this.props.history.push('/login')
+            }
+        })
+        const user = await getUserById(localStorage.getItem('id'), localStorage.getItem('accessToken'))
+        await this.setState({user: user.data[0]})
     }
 
     render() {
@@ -33,7 +41,7 @@ class Admin extends React.Component {
         return (
             <div>
                 <Header></Header>
-                <div style={{width: '100%', height: 'auto', position: 'absolute'}}>
+                <div style={{width: '100%'}}>
                     <Switch>
                         <Route path='/admin/' exact component={Home}/>
                         <Route path='/admin/categories'  component={Categories}/>
@@ -45,6 +53,7 @@ class Admin extends React.Component {
                         <Route path='' component={NotFound}/>
                     </Switch>
                 </div>
+                <Footer></Footer>
             </div>
         )
     }

@@ -16,7 +16,7 @@ class Categories extends React.Component {
     }
 
     async componentWillMount() {
-        const categories = await getCategories()
+        const categories = await getCategories(localStorage.getItem('accessToken'))
         await this.setState({categories: categories.data})
     }
 
@@ -66,9 +66,9 @@ class Categories extends React.Component {
     handleSearch = async (category_name)=>{
         let categories
         if(category_name===''){
-            categories = await getCategories()
+            categories = await getCategories(localStorage.getItem('accessToken'))
         }else{
-            categories = await getCategoriesByName(category_name)
+            categories = await getCategoriesByName(category_name, localStorage.getItem('accessToken'))
         }
         await this.setState({categories: categories.data})
     }

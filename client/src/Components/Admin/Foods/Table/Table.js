@@ -27,13 +27,13 @@ class Table extends React.Component {
                         <img src={food.image_name} alt=''/>
                     </td>
                     <td>
-                        <p>{food.category}</p>
+                        <p>{food.category_name}</p>
                     </td>
                     <td>
                         <p>{food.price}</p>
                     </td>
                     <td>
-                        <p>{food.active ? 'Yes' : 'No'}</p>
+                        <p>{food.active === 1 ? 'Yes' : 'No'}</p>
                     </td>
                     <td>
                         <button className='btn btn-update' onClick={()=>{this.onShowUpdateFoodForm(food)}}><i className="fas fa-pen"></i> Update</button>
@@ -58,7 +58,7 @@ class Table extends React.Component {
     handleDeleteFood = async (id) =>{
         const bool = window.confirm('Do you want to delete?')
         if(bool){
-            const delete_food = await deleteFood(id)
+            const delete_food = await deleteFood(id, localStorage.getItem('accessToken'))
             console.log(delete_food.message)
         }
         
@@ -99,7 +99,7 @@ class Table extends React.Component {
                         {this.getData()}
                     </tbody>
                 </table>
-                {this.props.foods.length === 0 && <p>No data found!</p>}
+                {this.props.foods.length === 0 && <p className='no-data'>No data found!</p>}
             </div>
         );
     }
