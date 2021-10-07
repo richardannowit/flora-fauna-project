@@ -75,7 +75,7 @@ class Table extends React.Component {
                         {this.getData()}
                     </tbody>
                 </table>
-                {this.props.users.length === 0 && <p>No data found!</p>}
+                {this.props.users.length === 0 && <p className='no-data'>No data found!</p>}
             </div>
 
         );

@@ -41,7 +41,7 @@ class Table extends React.Component {
     handleDeleteCategory = async (id) =>{
         const confirm = window.confirm('Do you want to delete?')
         if(confirm){
-            const data = await deleteCategory(id)
+            const data = await deleteCategory(id, localStorage.getItem('accessToken'))
             this.props.onDelete(data.data, id)
         }
     }
@@ -77,7 +77,7 @@ class Table extends React.Component {
                         {this.getData()}
                     </tbody>
                 </table>
-                {this.props.categories.length === 0 && <p>No data found!</p>}
+                {this.props.categories.length === 0 && <p className='no-data'>No data found!</p>}
             </div>
         )
     }

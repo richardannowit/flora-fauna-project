@@ -11,7 +11,7 @@ class Form extends React.Component {
             description: '',
             active: 0 ,
             image_name: null,
-            category: ''
+            category_name: ''
         }
         this.btnAddImg = React.createRef()
     }
@@ -25,11 +25,11 @@ class Form extends React.Component {
                 price: this.props.data_food.price,
                 description: this.props.data_food.description, 
                 active:  this.props.data_food.active,
-                category: this.props.data_food.category
+                category_name: this.props.data_food.category
             })
         else{
             this.setState({
-                category: this.props.categories[0].category_name
+                category_name: this.props.categories[0].category_name
             })
         }
     }
@@ -66,9 +66,9 @@ class Form extends React.Component {
             image_name
         }
         if(this.props.method.match(/post/i)) {
-            data = await postFood(data_submit)
+            data = await postFood(data_submit, localStorage.getItem('accessToken'))
         }else
-            data = await putFood(this.state.id, data_submit)
+            data = await putFood(this.state.id, data_submit, localStorage.getItem('accessToken'))
         alert(data.message)
         this.props.onSubmit(data.data, this.props.method, this.state.id)
         await this.setState({
@@ -111,7 +111,7 @@ class Form extends React.Component {
                                 </div>
                                 <div className='col'>
                                     <p>Category:</p>
-                                    <select name='category' value={this.state.category} onChange={this.handleChange}>
+                                    <select name='category_name' value={this.state.category_name} onChange={this.handleChange}>
                                         {this.props.categories.map((elm, idx)=>{
                                             return (<option value={elm.category_name} key={idx}>{elm.category_name}</option>)
                                         })}

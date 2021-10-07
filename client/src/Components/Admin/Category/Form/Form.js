@@ -54,9 +54,9 @@ class Form extends React.Component {
             image_name
         }
         if(this.props.method.match(/post/i)){
-            data = await postCategory(data_submit)
+            data = await postCategory(data_submit, localStorage.getItem('accessToken'))
         }else {
-            data = await putCategory(this.state.id, data_submit)
+            data = await putCategory(this.state.id, data_submit, localStorage.getItem('accessToken'))
         }
         this.props.onSubmit(data.data, this.props.method, this.state.id)
         alert(data.message)

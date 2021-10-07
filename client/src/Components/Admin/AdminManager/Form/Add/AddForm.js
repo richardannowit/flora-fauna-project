@@ -123,7 +123,7 @@ class Form extends React.Component {
             phone_number: ''
         }
         if(this.state.isInvalid){
-            const user = await userRegister(this.state.user)
+            const user = await userRegister(this.state.user, localStorage.getItem('accessToken'))
             this.props.onSubmit(user.data, method)
             alert('Add Successfully')
             await this.setState({user: object})

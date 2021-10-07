@@ -42,10 +42,14 @@ class Table extends React.Component {
                         <p>{parseInt(order.quantity)*parseInt(order.price)}</p>
                     </td>
                     <td>
-                        <p>{order.active ? 'Waiting': 'Delivering'}</p>
+                        <select>
+                            <option value='waiting'>waiting</option>
+                            <option value='delivering'>delivering</option>
+                            <option value='success'>success</option>
+                        </select>
                     </td>
                     <td>
-                        <p>{order.date}</p>
+                        <p>{order.order_date}</p>
                     </td>
                 </tr>
             )
@@ -80,16 +84,16 @@ class Table extends React.Component {
                             <th className='customer-phone-th'>Customer Phone</th>
                             <th className='customer-address-th'>Customer Address</th>
                             <th className='food-name-th'>Food Name</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
+                            <th className='food-price-th'>Price</th>
+                            <th className='food-quantity-th'>Quantity</th>
+                            <th className='food-total-th'>Total</th>
                             <th className='active-th'>Active</th>
-                            <th className='day-th'>Date</th>
+                            <th className='date-th'>Date</th>
                         </tr>
                         {this.getData()}
                     </tbody>
                 </table>
-                {this.props.orders.length === 0 && <p>No data found!</p>}
+                {this.props.orders.length === 0 && <p className='no-data'>No data found!</p>}
                 {/* <p>See more</p> */}
             </div>
         );
