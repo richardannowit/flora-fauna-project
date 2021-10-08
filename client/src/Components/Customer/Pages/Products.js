@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { getProducts } from '../API/Connect-API';
 import Footer from '../Footer/Footer';
 import Product from '../Product/Product';
 import Search from '../Search/Search';
@@ -16,33 +17,33 @@ class Products extends Component {
 
     async componentDidMount() {
         //handle products load in here
-        const ResultProducts = await axios.get('http://localhost:8000/api/foods?limit=6');
-        const products = ResultProducts.data.data;
-
+        const limit = 6;
+        const products = await getProducts(limit);
+        //console.log(products);
         this.setState({
-            Products: products
+            Products: products.data
         });
     }
 
     static async getDerivedStateFromProps(nextProps) {
         if (nextProps.ClickProductsItem) {
             //Load data
-            const ResultProducts = await axios.get('http://localhost:8000/api/foods?limit=6');
-            const products = ResultProducts.data.data;
-
-            return {
-                Products: products
-            };
+            const limit = 6;
+            const products = await getProducts(limit);
+            //console.log(products);
+            return ({
+                Products: products.data
+            });
         }
         if (nextProps.NameCategoryWillLoad) {
             //this method run when click to category
             //load product in category name
-            const ResultProducts = await axios.get('http://localhost:8000/api/foods');
-            const products = ResultProducts.data.data;
-
-            return {
-                Products: products
-            };
+            const limit = 6;
+            const products = await getProducts(limit);
+            //console.log(products);
+            return ({
+                Products: products.data
+            });
         }
         return { undefined };
     }
