@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { getCategories } from '../API/Connect-API';
 import Category from '../Category/Category';
 import Footer from '../Footer/Footer';
 import Search from '../Search/Search';
@@ -16,14 +16,11 @@ class Categories extends Component {
 
     async componentDidMount () {
         //handle categories load in here
-        const ResultCategories = await axios.get('http://localhost:8000/api/categories?limit=9');
-        const categories = ResultCategories.data.data;
-        
-        //set path image
-
+        const limit = 6;
+        const categories = await getCategories(limit);  
 
         this.setState({
-            Categories: categories
+            Categories: categories.data
         });
     }
 

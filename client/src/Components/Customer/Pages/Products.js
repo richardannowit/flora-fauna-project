@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { getProducts } from '../API/Connect-API';
 import Footer from '../Footer/Footer';
 import Product from '../Product/Product';
