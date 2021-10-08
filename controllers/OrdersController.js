@@ -37,3 +37,32 @@ module.exports.findOrder = async (req, res)=>{
         console.error(err);
     }
 }
+
+module.exports.statistical = async (req, res) => {
+    try {
+        const array = [];
+        const year = req.params.year;
+        for (let i = 1; i <= 12; i++) {
+            const result = await order.statistical(year, i);
+            let temp = Object.values(result);
+            array.push(...temp);
+            // array.push(result);
+
+        }
+        array.forEach(function(part, index) {
+           if(array[index] == null){
+            array[index]  = 0;
+           } 
+        });
+
+        if(array.length > 0){
+            res.status(200).json({
+                data:array
+            });
+        }else{
+            data: [];
+        }
+    }catch(err) {
+        console.error(err);
+    }
+}

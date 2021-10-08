@@ -20,10 +20,9 @@ module.exports.viewOrder = function viewFood(){
 
 
 //search orders by customer_name
-
 module.exports.findOrder = (search)=>{
     return new Promise((resolve, reject)=>{
-        connection.query("SELECT * FROM orders WHERE customer_name LIKE ?", search, function (error, result){
+        connection.query("SELECT orders.customer_name, orders.customer_email, orders.customer_phone_number, orders.customer_address, orders.quantity,orders.order_date, foods.food_name, foods.price FROM orders INNER JOIN foods ON orders.food_id = foods.id WHERE customer_name LIKE ?", search, function (error, result){
             if(error){
                 reject(error);
             }else{
@@ -36,3 +35,21 @@ module.exports.findOrder = (search)=>{
         });
     })
 }
+
+module.exports.statistical = (year, month) =>{
+    return new Promise((resolve, reject) => {
+        connection.query("SELECT (SUM((orders.quantity*foods.price)/1000)) as total FROM orders INNER JOIN foods ON orders.food_id = foods.id WHERE YEAR(orders.order_date) = ? AND MONTH(orders.order_date) = ?", [year, month], function (error, result){
+            if (error) {
+                reject(error);
+            }else{
+                if (result.length > 0) {
+                    resolve(result[0]);
+                } else {
+                    resolve(null);
+                }
+            }
+        });
+    });
+} 
+
+

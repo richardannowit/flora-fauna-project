@@ -20,7 +20,7 @@ module.exports.viewFood = function viewFood(){
 
 module.exports.findFood = (search)=>{
     return new Promise((resolve, reject) => {
-        connection.query("SELECT * FROM foods WHERE food_name LIKE ?", search, (error, result)=>{
+        connection.query("SELECT foods.id, foods.food_name, foods.price,foods.image_name, foods.description, categories.category_name FROM foods INNER JOIN categories ON foods.category_id = categories.id  WHERE foods.food_name LIKE ?;", search, (error, result)=>{
             if(error) {
                 reject(error);
             }else{

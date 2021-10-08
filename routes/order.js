@@ -9,4 +9,8 @@ router.get('/', orderController.viewOrder)
 
 router.get('/customer_name/:search', orderController.findOrder);//search
 
+router.get('/year/:year', orderController.statistical);//search
+
+// /orders/year/:year
+
 module.exports = router
