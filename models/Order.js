@@ -4,7 +4,7 @@ const { connection } = require("../config/database");
 
 module.exports.viewOrder = function viewFood(){
     return new Promise((resolve, reject)=>{
-        connection.query("SELECT orders.customer_name, orders.customer_email, orders.customer_phone_number, orders.customer_address, orders.quantity,orders.order_date, foods.food_name, foods.price FROM orders INNER JOIN foods ON orders.food_id = foods.id ORDER BY orders.id;", function(error, result){
+        connection.query("SELECT foods.*, orders.* FROM orders INNER JOIN foods ON orders.food_id = foods.id ORDER BY orders.id;", function(error, result){
             if (error) {
                 reject(error);
             }else{
@@ -22,7 +22,7 @@ module.exports.viewOrder = function viewFood(){
 //search orders by customer_name
 module.exports.findOrder = (search)=>{
     return new Promise((resolve, reject)=>{
-        connection.query("SELECT orders.customer_name, orders.customer_email, orders.customer_phone_number, orders.customer_address, orders.quantity,orders.order_date, foods.food_name, foods.price FROM orders INNER JOIN foods ON orders.food_id = foods.id WHERE customer_name LIKE ?", search, function (error, result){
+        connection.query("SELECT foods.*, orders.* FROM orders INNER JOIN foods ON orders.food_id = foods.id WHERE customer_name LIKE ?", search, function (error, result){
             if(error){
                 reject(error);
             }else{
