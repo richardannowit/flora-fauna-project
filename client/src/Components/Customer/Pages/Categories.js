@@ -27,7 +27,9 @@ class Categories extends Component {
     render() {
         return (
             <>
-                <Search></Search>
+                <Search
+                HandleSearch={this.props.HandleSearch}
+                ></Search>
                 <Category
                 Categories={this.state.Categories}
                 ClickCategoryItem={this.props.ClickCategoryItem}

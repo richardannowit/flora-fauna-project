@@ -7,7 +7,8 @@ class Search extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            Content: ""
+            Content: "",
+            result_content: ""
         }
     }
 
@@ -32,12 +33,25 @@ class Search extends Component {
             //run when render search-products component
             const Content = this.props.ContentSearch;
             this.setState({
-                Content: Content
+                Content: Content,
+                result_content: `Result for "${Content}"`
             });
         } else {
             //order
             this.setState({
-                Content: ""
+                Content: "",
+                result_content: ""
+            });
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        //run when use function search in search-products page
+        const Content = this.props.ContentSearch;
+        if (prevProps.ContentSearch !== Content) {
+            this.setState({
+                Content: Content,
+                result_content: `Result for "${Content}"`
             });
         }
     }
@@ -53,6 +67,12 @@ class Search extends Component {
                                 name="search"
                                 value={this.state.Content}
                                 onChange={e => this.handleChange(e)}
+                                onKeyDown={e => {
+                                    //delete event press enter
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                    }
+                                }}
                                 placeholder="Search for Food.."
                                 required />
                             <Link
@@ -60,6 +80,8 @@ class Search extends Component {
                                 onClick={e => this.HandleSubmit(e)}
                                 className="btn btn-primary">Search</Link>
                         </form>
+                        <br></br>
+                        <h1 className="text-white">{this.state.result_content}</h1>
                     </div>
                 </section>
             </div>

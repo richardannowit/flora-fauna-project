@@ -33,6 +33,7 @@ class SearchProduct extends Component {
         const products = await getProductsByName(name_product);
         if (prevProps.ContentSearch !== this.props.ContentSearch) {
             this.setState({
+                ContentSearch: name_product,
                 Products: products.data
             });
         }
@@ -43,7 +44,7 @@ class SearchProduct extends Component {
             <>
                 <Search
                     HandleSearch={this.props.HandleSearch}
-                    ContentSearch={this.props.ContentSearch}
+                    ContentSearch={this.state.ContentSearch}
                 ></Search>
                 <Product Products={this.state.Products}></Product>
                 <Social></Social>

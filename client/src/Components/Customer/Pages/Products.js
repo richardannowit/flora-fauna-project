@@ -47,7 +47,9 @@ class Products extends Component {
     render() {
         return (
             <>
-                <Search></Search>
+                <Search
+                HandleSearch={this.props.HandleSearch}
+                ></Search>
                 <Product Products={this.state.Products}></Product>
                 <Social></Social>
                 <Footer></Footer>

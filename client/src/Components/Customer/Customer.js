@@ -64,6 +64,7 @@ class App extends Component {
               return (
                 <Categories
                   ClickCategoryItem={this.ClickCategoryItem}
+                  HandleSearch={this.HandleSearch}
                 ></Categories>
               );
             }}
@@ -72,6 +73,7 @@ class App extends Component {
             render={() => {
               return (
                 <Products
+                  HandleSearch={this.HandleSearch}
                   NameCategoryWillLoad={this.state.NameCategoryWillLoad}
                   ClickProductsItem={this.state.ClickProductsItem}
                 ></Products>
