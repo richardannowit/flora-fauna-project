@@ -24,6 +24,11 @@ async function getProducts (limit) {
     return reuslt;
 }
 
+async function getProductsByName (ContentSearch) {
+    const result = await connectAPI('get',`/foods/food_name/${ContentSearch}`);
+    return result;
+}
+
 
 async function getCategories (limit) {
     //get products with limti
@@ -38,7 +43,8 @@ async function getCategories (limit) {
 
 //export get products
 export {
-    getProducts
+    getProducts,
+    getProductsByName
 }
 
 //export get categories

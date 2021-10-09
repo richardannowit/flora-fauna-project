@@ -3,14 +3,12 @@ import { Link } from 'react-router-dom';
 import "./Search.scss";
 
 class Search extends Component {
-    
-    constructor (props) {
+
+    constructor(props) {
         super(props);
         this.state = {
             Content: ""
         }
-
-        this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange = (e) => {
@@ -20,19 +18,28 @@ class Search extends Component {
         });
     }
 
-    HandleSubmit = () => {
+    HandleSubmit = (e) => {
+        //send content search to search-products page
         const Content = this.state.Content;
-
+        if (Content.trim() === "") {
+            e.preventDefault();
+        }
         this.props.HandleSearch(Content);
     }
 
-    static getDerivedStateFromProps(nextProps) {
-        if(nextProps.ContentSearch) {
-            return {
-                Content: nextProps.ContentSearch
-            };
+    componentDidMount() {
+        if (this.props.ContentSearch !== undefined) {
+            //run when render search-products component
+            const Content = this.props.ContentSearch;
+            this.setState({
+                Content: Content
+            });
+        } else {
+            //order
+            this.setState({
+                Content: ""
+            });
         }
-        return {undefined};
     }
 
     render() {
@@ -45,12 +52,12 @@ class Search extends Component {
                                 type="search"
                                 name="search"
                                 value={this.state.Content}
-                                onChange={this.handleChange}
+                                onChange={e => this.handleChange(e)}
                                 placeholder="Search for Food.."
                                 required />
                             <Link
                                 to="/search"
-                                onClick={this.HandleSubmit}
+                                onClick={e => this.HandleSubmit(e)}
                                 className="btn btn-primary">Search</Link>
                         </form>
                     </div>

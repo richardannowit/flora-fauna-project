@@ -15,10 +15,9 @@ class Products extends Component {
     }
 
     async componentDidMount() {
-        //handle products load in here
+        //get list product limit 6 element
         const limit = 6;
         const products = await getProducts(limit);
-        //console.log(products);
         this.setState({
             Products: products.data
         });
@@ -26,10 +25,9 @@ class Products extends Component {
 
     static async getDerivedStateFromProps(nextProps) {
         if (nextProps.ClickProductsItem) {
-            //Load data
+            //get list product
             const limit = 6;
             const products = await getProducts(limit);
-            //console.log(products);
             return ({
                 Products: products.data
             });
