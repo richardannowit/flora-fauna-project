@@ -37,7 +37,6 @@ class Products extends Component {
             //load product in category name
             const limit = 6;
             const products = await getProducts(limit);
-            //console.log(products);
             return ({
                 Products: products.data
             });
