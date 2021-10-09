@@ -3,8 +3,12 @@ import LoginComponent from '../Login/Login';
 import {Redirect} from 'react-router-dom';
 class Login extends Component {
 
+    componentDidMount() {
+        document.title= 'Login'
+    }
+
     render() {
-        if(localStorage.removeItem('accessToken')){
+        if(localStorage.getItem('accessToken')){
             return (<Redirect to='/admin'/>)
         }
         return (

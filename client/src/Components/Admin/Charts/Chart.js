@@ -41,14 +41,14 @@ export default function Chart(props) {
         color: '#777777',
         lineHeight: '40px',
         fontWeight: 'bold',
-        width: '250px',
+        width: '290px',
         textAlign: 'center',
     }
 
     return (
         <div className='chart-form'>
             <div className='row-select' style={{width: '100%', display: 'flex', justifyContent: 'center', height: '40px', alignItems: 'center', marginBottom: '20px'}}>
-                <div style={{width:'250px'}}>
+                <div style={{width:'290px'}}>
                     <SelectTag default={new Date().getFullYear()} onSubmit={handleSubmit} year={year}/>
                 </div>
                 <p className='order-totals' style={styleOrderTotal}>Orders Total: {props.total}</p>

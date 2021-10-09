@@ -8,8 +8,12 @@ export default function Profile(props) {
 
     //Delete user
     const handleDelete = ()=>{
-        localStorage.removeItem('accessToken')
-        history.push('/login')
+        const bool = window.confirm('Are you sure you want to delete?')
+        if(bool){
+            localStorage.removeItem('accessToken')
+            history.push('/login')
+        }
+
     }
 
     //Show user's updated form

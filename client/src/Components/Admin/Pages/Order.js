@@ -11,6 +11,7 @@ class Order extends React.Component {
 
     //Load data
     async componentDidMount() {
+        document.title = 'Admin | Orders Manage'
         const orders = await getOrders(localStorage.getItem('accessToken'))
         this.setState({orders: orders.data ? orders.data: []})
     }

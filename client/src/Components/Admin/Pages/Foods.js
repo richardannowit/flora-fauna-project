@@ -16,7 +16,8 @@ class Foods extends React.Component {
     }
 
     //Load data
-    async componentWillMount() {
+    async componentDidMount() {
+        document.title = 'Admin | Foods Manage'
         const foods= await getFoods(localStorage.getItem('accessToken'))
         const categories = await getCategories(localStorage.getItem('accessToken'))
         this.setState({foods: foods.data})
