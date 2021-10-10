@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { getProducts,getProductsByIdCategory } from '../API/Connect-API';
-import Footer from '../Footer/Footer';
 import Product from '../Product/Product';
 import Search from '../Search/Search';
-import Social from '../Social/Social';
-
 class Products extends Component {
 
     constructor(props) {
@@ -39,9 +36,10 @@ class Products extends Component {
                 <Search
                 HandleSearch={this.props.HandleSearch}
                 ></Search>
-                <Product Products={this.state.Products}></Product>
-                <Social></Social>
-                <Footer></Footer>
+                <Product 
+                Products={this.state.Products}
+                ClickDetails={this.props.ClickDetails}
+                ></Product>
             </>
         );
     }

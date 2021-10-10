@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { getCategories } from '../API/Connect-API';
 import Category from '../Category/Category';
-import Footer from '../Footer/Footer';
 import Search from '../Search/Search';
-import Social from '../Social/Social';
 
 class Categories extends Component {
 
@@ -34,8 +32,6 @@ class Categories extends Component {
                 Categories={this.state.Categories}
                 ClickCategoryItem={this.props.ClickCategoryItem}
                 ></Category>
-                <Social></Social>
-                <Footer></Footer>
             </>
         );
     }
