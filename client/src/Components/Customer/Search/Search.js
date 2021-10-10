@@ -24,8 +24,9 @@ class Search extends Component {
         const Content = this.state.Content;
         if (Content.trim() === "") {
             e.preventDefault();
+        } else {
+            this.props.HandleSearch(Content);
         }
-        this.props.HandleSearch(Content);
     }
 
     componentDidMount() {

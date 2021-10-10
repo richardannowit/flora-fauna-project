@@ -34,6 +34,11 @@ class App extends Component {
     });
   }
 
+  ClickDetails = () => {
+    //get all infomation of food
+    
+  }
+
   HandleSearch = (Content) => {
     //handle content search
     this.setState({
