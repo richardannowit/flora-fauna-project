@@ -9,9 +9,9 @@ class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route path='/' exact component={Customer}></Route>
+          <Route path='/login' component={LoginPage}></Route>
           <Route path='/admin' component={Admin}></Route>
-          {<Route path='/login' component={LoginPage}></Route>}
+          <Route path='/' component={Customer}></Route>
         </Switch>
       </Router>
     );

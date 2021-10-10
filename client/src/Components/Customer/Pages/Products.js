@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import Footer from '../Footer/Footer';
+import { getProducts,getProductsByIdCategory } from '../API/Connect-API';
 import Product from '../Product/Product';
 import Search from '../Search/Search';
-import Social from '../Social/Social';
-
 class Products extends Component {
 
     constructor(props) {
@@ -15,45 +12,34 @@ class Products extends Component {
     }
 
     async componentDidMount() {
-        //handle products load in here
-        const ResultProducts = await axios.get('http://localhost:8000/api/foods?limit=6');
-        const products = ResultProducts.data.data;
-
+        //get list product by id category
+        const id_category = this.props.IdCategory;
+        if (id_category) {
+            const products = await getProductsByIdCategory(id_category);
+            this.setState({
+                Products: products.data
+            });
+            //die process
+            return;
+        }
+        //get list product limit 6 element
+        const limit = 6;
+        const products = await getProducts(limit);
         this.setState({
-            Products: products
+            Products: products.data
         });
-    }
-
-    static async getDerivedStateFromProps(nextProps) {
-        if (nextProps.ClickProductsItem) {
-            //Load data
-            const ResultProducts = await axios.get('http://localhost:8000/api/foods?limit=6');
-            const products = ResultProducts.data.data;
-
-            return {
-                Products: products
-            };
-        }
-        if (nextProps.NameCategoryWillLoad) {
-            //this method run when click to category
-            //load product in category name
-            const ResultProducts = await axios.get('http://localhost:8000/api/foods');
-            const products = ResultProducts.data.data;
-
-            return {
-                Products: products
-            };
-        }
-        return { undefined };
     }
 
     render() {
         return (
             <>
-                <Search></Search>
-                <Product Products={this.state.Products}></Product>
-                <Social></Social>
-                <Footer></Footer>
+                <Search
+                HandleSearch={this.props.HandleSearch}
+                ></Search>
+                <Product 
+                Products={this.state.Products}
+                ClickDetails={this.props.ClickDetails}
+                ></Product>
             </>
         );
     }

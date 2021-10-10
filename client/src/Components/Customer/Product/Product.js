@@ -12,8 +12,6 @@ class Product extends Component {
 
     static getDerivedStateFromProps(nextProps) {
         if (nextProps.Products) {
-            //this method run when click to category
-
             //load product in category name
             return {
                 Products: nextProps.Products
@@ -34,6 +32,7 @@ class Product extends Component {
                                 <ProductItem
                                     key={Index}
                                     Information={Element}
+                                    ClickDetails={this.props.ClickDetails}
                                 ></ProductItem>
                             </div>
                         );

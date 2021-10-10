@@ -2,6 +2,31 @@ import React, { Component } from 'react';
 import './ProductDetails.scss';
 
 class ProductDetails extends Component {
+
+    constructor (props) {
+        super(props);
+        this.state = {
+            product_details: null
+        }
+    }
+
+    handleNoImage = (e) => {
+        //function run when load image error
+        e.target.src = "/Images/Categories/no-image.png"
+        e.onerror = null
+    }
+
+    static getDerivedStateFromProps (nextProps) {
+        //get data product details
+        if (nextProps) {
+            const product_details = nextProps.ProductDetails;
+            return ({
+                product_details: product_details
+            });
+        }
+        return {undefined}
+    }
+
     render() {
         return (
             <>
@@ -10,19 +35,22 @@ class ProductDetails extends Component {
                         <h2 className="text-center text-white">Food Details</h2>
                         <div className='details'>
                             <div className='col-img'>
-                                <img src="/Images/Products/menu-burger.jpg" alt="Chicke Hawain Pizza" className="img-curve" />
+                                <img 
+                                src={this.state.product_details.image_name} 
+                                alt={this.state.product_details.image_name} 
+                                className="img-curve" 
+                                onError={e => {this.handleNoImage(e)}}
+                                />
                             </div>
                             <div className='col-information'>
-                                <h3 className='center'>Buger</h3>
+                                <h3 className='center'>{this.state.product_details.food_name}</h3>
                                 <br></br>
-                                <p><b>Category:</b> Burger</p>
+                                <p><b>Category:</b>{this.state.product_details.category_name}</p>
                                 <br></br>
-                                <p><b>Price:</b> $10.00</p>
+                                <p><b>Price:</b>$ {this.state.product_details.price}</p>
                                 <br></br>
-                                <p><b>Description:</b> A hamburger (or burger for short) is a food, typically considered a sandwich, consisting of one or more cooked patties of ground meat, usually beef, placed inside a sliced bread roll or bun. The patty may be pan fried, grilled, smoked or flame broiled.
-                                A hamburger (or burger for short) is a food, typically considered a sandwich, consisting of one or more cooked patties of ground meat, usually beef, placed inside a sliced bread roll or bun. The patty may be pan fried, grilled, smoked or flame broiled.
-                                A hamburger (or burger for short) is a food, typically considered a sandwich, consisting of one or more cooked patties of ground meat, usually beef, placed inside a sliced bread roll or bun. The patty may be pan fried, grilled, smoked or flame broiled.
-                                A hamburger (or burger for short) is a food, typically considered a sandwich, consisting of one or more cooked patties of ground meat, usually beef, placed inside a sliced bread roll or bun. The patty may be pan fried, grilled, smoked or flame broiled.
+                                <p><b>Description:</b>
+                                {this.state.product_details.description}
                                 </p>
                                 <br></br>
                                 <div className='center'>

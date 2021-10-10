@@ -5,11 +5,12 @@ import { Link } from 'react-router-dom';
 class CategoryItem extends Component {
 
     ClickComponent = () => {
-        const NameCategory = this.props.Information.NameCategory;
-        this.props.ClickCategoryItem(NameCategory);
+        const id_category = this.props.Information.id;
+        this.props.ClickCategoryItem(id_category);
     }
 
     handleNoImage = (e) => {
+        //function run when load image error
         e.target.src = "/Images/Categories/no-image.png"
         e.onerror = null
     }
