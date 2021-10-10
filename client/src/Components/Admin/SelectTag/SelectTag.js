@@ -1,55 +1,65 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import $ from 'jquery'
 import './SelectTag.scss'
 
-export default function SelectTag(props) {
-    const [item, setItem] = useState(props.default)
-    const [option, setOption] = useState([])
-    const mapOption = ()=> {
+class SelectTag extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            item: 0,
+            optionYear: []
+        }
+    }
+
+    mapOption = ()=> {
         return (
-            option.map((elm, idx)=>{
-                return <li id_option={elm.id_option} key={idx} value={elm.value} className='select-option-item' onClick={changeOption}>{elm.value}</li>
+            this.state.optionYear.map((elm, idx)=>{
+                return <li key={idx} data-value={elm} className='select-option-item' onClick={this.changeOption}>{elm}</li>
             })
         )
     } 
 
-    const changeOption = (e)=>{
-        setItem(e.target.value)
-        props.onSubmit(e.target.value)
+    changeOption = async (e)=>{
+        const {onSubmit} = this.props
+        await this.setState({item: e.target.dataset.value})
+        onSubmit(this.state.item)
     }
 
-    const handleClickItem = ()=>{
+    handleClickItem = ()=>{
         $('.select-tag .select-option').stop().slideToggle(400)
         const height = $('.select-tag .select-option').height()
         $('.select-tag .select-items .select-tag-icon').css('transform', `rotateZ(${height > 10 ? 90:-90}deg)`)
     }
 
-    useEffect(()=>{
-        (async function(){
-            const {onSubmit, year} = props
-            onSubmit(item)
-            setOption(year)
-            $('.select-tag .select-option').hide()
-            $('body').click((e)=>{
-                 if(!e.target.classList.value.match(/select-items/)){
-                     $('.select-tag .select-option').slideUp(400)
-                     $('.select-tag .select-items .select-tag-icon').css('transform', 'rotateZ(90deg)')
-                 }
-            })
-        })()
-    },[]) 
+    async componentDidMount() {
+        const {onSubmit} = this.props
+        this.setState({optionYear: this.props.option})
+        await this.setState({item: this.props.default_value})
+        onSubmit(this.state.item)
+        $('.select-tag .select-option').hide()
+        $('body').click((e)=>{
+             if(!e.target.classList.value.match(/select-items/)){
+                 $('.select-tag .select-option').slideUp(400)
+                 $('.select-tag .select-items .select-tag-icon').css('transform', 'rotateZ(90deg)')
+             }
+        })
+    }
 
-    return (
-        <div className='select-tag'>
-            <div className='select-items' onClick={handleClickItem}>
-                <p className='select-tag-title'>{item}</p>
-                <i className='fas fa-chevron-right select-tag-icon'></i>
+    render() {
+        return (
+            <div className='select-tag'>
+                <div className='select-items' onClick={this.handleClickItem}>
+                    <p className='select-tag-title'>{this.state.item}</p>
+                    <i className='fas fa-chevron-right select-tag-icon'></i>
+                </div>
+                <div className='select-option'>
+                    <ul>
+                        {this.mapOption()}
+                    </ul>
+                </div>
             </div>
-            <div className='select-option'>
-                <ul>
-                    {mapOption()}
-                </ul>
-            </div>
-        </div>
-    )
+        )
+    }
 }
+
+export default SelectTag

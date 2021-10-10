@@ -110,6 +110,10 @@ async function getOrdersByName(customer_name, token=null) {
     return res
 }
 
+async function getOrderStatistic(year, token=null){
+    const res = await connectAPI('get', `/orders/statistic/${year}`, token)
+    return res
+}
 
 
 //API Auth
@@ -164,7 +168,8 @@ export {
 //EXPORT ORDERS API
 export {
     getOrders,
-    getOrdersByName
+    getOrdersByName,
+    getOrderStatistic
 }
 
 

@@ -15,7 +15,8 @@ class Categories extends React.Component {
         this.category = React.createRef()
     }
 
-    async componentWillMount() {
+    async componentDidMount() {
+        document.title = 'Admin | Categories Manage'
         const categories = await getCategories(localStorage.getItem('accessToken'))
         await this.setState({categories: categories.data})
     }

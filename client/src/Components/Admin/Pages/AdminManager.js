@@ -20,6 +20,7 @@ class AdminManager extends React.Component {
 
     //Load data
     async componentDidMount() {
+        document.title = 'Admin | Admins Manage'
         const users = await getUsers(localStorage.getItem('accessToken'))
         await this.setState({users: users.data})
     }

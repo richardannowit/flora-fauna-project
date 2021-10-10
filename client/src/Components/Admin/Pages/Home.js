@@ -1,5 +1,5 @@
 import React from 'react'
-import { getCategories, getFoods } from '../API/ConnectAPI'
+import { getCategories, getFoods, getOrderStatistic } from '../API/ConnectAPI'
 import Chart from '../Charts/Chart'
 import './Home.scss'
 class Home extends React.Component {
@@ -10,7 +10,7 @@ class Home extends React.Component {
                 chartData: {
                     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                     datasets: [{
-                        label: 'Revenue ($)',
+                        label: 'Revenue (VND thousand)',
                         data: [],
                         backgroundColor: [
                             '#23b6ff'
@@ -31,7 +31,7 @@ class Home extends React.Component {
                     scales: {
                         y: {
                             suggestedMin: 0,
-                            suggestedMax: 140
+                            suggestedMax: 100000
                         }
                     }
                 },
@@ -39,32 +39,7 @@ class Home extends React.Component {
                 width: 1000, 
                 float: 'left'
             },
-            data: [
-                    {
-                        year: '2020',
-                        data: [10, 54, 23, 4, 106, 0, 12, 24, 32, 45, 11, 8],
-                    },
-                    {
-                        year: '2021',
-                        data: [23, 76, 34, 28, 35, 12, 45, 32, 21, 0, 0, 0],
-                    },
-                    {
-                        year: '2022',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    },
-                    {
-                        year: '2023',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    },
-                    {
-                        year: '2024',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    },
-                    {
-                        year: '2025',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    },
-            ],
+            dataOrderStatistic: [],
             ordersTotal: 0,
             food_quantity: 0,
             category_quantity: 0,
@@ -72,40 +47,37 @@ class Home extends React.Component {
         }
     }
 
-    handleSubmitChart = (value)=>{
-        this.state.data.forEach(async elm => {
-            if(parseInt(elm.year)===value){
-                const datasets = [{
-                    label: 'Revenue ($)',
-                    data: elm.data,
-                    backgroundColor: [
-                        '#23b6ff'
-                    ]
-                }]
-                const ordersBar ={
-                    ...this.state.ordersBar,
-                    chartData: {
-                        ...this.state.ordersBar.chartData,
-                        datasets
+    handleSubmitChart = async (value)=>{
+        const ordersStatistic = await getOrderStatistic(value, localStorage.getItem('accessToken'))
+        const data = ordersStatistic.data
+        const ordersBar ={
+            ...this.state.ordersBar,
+            chartData: {
+                ...this.state.ordersBar.chartData,
+                datasets:[
+                    {
+                        ...this.state.ordersBar.chartData.datasets[0],
+                        data
                     }
-                }
-                await this.setState({ordersBar})
-                await this.setState({ordersTotal: elm.data.reduce((previousValue, currentValue, )=>previousValue+=currentValue, 0)})
+                ]
             }
-        })
+        }
+        await this.setState({ordersBar})
+        await this.setState({ordersTotal: data.reduce((previousValue, currentValue, )=>previousValue+=currentValue, 0)*1000})
     }
 
     async componentDidMount() {
+        document.title = 'Admin | Home'
         const category = await getCategories(localStorage.getItem('accessToken'))
         const food = await getFoods(localStorage.getItem('accessToken'))
-        this.setState({food_active_quantity: food.data.length > 0 ? food.data.reduce((pre, current)=>current.active !== 0 ? pre++: pre, 0): 0})
+        this.setState({food_active_quantity: food.data.length > 0 ? food.data.reduce((pre, current)=> current.active !== 0 ? pre=pre+1 : pre, 0): 0})
         this.setState({category_quantity: category.data.length, food_quantity: food.data.length})
     }
 
     render() {
-        const Currency = new Intl.NumberFormat('en-us', {
+        const Currency = new Intl.NumberFormat('vi-VI', {
             style: 'currency',
-            currency: 'USD',
+            currency: 'VND',
             minimumFractionDigits: 2
         })
         return (
