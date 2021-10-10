@@ -47,6 +47,27 @@ class Menu extends Component {
         //End Initiate Animation for Menu
     }
 
+    RenderItemMenu = (to, exact, name) => {
+        return (
+            <Route
+                path={to}
+                exact={exact}
+                children={({match}) => {
+                    return (
+                        <li className={match ? "active" : ""}>
+                            <Link 
+                                onMouseEnter={(e) => this.AnimationClickTabItem(e)}
+                                to={to}
+                            >{name}</Link>
+                        </li>
+                    );
+                }}
+            >
+
+            </Route>
+        )
+    }
+
     AnimationClickTabItem(e) {
         //get attribute for aniamtion
         let nav = this.state.nav;
@@ -99,27 +120,6 @@ class Menu extends Component {
         });
     }
 
-    RenderItemMenu = (to, exact, name) => {
-        return (
-            <Route
-                path={to}
-                exact={exact}
-                children={({match}) => {
-                    return (
-                        <li className={match ? "active" : ""}>
-                            <Link 
-                                onMouseEnter={(e) => this.AnimationClickTabItem(e)}
-                                to={to}
-                            >{name}</Link>
-                        </li>
-                    );
-                }}
-            >
-
-            </Route>
-        )
-    }
-
     render() {
         return (
             <nav className="menu text-right">
@@ -128,16 +128,6 @@ class Menu extends Component {
                     {this.RenderItemMenu("/categories", false, "Categories")}
                     {this.RenderItemMenu("/products", false, "Foods")}
                     {this.RenderItemMenu("/contract", false, "Contract")}
-                    {/* <li className="active">
-                        <Link to="/"
-                            onClick={() => this.AnimationClickTabItem()}
-                        >Home</Link></li>
-                    <li><Link to="/categories" onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Categories</Link></li>
-                    <li><Link 
-                    to="/products" 
-                    onClick={this.props.ClickProductItem}
-                    onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Foods</Link></li>
-                    <li><Link to="/contract" onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Contract</Link></li> */}
                 </ul>
             </nav>
         );
