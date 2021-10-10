@@ -74,6 +74,7 @@ class Table extends React.Component {
     }
 
     render() {
+
         return (
             <div className='table-foods'>
                 <p className='label-food'>Manage Foods</p>
