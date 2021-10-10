@@ -15,7 +15,7 @@ class Products extends Component {
     }
 
     async componentDidMount() {
-        //get list product by id category limit 6 element
+        //get list product by id category
         const id_category = this.props.IdCategory;
         if (id_category) {
             const products = await getProductsByIdCategory(id_category);

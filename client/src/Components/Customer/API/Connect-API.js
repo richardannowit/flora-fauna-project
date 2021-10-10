@@ -30,7 +30,7 @@ async function getProductsByName (ContentSearch) {
 }
 
 async function getProductsByIdCategory (id_category) {
-    //get list products by id category limit 6 element
+    //get list products by id category
     const result =  await connectAPI('get', `/foods/id_category/${id_category}`);
     return result;
 }
