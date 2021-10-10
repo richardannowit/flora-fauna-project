@@ -39,7 +39,10 @@ class Products extends Component {
                 <Search
                 HandleSearch={this.props.HandleSearch}
                 ></Search>
-                <Product Products={this.state.Products}></Product>
+                <Product 
+                Products={this.state.Products}
+                ClickDetails={this.props.ClickDetails}
+                ></Product>
                 <Social></Social>
                 <Footer></Footer>
             </>

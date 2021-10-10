@@ -7,7 +7,9 @@ class OrderPage extends Component {
     render() {
         return (
             <>
-                <ProductDetails></ProductDetails>
+                <ProductDetails
+                ProductDetails={this.props.ProductDetails}
+                ></ProductDetails>
                 <Social></Social>
                 <Footer></Footer>
             </>

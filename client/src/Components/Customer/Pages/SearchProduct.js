@@ -46,7 +46,10 @@ class SearchProduct extends Component {
                     HandleSearch={this.props.HandleSearch}
                     ContentSearch={this.state.ContentSearch}
                 ></Search>
-                <Product Products={this.state.Products}></Product>
+                <Product 
+                Products={this.state.Products}
+                ClickDetails={this.props.ClickDetails}
+                ></Product>
                 <Social></Social>
                 <Footer></Footer>
             </>

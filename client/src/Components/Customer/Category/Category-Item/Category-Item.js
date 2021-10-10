@@ -10,6 +10,7 @@ class CategoryItem extends Component {
     }
 
     handleNoImage = (e) => {
+        //function run when load image error
         e.target.src = "/Images/Categories/no-image.png"
         e.onerror = null
     }

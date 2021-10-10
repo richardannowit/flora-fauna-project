@@ -47,6 +47,7 @@ class Home extends Component {
                 ></Category>
                 <Product
                 Products={this.state.Products}
+                ClickDetails={this.props.ClickDetails}
                 ></Product>
                 <Social></Social>
                 <Footer></Footer>

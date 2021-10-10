@@ -16,6 +16,7 @@ class App extends Component {
       IdCategory: null,
       ClickProductsItem: true,
       ContentSearch: null,
+      ProductDetails: null
     };
   }
 
@@ -34,9 +35,11 @@ class App extends Component {
     });
   }
 
-  ClickDetails = () => {
+  ClickDetails = (data_product) => {
     //get all infomation of food
-    
+    this.setState({
+      ProductDetails: data_product
+    });
   }
 
   HandleSearch = (Content) => {
@@ -60,6 +63,7 @@ class App extends Component {
                 <Home
                   ClickCategoryItem={this.ClickCategoryItem}
                   HandleSearch={this.HandleSearch}
+                  ClickDetails={this.ClickDetails}
                 ></Home>
               );
             }}
@@ -81,6 +85,7 @@ class App extends Component {
                   HandleSearch={this.HandleSearch}
                   IdCategory ={this.state.IdCategory}
                   ClickProductsItem={this.state.ClickProductsItem}
+                  ClickDetails={this.ClickDetails}
                 ></Products>
               );
             }}
@@ -93,13 +98,21 @@ class App extends Component {
                     ContentSeach={this.state.ContentSeach}
                     HandleSearch={this.HandleSearch}
                     ContentSearch={this.state.ContentSearch}
+                    ClickDetails={this.ClickDetails}
                   ></SearchProduct>
                 );
               }}
             ></Route>
             <Route path='/contract' component={ContractPage}></Route>
             <Route path='/order' component={OrderPage}></Route>
-            <Route path='/productDetails' component={ProductDetailsPage}></Route>
+            <Route path='/productDetails' render={() => {
+              return (
+                <ProductDetailsPage
+                ProductDetails={this.state.ProductDetails}
+                ></ProductDetailsPage>
+              );
+            }}
+            ></Route>
           </Switch>
         </Router>
       </>
