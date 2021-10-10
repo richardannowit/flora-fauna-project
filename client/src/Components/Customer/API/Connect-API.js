@@ -29,6 +29,12 @@ async function getProductsByName (ContentSearch) {
     return result;
 }
 
+async function getProductsByIdCategory (id_category) {
+    //get list products by id category
+    const result =  await connectAPI('get', `/foods/id_category/${id_category}`);
+    return result;
+}
+
 
 async function getCategories (limit) {
     //get products with limti
@@ -44,7 +50,8 @@ async function getCategories (limit) {
 //export get products
 export {
     getProducts,
-    getProductsByName
+    getProductsByName,
+    getProductsByIdCategory
 }
 
 //export get categories

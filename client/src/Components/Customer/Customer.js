@@ -13,16 +13,16 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      NameCategoryWillLoad: null,
+      IdCategory: null,
       ClickProductsItem: true,
       ContentSearch: null,
     };
   }
 
-  ClickCategoryItem = (NameCategory) => {
+  ClickCategoryItem = (id_category) => {
     //handle click category item
     this.setState({
-      NameCategoryWillLoad: NameCategory,
+      IdCategory: id_category,
       ClickProductsItem: false
     });
   }
@@ -32,6 +32,11 @@ class App extends Component {
     this.setState({
       ClickProductsItem: true
     });
+  }
+
+  ClickDetails = () => {
+    //get all infomation of food
+    
   }
 
   HandleSearch = (Content) => {
@@ -74,7 +79,7 @@ class App extends Component {
               return (
                 <Products
                   HandleSearch={this.HandleSearch}
-                  NameCategoryWillLoad={this.state.NameCategoryWillLoad}
+                  IdCategory ={this.state.IdCategory}
                   ClickProductsItem={this.state.ClickProductsItem}
                 ></Products>
               );

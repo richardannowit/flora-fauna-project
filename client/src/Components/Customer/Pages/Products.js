@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getProducts } from '../API/Connect-API';
+import { getProducts,getProductsByIdCategory } from '../API/Connect-API';
 import Footer from '../Footer/Footer';
 import Product from '../Product/Product';
 import Search from '../Search/Search';
@@ -15,33 +15,22 @@ class Products extends Component {
     }
 
     async componentDidMount() {
+        //get list product by id category
+        const id_category = this.props.IdCategory;
+        if (id_category) {
+            const products = await getProductsByIdCategory(id_category);
+            this.setState({
+                Products: products.data
+            });
+            //die process
+            return;
+        }
         //get list product limit 6 element
         const limit = 6;
         const products = await getProducts(limit);
         this.setState({
             Products: products.data
         });
-    }
-
-    static async getDerivedStateFromProps(nextProps) {
-        if (nextProps.ClickProductsItem) {
-            //get list product
-            const limit = 6;
-            const products = await getProducts(limit);
-            return ({
-                Products: products.data
-            });
-        }
-        if (nextProps.NameCategoryWillLoad) {
-            //this method run when click to category
-            //load product in category name
-            const limit = 6;
-            const products = await getProducts(limit);
-            return ({
-                Products: products.data
-            });
-        }
-        return { undefined };
     }
 
     render() {
