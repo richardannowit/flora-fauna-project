@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from './Header/Header';
+import Footer from './Footer/Footer';
+import Social from './Social/Social';
 import Home from './Pages/Home';
 import Categories from './Pages/Categories';
 import Products from './Pages/Products';
@@ -51,46 +53,46 @@ class App extends Component {
 
   render() {
     return (
-      <>
-        <Router>
-          <Header
+      <div>
+        <Header
           ClickProductItem={this.ClickProductItem}
-          ></Header>
+        ></Header>
+        <div style={{ width: '100%' }}>
           <Switch>
-            <Route path='/' exact 
-            render={() => {
-              return (
-                <Home
-                  ClickCategoryItem={this.ClickCategoryItem}
-                  HandleSearch={this.HandleSearch}
-                  ClickDetails={this.ClickDetails}
-                ></Home>
-              );
-            }}
+            <Route path='/' exact
+              render={() => {
+                return (
+                  <Home
+                    ClickCategoryItem={this.ClickCategoryItem}
+                    HandleSearch={this.HandleSearch}
+                    ClickDetails={this.ClickDetails}
+                  ></Home>
+                );
+              }}
             ></Route>
-            <Route path='/categories' 
-            render={() => {
-              return (
-                <Categories
-                  ClickCategoryItem={this.ClickCategoryItem}
-                  HandleSearch={this.HandleSearch}
-                ></Categories>
-              );
-            }}
+            <Route path='/categories'
+              render={() => {
+                return (
+                  <Categories
+                    ClickCategoryItem={this.ClickCategoryItem}
+                    HandleSearch={this.HandleSearch}
+                  ></Categories>
+                );
+              }}
             ></Route>
-            <Route path='/products' 
-            render={() => {
-              return (
-                <Products
-                  HandleSearch={this.HandleSearch}
-                  IdCategory ={this.state.IdCategory}
-                  ClickProductsItem={this.state.ClickProductsItem}
-                  ClickDetails={this.ClickDetails}
-                ></Products>
-              );
-            }}
+            <Route path='/products'
+              render={() => {
+                return (
+                  <Products
+                    HandleSearch={this.HandleSearch}
+                    IdCategory={this.state.IdCategory}
+                    ClickProductsItem={this.state.ClickProductsItem}
+                    ClickDetails={this.ClickDetails}
+                  ></Products>
+                );
+              }}
             ></Route>
-            <Route 
+            <Route
               path='/search'
               render={() => {
                 return (
@@ -108,14 +110,16 @@ class App extends Component {
             <Route path='/productDetails' render={() => {
               return (
                 <ProductDetailsPage
-                ProductDetails={this.state.ProductDetails}
+                  ProductDetails={this.state.ProductDetails}
                 ></ProductDetailsPage>
               );
             }}
             ></Route>
           </Switch>
-        </Router>
-      </>
+        </div>
+        <Social></Social>
+        <Footer></Footer>
+      </div>
     );
   }
 }

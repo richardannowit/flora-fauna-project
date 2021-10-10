@@ -8,8 +8,6 @@ class OrderPage extends Component {
         return (
             <>
                 <Order></Order>
-                <Social></Social>
-                <Footer></Footer>
             </>
         );
     }

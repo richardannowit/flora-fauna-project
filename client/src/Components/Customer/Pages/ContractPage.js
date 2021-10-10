@@ -9,8 +9,6 @@ class ContractPage extends Component {
         return (
             <>
                 <Contract></Contract>
-                <Social></Social>
-                <Footer></Footer>
             </>
         );
     }

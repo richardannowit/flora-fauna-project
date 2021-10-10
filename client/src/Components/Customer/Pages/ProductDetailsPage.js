@@ -10,8 +10,6 @@ class OrderPage extends Component {
                 <ProductDetails
                 ProductDetails={this.props.ProductDetails}
                 ></ProductDetails>
-                <Social></Social>
-                <Footer></Footer>
             </>
         );
     }

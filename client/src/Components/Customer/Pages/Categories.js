@@ -34,8 +34,6 @@ class Categories extends Component {
                 Categories={this.state.Categories}
                 ClickCategoryItem={this.props.ClickCategoryItem}
                 ></Category>
-                <Social></Social>
-                <Footer></Footer>
             </>
         );
     }
