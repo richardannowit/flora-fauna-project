@@ -70,7 +70,7 @@ class Home extends React.Component {
         document.title = 'Admin | Home'
         const category = await getCategories(localStorage.getItem('accessToken'))
         const food = await getFoods(localStorage.getItem('accessToken'))
-        this.setState({food_active_quantity: food.data.length > 0 ? food.data.reduce((pre, current)=>current.active !== 0 ? pre++: pre, 0): 0})
+        this.setState({food_active_quantity: food.data.length > 0 ? food.data.reduce((pre, current)=> current.active !== 0 ? pre=pre+1 : pre, 0): 0})
         this.setState({category_quantity: category.data.length, food_quantity: food.data.length})
     }
 
