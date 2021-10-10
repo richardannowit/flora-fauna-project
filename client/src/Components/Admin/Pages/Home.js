@@ -47,7 +47,7 @@ class Home extends React.Component {
         }
     }
 
-    handleSubmitChart = async(value)=>{
+    handleSubmitChart = async (value)=>{
         const ordersStatistic = await getOrderStatistic(value, localStorage.getItem('accessToken'))
         const data = ordersStatistic.data
         const ordersBar ={

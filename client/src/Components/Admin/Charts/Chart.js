@@ -3,35 +3,10 @@ import {Bar} from 'react-chartjs-2'
 import SelectTag from '../SelectTag/SelectTag'
 
 export default function Chart(props) { 
-    const [year] = useState(
-        [
-            {
-                id_option: '2',
-                value: '2020',
-            },
-            {
-                id_option: '3',
-                value: '2021',
-            },
-            {
-                id_option: '4',
-                value: '2022',
-            },
-            {
-                id_option: '5',
-                value: '2023',
-            },
-            {
-                id_option: '6',
-                value: '2024',
-            },
-            {
-                id_option: '7',
-                value: '2025',
-            },
-        ])
 
-    const handleSubmit = (value)=>{
+    const [year] = useState([2020, 2021, 2022, 2023, 2024, 2025])
+
+    const getOptionYear = (value)=>{
         props.onSubmitChart(value)
     }
 
@@ -49,7 +24,7 @@ export default function Chart(props) {
         <div className='chart-form'>
             <div className='row-select' style={{width: '100%', display: 'flex', justifyContent: 'center', height: '40px', alignItems: 'center', marginBottom: '20px'}}>
                 <div style={{width:'290px'}}>
-                    <SelectTag default={new Date().getFullYear()} onSubmit={handleSubmit} year={year}/>
+                    <SelectTag default_value={new Date().getFullYear()} onSubmit={getOptionYear} option={year}/>
                 </div>
                 <p className='order-totals' style={styleOrderTotal}>Orders Total: {props.total}</p>
             </div>
