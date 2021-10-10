@@ -3,8 +3,6 @@ import { getProducts, getCategories } from '../API/Connect-API';
 import Search from '../Search/Search';
 import Category from '../Category/Category';
 import Product from '../Product/Product';
-import Social from '../Social/Social';
-import Footer from '../Footer/Footer';
 
 class Home extends Component {
 
