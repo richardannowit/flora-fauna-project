@@ -30,6 +30,19 @@ module.exports.findFood = (search)=>{
     })
 }
 
+module.exports.findFoodID = (search)=>{
+    return new Promise((resolve, reject) => {
+        connection.query("SELECT foods.*, categories.* FROM foods INNER JOIN categories ON foods.category_id = categories.id  WHERE foods.category_id LIKE ?;", search, (error, result)=>{
+            if(error) {
+                reject(error);
+            }else{
+                resolve(result);
+            }
+        })
+    })
+}
+
+
 
 
 module.exports.createFood = function createFood(newFood) {

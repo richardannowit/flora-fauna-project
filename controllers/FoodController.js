@@ -41,6 +41,28 @@ module.exports.findFood = async (req, res) => {
     }
 }
 
+
+module.exports.findFoodID = async (req, res) => {
+    const search = req.params.search;
+    try{
+        const foods = await food.findFoodID(`%${search}%`);
+        // const foods = await food.findFood(`%${search}%`);
+
+        if(foods.length > 0){
+            res.status(200).json({
+                data: foods
+            });
+        }else{
+            res.status(200).json({
+                data:[]
+            })
+        }
+    }catch(err) {
+      console.log(err);
+    }
+}
+
+
 module.exports.delete= async (req, res) => {
     const id = req.params.id;
     try{
