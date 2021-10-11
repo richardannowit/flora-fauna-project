@@ -15,6 +15,7 @@ class App extends Component {
     super(props);
     this.state = {
       IdCategory: null,
+      loadProductPage: false,
       ClickProductsItem: true,
       ContentSearch: null,
       ProductDetails: null
@@ -50,11 +51,18 @@ class App extends Component {
     });
   }
 
+  ClickProductItemOnMenu = (data) => {
+    this.setState({
+      loadProductPage: data
+    });
+  }
+
   render() {
     return (
       <div>
         <Header
           ClickProductItem={this.ClickProductItem}
+          ClickProductItemOnMenu={this.ClickProductItemOnMenu}
         ></Header>
         <div style={{ width: '100%' }}>
           <Switch>
@@ -88,6 +96,8 @@ class App extends Component {
                     ClickProductsItem={this.state.ClickProductsItem}
                     ContentSearch={this.state.ContentSearch}
                     ClickDetails={this.ClickDetails}
+                    loadProductPage={this.state.loadProductPage}
+                    ClickProductItemOnMenu={this.ClickProductItemOnMenu}
                   ></Products>
                 );
               }}

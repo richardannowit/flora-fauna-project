@@ -51,7 +51,9 @@ class Menu extends Component {
                 exact={exact}
                 children={({ match }) => {
                     return (
-                        <li className={match ? "active" : ""}>
+                        <li 
+                        className={match ? "active" : ""}
+                        >
                             <Link
                                 to={to}
                             >{name}</Link>
@@ -73,8 +75,7 @@ class Menu extends Component {
         let active = nav.find('.active');
         let position = active.position();
 
-        if (pos !== position.left) {
-            if (active.length) {
+        if (active.length && pos !== position.left) {
                 let width = active.width();
 
                 nav.addClass('animate');
@@ -107,7 +108,6 @@ class Menu extends Component {
                     pos: position.left,
                     wid: width
                 });
-            }
         }
     }
 
