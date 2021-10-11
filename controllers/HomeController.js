@@ -4,7 +4,7 @@ var UserModel = require("../models/User")
 
 
 let index = async (req, res) => {
-    let user = await UserModel.findUser("trung");
+    let user = await UserModel.findUser("namvt002");
     res.status(200).json({
         data: user
     });
