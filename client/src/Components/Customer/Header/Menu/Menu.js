@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from "react-router-dom";
+import { Route } from 'react-router';
 import $ from 'jquery';
 import './Menu.scss'
 
@@ -44,6 +45,27 @@ class Menu extends Component {
             wid: wid
         });
         //End Initiate Animation for Menu
+    }
+
+    RenderItemMenu = (to, exact, name) => {
+        return (
+            <Route
+                path={to}
+                exact={exact}
+                children={({match}) => {
+                    return (
+                        <li className={match ? "active" : ""}>
+                            <Link 
+                                onMouseEnter={(e) => this.AnimationClickTabItem(e)}
+                                to={to}
+                            >{name}</Link>
+                        </li>
+                    );
+                }}
+            >
+
+            </Route>
+        )
     }
 
     AnimationClickTabItem(e) {
@@ -102,17 +124,10 @@ class Menu extends Component {
         return (
             <nav className="menu text-right">
                 <ul>
-                    <li className="active">
-                        <Link to="/"
-                            onClick={() => this.AnimationClickTabItem()}
-                        >Home</Link></li>
-                    <li><Link to="/categories" onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Categories</Link></li>
-                    <li><Link 
-                    to="/products" 
-                    onClick={this.props.ClickProductItem}
-                    onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Foods</Link></li>
-                    <li><Link to="/contract" onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Contract</Link></li>
-                    <li><Link to="/login" onMouseEnter={(e) => this.AnimationClickTabItem(e)}>Login</Link></li>
+                    {this.RenderItemMenu("/", true, "Home")}
+                    {this.RenderItemMenu("/categories", false, "Categories")}
+                    {this.RenderItemMenu("/products", false, "Foods")}
+                    {this.RenderItemMenu("/contract", false, "Contract")}
                 </ul>
             </nav>
         );

@@ -12,14 +12,12 @@ class Product extends Component {
 
     static getDerivedStateFromProps(nextProps) {
         if (nextProps.Products) {
-            //this method run when click to category
-            
             //load product in category name
             return {
                 Products: nextProps.Products
             }
         }
-        return {undefined}
+        return { undefined }
     }
 
     render() {
@@ -30,21 +28,17 @@ class Product extends Component {
                     {this.state.Products.map((Element, Index) => {
                         //render row
                         return (
-                            <div className="row product-reposive" key={Index}>
-                                {Element.map((ChildElement, ChildIndex) => {
-                                    //render item
-                                    return (
-                                        <ProductItem
-                                            key={ChildIndex}
-                                            Information={ChildElement}
-                                        ></ProductItem>
-                                    );
-                                })}
-                                <div className="clearfix" />
+                            <div className="product-reposive" key={Index}>
+                                <ProductItem
+                                    key={Index}
+                                    Information={Element}
+                                    ClickDetails={this.props.ClickDetails}
+                                ></ProductItem>
                             </div>
                         );
                     })}
                 </div>
+                <div className="clearfix" />
                 <p className="text-center">
                     <span className="pink">See All Foods</span>
                 </p>

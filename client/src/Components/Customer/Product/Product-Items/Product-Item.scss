@@ -1,5 +1,6 @@
 .product-menu-box{
     width: 43%;
+    height: 160px;
     margin: 1%;
     padding: 2%;
     float: left;
@@ -31,4 +32,8 @@
 
 .product-menu-desc h4{
     color: black;
+}
+
+.product-menu-desc h4:hover{
+    color: #ff4757;
 }

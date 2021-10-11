@@ -1,0 +1,104 @@
+import React from 'react'
+import Category from '../Category/Table/Table'
+import Form from '../Category/Form/Form'
+import {getCategories, getCategoriesByName} from '../API/ConnectAPI'
+class Categories extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state ={
+            activeAddCategory: false,
+            activeUpdateCategory: false,
+            category_data_update: {},
+            categories: [],
+            search: []
+        }
+        this.category = React.createRef()
+    }
+
+    async componentDidMount() {
+        document.title = 'Admin | Categories Manage'
+        const categories = await getCategories(localStorage.getItem('accessToken'))
+        await this.setState({categories: categories.data})
+    }
+
+    //Set state to show added form
+    showAddCategory =() =>{
+        this.setState(preState=>({activeAddCategory: preState.activeAddCategory ? false : true}))
+        document.body.style.overflow = 'hidden'
+        this.category.current.style.paddingRight = '15px'
+    }
+
+    //Set state to show updated form
+    showUpdateCategory =(category) =>{
+        this.setState(preState=>({activeUpdateCategory: preState.activeAddCategory ? false : true}))
+        this.setState({category_data_update: category})
+        document.body.style.overflow = 'hidden'
+        this.category.current.style.paddingRight = '15px'
+    }
+
+    //Set state to hide form
+    hideFormCategory = () =>{
+        this.setState({activeAddCategory: false, activeUpdateCategory: false})
+        document.body.style.overflow = 'visible'
+        this.category.current.style.paddingRight = '0px'
+    }
+
+    //Load new state
+    handleSubmit = (category,method, id)=>{
+        const {categories} = this.state
+        if(method.match(/post/i)) 
+            categories.push(category)
+        else {
+            const idx = categories.findIndex(elm => elm.id === id)
+            categories[idx] = category
+        }
+        this.setState({categories: categories})
+    }
+
+    //Delete
+    handleDelete = (category, id) =>{
+        const {categories} = this.state
+        const idx = categories.findIndex(elm => elm.id === id)
+        categories.splice(idx, 1)
+        this.setState({categories: categories})
+    }
+
+    //Search engine
+    handleSearch = async (category_name)=>{
+        let categories
+        if(category_name===''){
+            categories = await getCategories(localStorage.getItem('accessToken'))
+        }else{
+            categories = await getCategoriesByName(category_name, localStorage.getItem('accessToken'))
+        }
+        await this.setState({categories: categories.data})
+    }
+
+    render() {
+        return (
+            <div ref={this.category} style={{position: 'relative'}}>
+                {this.state.activeAddCategory && <Form 
+                                                    method='POST' 
+                                                    onSubmit={this.handleSubmit} 
+                                                    onCloseForm={this.hideFormCategory}
+                                                    />}
+                {this.state.activeUpdateCategory && <Form 
+                                                    method='PUT' 
+                                                    onSubmit={this.handleSubmit} 
+                                                    onCloseForm={this.hideFormCategory} 
+                                                    data_category={this.state.category_data_update}
+                                                    />}
+                <Category 
+                    onSearch={this.handleSearch} 
+                    onDelete={this.handleDelete} 
+                    onClickToAddCategory={this.showAddCategory} 
+                    onClickToUpdateCategory={this.showUpdateCategory} 
+                    categories={this.state.categories}
+                    history={this.props.history}
+                />
+            </div>
+        )
+    }
+}
+
+export default Categories
