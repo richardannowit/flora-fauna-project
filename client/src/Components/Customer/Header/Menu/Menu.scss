@@ -10,6 +10,7 @@
     display: inline;
     padding: 1%;
     font-weight: bold;
+    float: right;
 }
 
 .menu {
@@ -24,14 +25,14 @@ nav {
 nav .line {
     height: 2px;
     position: absolute;
-    margin-left: 5px;
+    margin-left: 7px;
     background: #FF1847;
+    float: right;
   }
   nav ul {
     padding: 0;
     margin: 0;
     list-style: none;
-    display: flex;
   }
   nav ul li {
     margin: 0 40px 0 0;
