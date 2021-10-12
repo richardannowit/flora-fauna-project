@@ -26,6 +26,7 @@ class Search extends Component {
             e.preventDefault();
         } else {
             this.props.HandleSearch(Content);
+            localStorage.clear();
         }
     }
 

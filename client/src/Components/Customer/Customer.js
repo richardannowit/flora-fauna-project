@@ -26,7 +26,8 @@ class App extends Component {
     //handle click category item
     this.setState({
       IdCategory: id_category,
-      ClickProductsItem: false
+      ClickProductsItem: false,
+      ContentSearch: null
     });
   }
 
@@ -47,13 +48,8 @@ class App extends Component {
   HandleSearch = (Content) => {
     //handle content search
     this.setState({
-      ContentSearch: Content
-    });
-  }
-
-  ClickProductItemOnMenu = (data) => {
-    this.setState({
-      loadProductPage: data
+      ContentSearch: Content,
+      id_category: null
     });
   }
 
@@ -62,7 +58,6 @@ class App extends Component {
       <div>
         <Header
           ClickProductItem={this.ClickProductItem}
-          ClickProductItemOnMenu={this.ClickProductItemOnMenu}
         ></Header>
         <div style={{ width: '100%' }}>
           <Switch>
@@ -96,8 +91,6 @@ class App extends Component {
                     ClickProductsItem={this.state.ClickProductsItem}
                     ContentSearch={this.state.ContentSearch}
                     ClickDetails={this.ClickDetails}
-                    loadProductPage={this.state.loadProductPage}
-                    ClickProductItemOnMenu={this.ClickProductItemOnMenu}
                   ></Products>
                 );
               }}

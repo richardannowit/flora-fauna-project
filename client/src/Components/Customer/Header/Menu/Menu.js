@@ -44,6 +44,13 @@ class Menu extends Component {
         //End Initiate Animation for Menu
     }
 
+    ClearLocalStorage = () => {
+        try {
+            localStorage.clear();
+            localStorage.setItem('check_load_all', true);
+        } catch (e) { }
+    }
+
     RenderItemMenu = (to, exact, name) => {
         return (
             <Route
@@ -56,6 +63,7 @@ class Menu extends Component {
                         >
                             <Link
                                 to={to}
+                                onClick={() => this.ClearLocalStorage()}
                             >{name}</Link>
                         </li>
                     );
