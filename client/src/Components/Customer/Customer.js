@@ -15,7 +15,6 @@ class App extends Component {
     super(props);
     this.state = {
       IdCategory: null,
-      loadProductPage: false,
       ClickProductsItem: true,
       ContentSearch: null,
       ProductDetails: null
