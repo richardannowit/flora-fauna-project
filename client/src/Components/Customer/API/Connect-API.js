@@ -29,6 +29,11 @@ async function getProductsByName (ContentSearch) {
     return result;
 }
 
+async function getProductsById (IdProduct) {
+    const result = await connectAPI('get', `/foods/id/${IdProduct}`);
+    return result;
+}
+
 async function getProductsByIdCategory (id_category) {
     //get list products by id category
     const result =  await connectAPI('get', `/foods/id_category/${id_category}`);
@@ -51,7 +56,8 @@ async function getCategories (limit) {
 export {
     getProducts,
     getProductsByName,
-    getProductsByIdCategory
+    getProductsByIdCategory,
+    getProductsById
 }
 
 //export get categories
