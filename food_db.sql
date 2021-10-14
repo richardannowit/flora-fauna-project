@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 24, 2021 at 03:22 PM
+-- Generation Time: Oct 07, 2021 at 03:33 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -131,6 +131,55 @@ CREATE TABLE `orders` (
   `customer_address` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `quantity`, `order_date`, `status`, `food_id`, `customer_name`, `customer_phone_number`, `customer_email`, `customer_address`) VALUES
+(1, 1, '2021-02-15 07:44:04', 'waiting', 6, 'trung', '0123456789', 'trung@gmail.com', 'hau giang'),
+(2, 4, '2021-10-07 13:30:40', 'waiting', 21, 'khang', '012345678911', 'khang@gmail.com', 'vinh long'),
+(4, 2, '2020-11-20 11:58:21', 'waiting', 9, 'Holdlamis', '8253991481', 'gbernhardt1@e-r', 'Independencia'),
+(5, 3, '2021-05-29 02:29:56', 'waiting', 6, 'Asoka', '7439018081', 'gvernon2@google', 'Karney Shomron'),
+(7, 2, '2020-12-21 15:01:16', 'waiting', 9, 'Holdlamis', '8253991481', 'gbernhardt1@e-r', 'Independencia'),
+(8, 3, '2020-10-17 10:02:24', 'waiting', 6, 'Asoka', '7439018081', 'gvernon2@google', 'Karney Shomron'),
+(10, 3, '2021-09-27 08:14:11', 'waiting', 6, 'Asoka', '7439018081', 'gvernon2@google', 'Karney Shomron'),
+(12, 1, '2021-03-09 16:56:09', 'waiting', 6, 'Redhold', '6429295155', 'rcamps0@histats', 'Maxixe'),
+(15, 7, '2021-10-07 13:30:14', 'waiting', 26, 'Asoka', '8147354489', 'rmaccollom6@hao', 'China'),
+(16, 8, '2021-10-07 13:30:27', 'waiting', 16, 'Latlux', '9684662305', 'rgoodricke7@squ', 'Aracatuba'),
+(17, 10, '2021-02-21 01:58:05', 'waiting', 29, 'Redhold', '2839225923', 'xserck9@bandcam', 'Waso'),
+(18, 11, '2021-02-17 07:36:12', 'waiting', 20, 'Veribet', '5822756234', 'hrappera@shinys', 'Libmanan'),
+(19, 12, '2021-10-06 16:09:43', 'waiting', 22, 'Greenlam', '2816059094', 'stipensb@imgur.', 'Baizhu'),
+(20, 13, '2020-11-07 14:39:43', 'waiting', 8, 'Andalax', '2612183677', 'sbartalotc@smh.', 'Sishui'),
+(21, 14, '2021-01-06 14:34:45', 'waiting', 18, 'Temp', '6947127165', 'mpenderedd@prne', 'Chama'),
+(22, 15, '2021-05-22 01:19:04', 'waiting', 23, 'Latlux', '9286232920', 'hrussele@bibleg', 'Fort Worth'),
+(23, 17, '2021-07-20 07:16:29', 'waiting', 10, 'Span', '4104123020', 'mbertieg@tuttoc', 'Brudze Duy'),
+(24, 18, '2021-06-02 10:24:05', 'waiting', 18, 'Konklux', '4906262174', 'gcolloph@google', 'Ranao'),
+(25, 19, '2021-07-16 18:09:11', 'waiting', 15, 'Rank', '3251883264', 'lantoonsi@ow.ly', 'Imider'),
+(26, 20, '2021-09-03 11:41:13', 'waiting', 28, 'Bitwolf', '7976897184', 'lsowlej@ovh.net', 'Randudongkal'),
+(27, 21, '2021-05-23 05:06:14', 'waiting', 27, 'Zontrax', '1846370912', 'klearek@science', 'Viimsi'),
+(28, 22, '2021-02-28 19:56:18', 'waiting', 28, 'Stim', '9198666344', 'cdonativol@de.v', 'Ulaan-Ereg'),
+(29, 24, '2020-12-05 05:19:12', 'waiting', 25, 'Daltfresh', '4844538770', 'mhelversenn@ama', 'Kameoka'),
+(30, 25, '2021-05-16 10:36:41', 'waiting', 24, 'Tin', '2624613105', 'cgriffino@behan', 'Nagcarlan'),
+(31, 27, '2021-02-12 17:47:40', 'waiting', 12, 'Latlux', '1939909152', 'olydiardq@white', 'Blainville'),
+(32, 28, '2021-07-09 17:00:00', 'waiting', 26, 'Bytecard', '6463509008', 'kcollissonr@tim', 'Babakandesa'),
+(33, 29, '2021-07-23 17:00:00', 'waiting', 15, 'Bitwolf', '1211854305', 'abamseys@cdc.go', 'Krong Pi Nang'),
+(34, 30, '2020-11-19 17:00:00', 'waiting', 12, 'Zaam-Dox', '2191219693', 'hbougheyt@googl', 'Nanlu'),
+(35, 31, '2021-06-13 17:00:00', 'waiting', 23, 'Konklux', '6735239384', 'asmallcombeu@st', 'Calamba'),
+(36, 32, '2021-07-22 17:00:00', 'waiting', 29, 'Cookley', '9238072167', 'psuffieldv@free', 'Xingou'),
+(37, 33, '2021-03-15 17:00:00', 'waiting', 8, 'Konklux', '8578438624', 'kgabalaw@angelf', 'Riangbao'),
+(38, 34, '2021-09-10 17:00:00', 'waiting', 10, 'Mat Lam Tam', '5555281529', 'gdefaux@java.co', 'Punta de Piedra'),
+(39, 35, '2021-08-12 17:00:00', 'waiting', 27, 'Prodder', '5051813738', 'cmertony@bigcar', 'Barkol'),
+(40, 36, '2021-04-06 17:00:00', 'waiting', 17, 'Aerified', '2464616239', 'hdonz@china.com', 'Paris 11'),
+(41, 37, '2021-02-05 17:00:00', 'waiting', 11, 'Subin', '6482619737', 'jranklin10@cam.', 'Yanxi'),
+(42, 38, '2021-01-06 17:00:00', 'waiting', 19, 'Asoka', '2011485397', 'kdownton11@umn.', 'Três Coroas'),
+(43, 39, '2021-07-25 17:00:00', 'waiting', 10, 'Y-Solowarm', '1314350754', 'jtorrisi12@cybe', 'Yizhivtsi'),
+(44, 40, '2021-06-08 17:00:00', 'waiting', 19, 'Hatity', '9018357312', 'gstallard13@ima', 'Nanhai'),
+(45, 3, '2021-10-07 12:05:13', 'waiting', 6, 'Asoka', '7439018081', 'gvernon2@google', 'Karney Shomron'),
+(46, 1, '2021-10-07 12:05:37', 'waiting', 6, 'Redhold', '6429295155', 'rcamps0@histats', 'Maxixe'),
+(47, 27, '2021-10-07 12:05:42', 'waiting', 12, 'Latlux', '1939909152', 'olydiardq@white', 'Blainville'),
+(48, 10, '2021-10-07 12:08:03', 'waiting', 29, 'Redhold', '2839225923', 'xserck9@bandcam', 'Waso'),
+(49, 11, '2021-10-07 12:08:09', 'waiting', 20, 'Veribet', '5822756234', 'hrappera@shinys', 'Libmanan');
+
 -- --------------------------------------------------------
 
 --
@@ -152,7 +201,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `phone`) VALUES
-(3, 'annowit', '$2b$10$rnnM9vyGxcy7K/Em7o1epeIcjZymY7nTlopkapCX3CDCNdRWcesFK', 'Tran ', 'Dang Khoa', '', 0);
+(3, 'annowit', '$2b$10$rnnM9vyGxcy7K/Em7o1epeIcjZymY7nTlopkapCX3CDCNdRWcesFK', 'Tran ', 'Dang Khoa', '', 0),
+(4, 'namvt002', '$2b$10$/sK2u1.MdoAQjO9VUGkvI.Jbjckdji8psMspu4KYXq6lkGKVxsMOW', 'Tran Viet', 'Trung', 'viettrung@gmail.com', 123467788);
 
 --
 -- Indexes for dumped tables
@@ -204,13 +254,13 @@ ALTER TABLE `foods`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
@@ -232,3 +282,4 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+  

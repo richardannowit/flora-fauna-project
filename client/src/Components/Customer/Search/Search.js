@@ -26,16 +26,18 @@ class Search extends Component {
             e.preventDefault();
         } else {
             this.props.HandleSearch(Content);
+            localStorage.clear();
         }
     }
 
     componentDidMount() {
-        if (this.props.ContentSearch !== undefined) {
+        const Content = this.props.ContentSearch;
+        if (Content !== undefined) {
             //run when render search-products component
-            const Content = this.props.ContentSearch;
+            const content = Content === "" ? "" : `Result for "${Content}"`;
             this.setState({
                 Content: Content,
-                result_content: `Result for "${Content}"`
+                result_content: content
             });
         } else {
             //order
@@ -50,9 +52,10 @@ class Search extends Component {
         //run when use function search in search-products page
         const Content = this.props.ContentSearch;
         if (prevProps.ContentSearch !== Content) {
+            const content = Content === "" ? "" : `Result for "${Content}"`;
             this.setState({
                 Content: Content,
-                result_content: `Result for "${Content}"`
+                result_content: content
             });
         }
     }
@@ -77,7 +80,7 @@ class Search extends Component {
                                 placeholder="Search for Food.."
                                 required />
                             <Link
-                                to="/search"
+                                to="/products"
                                 onClick={e => this.HandleSubmit(e)}
                                 className="btn btn-primary">Search</Link>
                         </form>
