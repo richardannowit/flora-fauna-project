@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://localhost:8000/api'
+axios.defaults.baseURL = 'http://localhost:8000/api/admin/'
 
 export default async function connectAPI(method, url, token=null, data=null){
     return await axios({
