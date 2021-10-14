@@ -48,3 +48,19 @@ module.exports.delete = (iddelete) => {
         });
     })
 }
+
+
+// get sort by food
+
+module.exports.sortFood = (limit) =>{
+    return new Promise((resolve, reject)=>{
+        connection.query("SELECT c.*, cn.* FROM categories as c LEFT JOIN (SELECT f.category_id, COUNT(*) as cnt FROM foods as f GROUP BY f.category_id) AS cn on cn.category_id ORDER BY cn.cnt DESC LIMIT ?", limit, function (error, result){
+            if (error) {
+                reject(error);
+            }else{
+                resolve(result);
+            }
+        })
+    })
+}
+

@@ -48,3 +48,40 @@ module.exports.delete = async (req, res) => {
         console.log(err);
     }
 }
+
+
+module.exports.sortFood = async (req, res) => {
+    const limit = req.query.limit;
+    const temp = parseInt(limit, 10);
+    try{
+        if(limit){
+            const categories = await category.sortFood(temp);
+            if(categories != null){
+                res.status(200).json({
+                    data: categories
+                });
+            }else{
+                res.status(200).json({
+                    data:[]
+                })
+            }
+        }else{
+            const categories = await category.viewCategories();
+            if(categories){
+                res.status(200).json({
+                    data: categories
+                });
+            }
+            else{
+                res.json({
+                    message: "Can't not find category"
+                })
+            }
+        }
+    
+    }catch(err) {
+        console.log(err);
+    }
+}
+
+
