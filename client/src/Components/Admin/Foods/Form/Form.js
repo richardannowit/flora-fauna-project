@@ -10,7 +10,7 @@ class Form extends React.Component {
             price: 0,
             description: '',
             active: 0 ,
-            image_name: null,
+            file: null,
             category_name: ''
         }
         this.btnAddImg = React.createRef()
@@ -58,17 +58,18 @@ class Form extends React.Component {
     //Submit form
     handleSubmit = async (e)=>{
         e.preventDefault()
-        const image_name = new FormData()
+        const formData = new FormData()
+        formData.append('file', this.state.image)
+        formData.append('food_name', this.state.food_name)
+        formData.append('price', this.state.price)
+        formData.append('description', this.state.description)
+        formData.append('active', this.state.active)
+        formData.append('category_name', this.state.category_name)
         let data = []
-        image_name.append('image_name', this.state.image)
-        let data_submit = {
-            ...this.state,
-            image_name
-        }
         if(this.props.method.match(/post/i)) {
-            data = await postFood(data_submit, localStorage.getItem('accessToken'))
+            data = await postFood(formData, localStorage.getItem('accessToken'))
         }else
-            data = await putFood(this.state.id, data_submit, localStorage.getItem('accessToken'))
+            data = await putFood(this.state.id, formData, localStorage.getItem('accessToken'))
         alert(data.message)
         this.props.onSubmit(data.data, this.props.method, this.state.id)
         await this.setState({
@@ -101,7 +102,7 @@ class Form extends React.Component {
                                 <p>Image:</p>
                                 <div className='upload-file'>
                                     <button ref={this.btnAddImg}>Choose image</button>
-                                    <input type='file' name='image_name' onChange={this.handleChangeFile}/>
+                                    <input type='file' name='file' onChange={this.handleChangeFile}/>
                                 </div>
                             </div>
                             <div className='elm elm-col'>
