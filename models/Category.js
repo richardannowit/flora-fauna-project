@@ -47,6 +47,20 @@ module.exports.findById = (id) => {
     })
 }
 
+module.exports.findByName = (name) => {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT * FROM categories WHERE category_name = ?', name, (error, result) => {
+            if (error) {
+                reject(error);
+            } else {
+                result = JSON.parse(JSON.stringify(result))
+                resolve(result[0]);
+            }
+        });
+    })
+}
+
+
 
 
 //delete categories by ID
