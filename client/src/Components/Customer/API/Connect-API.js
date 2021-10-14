@@ -40,6 +40,12 @@ async function getProductsByIdCategory (id_category) {
     return result;
 }
 
+async function postOrder (data) {
+    //get status order
+    const result = await connectAPI('post', '/foods/order', data);
+    return result;
+}
+
 
 async function getCategories (limit) {
     //get products with limti
@@ -58,6 +64,11 @@ export {
     getProductsByName,
     getProductsByIdCategory,
     getProductsById
+}
+
+//export post order
+export {
+    postOrder
 }
 
 //export get categories

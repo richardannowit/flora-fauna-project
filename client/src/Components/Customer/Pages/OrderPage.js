@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Order from '../Order/Order';
 import { getProductsById } from '../API/Connect-API';
+import Nofication from '../Order/nofication/nofication';
 
 class OrderPage extends Component {
 
@@ -17,6 +18,11 @@ class OrderPage extends Component {
                 active: null,
                 category_id: null,
                 category_name: null
+            },
+            status_nofication: "hide",
+            nofication: null,
+            order_details: {
+                food_name: ""
             }
         };
     }
@@ -39,11 +45,28 @@ class OrderPage extends Component {
         localStorage.setItem('product', id_product);
     }
 
+    ShowNofication = (check, nofication, order_details) => {
+        //send data to nofication component
+        if (check) {
+            this.setState({
+                status_nofication: "",
+                nofication: nofication,
+                order_details: order_details
+            });
+        }
+    }
+
     render() {
         return (
             <>
+                <Nofication 
+                    status_nofication={this.state.status_nofication}
+                    order_details={this.state.order_details}
+                    nofication={this.state.nofication}
+                ></Nofication>
                 <Order
                     product={this.state.product}
+                    ShowNofication={this.ShowNofication}
                 ></Order>
             </>
         );
