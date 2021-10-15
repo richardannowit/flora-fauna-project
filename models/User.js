@@ -55,12 +55,12 @@ User.createUser = function createUser(newUser) {
 module.exports = User;
 
 //view all User
-module.exports.viewUser = function viewUser(){
-    return new Promise((resolve, reject)=>{
-        connection.query("SELECT id, username, first_name, last_name, email, phone FROM users ", function(error, result){
+module.exports.viewUser = function viewUser() {
+    return new Promise((resolve, reject) => {
+        connection.query("SELECT id, username, first_name, last_name, email, phone FROM users ", function (error, result) {
             if (error) {
                 reject(error);
-            }else{
+            } else {
                 if (result.length > 0) {
                     resolve(result);
                 } else {
@@ -72,12 +72,12 @@ module.exports.viewUser = function viewUser(){
 }
 
 // search user by username
-module.exports.findUserName = (search)=>{
+module.exports.findUserName = (search) => {
     return new Promise((resolve, reject) => {
-        connection.query("SELECT * FROM users WHERE username LIKE ?", search, (error, result)=>{
+        connection.query("SELECT * FROM users WHERE username LIKE ?", search, (error, result) => {
             if (error) {
                 reject(error);
-            }else{
+            } else {
                 if (result.length > 0) {
                     resolve(result);
                 } else {
@@ -89,12 +89,12 @@ module.exports.findUserName = (search)=>{
 }
 
 // search user by ID
-module.exports.findUserID = (search)=>{
+module.exports.findUserID = (search) => {
     return new Promise((resolve, reject) => {
-        connection.query("SELECT * FROM users WHERE id LIKE ?", search, (error, result)=>{
+        connection.query("SELECT * FROM users WHERE id LIKE ?", search, (error, result) => {
             if (error) {
                 reject(error);
-            }else{
+            } else {
                 if (result.length > 0) {
                     resolve(result);
                 } else {
@@ -105,15 +105,29 @@ module.exports.findUserID = (search)=>{
     })
 }
 
+module.exports.update = (user, id) => {
+    return new Promise((resolve, reject) => {
+        const sql = 'UPDATE users SET ? where id=?';
+        connection.query(sql, [user, id], (error, result) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(result);
+            }
+        });
+    })
+}
+
+
 
 //delete user by ID
 
 module.exports.delete = (iddelete) => {
     return new Promise((resolve, reject) => {
-        connection.query('DELETE FROM users WHERE id = ?', iddelete , (error, result)=>{
-            if(error){
+        connection.query('DELETE FROM users WHERE id = ?', iddelete, (error, result) => {
+            if (error) {
                 reject(error);
-            }else{
+            } else {
                 resolve(result);
             }
         });
