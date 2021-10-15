@@ -5,7 +5,12 @@ const category = require('../models/Category')
 
 module.exports.viewFood = async (req, res) => {
     try {
-        const foods = await food.viewFood();
+        let limit = req.query.limit ?? '100000000';
+        let offset = req.query.position ?? '0';
+        limit = parseInt(limit);
+        offset = parseInt(offset);
+        let sort = req.query.sort;
+        const foods = sort === 'id' ? await food.sortById(limit, offset) : await food.sortByQuantity(limit, offset);
         if (foods) {
             res.status(200).json({
                 data: foods
@@ -19,6 +24,19 @@ module.exports.viewFood = async (req, res) => {
 
     } catch (err) {
         console.error(err);
+    }
+}
+
+module.exports.findById = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const foods = await food.findById(id);
+        res.status(200).json({
+            data: foods,
+            message: 'Find successfull'
+        })
+    } catch (err) {
+        console.log(err);
     }
 }
 
@@ -139,4 +157,3 @@ module.exports.update = async (req, res) => {
     });
 
 }
-

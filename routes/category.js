@@ -15,14 +15,18 @@ var storage = multer.diskStorage({
 })
 var upload = multer({ storage: storage })
 
-
 router.get('/', categoryController.viewCategories);
+
+
+// router.get('/', categoryController.viewCategories);
 
 //url = /api/categories/categories_name/:search
 router.get('/categories_name/:search', categoryController.findCategory);
 
 router.post('/', upload.single('file'), categoryController.create);
 router.put('/:id', upload.single('file'), categoryController.update);
+
+
 
 router.delete('/:id', categoryController.delete);
 
