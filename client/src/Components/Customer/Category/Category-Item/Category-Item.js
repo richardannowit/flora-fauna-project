@@ -7,6 +7,7 @@ class CategoryItem extends Component {
     ClickComponent = () => {
         const id_category = this.props.Information.id;
         this.props.ClickCategoryItem(id_category);
+        localStorage.clear();
     }
 
     handleNoImage = (e) => {

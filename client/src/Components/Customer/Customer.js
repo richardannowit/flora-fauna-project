@@ -6,7 +6,6 @@ import Social from './Social/Social';
 import Home from './Pages/Home';
 import Categories from './Pages/Categories';
 import Products from './Pages/Products';
-import SearchProduct from './Pages/SearchProduct';
 import ContractPage from './Pages/ContractPage';
 import OrderPage from './Pages/OrderPage';
 import ProductDetailsPage from './Pages/ProductDetailsPage';
@@ -26,7 +25,8 @@ class App extends Component {
     //handle click category item
     this.setState({
       IdCategory: id_category,
-      ClickProductsItem: false
+      ClickProductsItem: false,
+      ContentSearch: null
     });
   }
 
@@ -47,8 +47,9 @@ class App extends Component {
   HandleSearch = (Content) => {
     //handle content search
     this.setState({
-      ContentSearch: Content
-    })
+      ContentSearch: Content,
+      id_category: null
+    });
   }
 
   render() {
@@ -87,21 +88,9 @@ class App extends Component {
                     HandleSearch={this.HandleSearch}
                     IdCategory={this.state.IdCategory}
                     ClickProductsItem={this.state.ClickProductsItem}
-                    ClickDetails={this.ClickDetails}
-                  ></Products>
-                );
-              }}
-            ></Route>
-            <Route
-              path='/search'
-              render={() => {
-                return (
-                  <SearchProduct
-                    ContentSeach={this.state.ContentSeach}
-                    HandleSearch={this.HandleSearch}
                     ContentSearch={this.state.ContentSearch}
                     ClickDetails={this.ClickDetails}
-                  ></SearchProduct>
+                  ></Products>
                 );
               }}
             ></Route>

@@ -1,18 +1,14 @@
-const multer = require('multer');
+const multer = require('multer')
 const path = require('path');
 
-class upLoadFile{
-
-    upLoad(){
-        const storage = multer.diskStorage({
-            destination: `upload`,
-            filename: function(req, file, callback) {
-                callback(null, `${file.fieldname}${path.extname(file.originalname)}`);
-            }
-        });
-        const upload = multer({storage: storage});
-        return upload;
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public')
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname)
     }
-}
+})
+var upload = multer({ storage: storage }).single('file')
 
-module.exports = new upLoadFile;
+module.exports = { upload }
