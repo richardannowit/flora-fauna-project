@@ -133,6 +133,7 @@ class Products extends Component {
                 <Product
                     Products={this.state.Products}
                     ClickDetails={this.props.ClickDetails}
+                    HandleOrder={this.props.HandleOrder}
                 ></Product>
             </>
         );

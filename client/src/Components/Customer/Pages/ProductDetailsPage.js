@@ -36,6 +36,7 @@ class OrderPage extends Component {
             <>
                 <ProductDetails
                     ProductDetails={this.state.product_details}
+                    HandleOrder={this.props.HandleOrder}
                 ></ProductDetails>
             </>
         );

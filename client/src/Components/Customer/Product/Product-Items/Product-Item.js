@@ -14,6 +14,12 @@ class ProductItem extends Component {
         e.onerror = null
     }
 
+    ClickOrder = () => {
+        //handle order product
+        const id_product = this.props.Information.id;
+        this.props.HandleOrder(id_product);
+    }
+
     render() {
         return (
             <div className="product-menu-box">
@@ -38,7 +44,7 @@ class ProductItem extends Component {
                     <p className="product-price">${this.props.Information.price}</p>
                     <p className="product-detail">{this.props.Information.description}</p>
                     <br />
-                    <Link to="/order" className="btn btn-primary">Order Now</Link>
+                    <Link to="/order" onClick={() => {this.ClickOrder()}} className="btn btn-primary">Order Now</Link>
                 </div>
             </div>
         );

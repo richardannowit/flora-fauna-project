@@ -33,6 +33,7 @@ class Product extends Component {
                                     key={Index}
                                     Information={Element}
                                     ClickDetails={this.props.ClickDetails}
+                                    HandleOrder={this.props.HandleOrder}
                                 ></ProductItem>
                             </div>
                         );

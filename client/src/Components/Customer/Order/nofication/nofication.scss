@@ -1,0 +1,49 @@
+.background {
+    background-color: rgba(51, 51, 51, 0.7);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+}
+
+.nofication {
+    margin: 100px auto;
+    width: 1000px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.nofication .banner {
+    padding: 20px;
+}
+
+.nofication .group-btn {
+    padding: 20px 0 40px 0;
+}
+
+.nofication .group-btn  a {
+    padding: 20px;
+}
+
+.nofication fieldset{
+    border: 1px solid #b9b9b9;
+    margin-bottom: 20px;
+}
+
+.order-details {
+    width: 30%;
+    float: left;
+    text-align: left;
+    margin-left: 40px;
+}
+
+.order-details div {
+    padding-top: 10px;
+    font-size: 20px;
+}
+
+.order-details p {
+    padding-left: 20px;
+    font-size: 19px;
+}
