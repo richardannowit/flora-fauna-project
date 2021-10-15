@@ -9,7 +9,7 @@ var storage = multer.diskStorage({
         cb(null, 'public/uploads')
     },
     filename: function (req, file, cb) {
-        cb(null, 'Category_' + Date.now() + '_' + file.originalname)
+        cb(null, 'Food_' + Date.now() + '_' + file.originalname)
     }
 })
 var upload = multer({ storage: storage })
