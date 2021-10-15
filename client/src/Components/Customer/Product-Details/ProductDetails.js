@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './ProductDetails.scss';
 
 class ProductDetails extends Component {
 
-    constructor (props) {
+    constructor(props) {
         super(props);
         this.state = {
             product_details: null
@@ -16,7 +17,7 @@ class ProductDetails extends Component {
         e.onerror = null
     }
 
-    static getDerivedStateFromProps (nextProps) {
+    static getDerivedStateFromProps(nextProps) {
         //get data product details
         if (nextProps) {
             const product_details = nextProps.ProductDetails;
@@ -24,7 +25,13 @@ class ProductDetails extends Component {
                 product_details: product_details
             });
         }
-        return {undefined}
+        return { undefined }
+    }
+
+    ClickOrder = () => {
+        //handle order
+        const id_product = this.state.product_details.id;
+        this.props.HandleOrder(id_product);
     }
 
     render() {
@@ -35,11 +42,11 @@ class ProductDetails extends Component {
                         <h2 className="text-center text-white">Food Details</h2>
                         <div className='details'>
                             <div className='col-img'>
-                                <img 
-                                src={this.state.product_details.image_name} 
-                                alt={this.state.product_details.image_name} 
-                                className="img-curve" 
-                                onError={e => {this.handleNoImage(e)}}
+                                <img
+                                    src={this.state.product_details.image_name}
+                                    alt={this.state.product_details.image_name}
+                                    className="img-curve"
+                                    onError={e => { this.handleNoImage(e) }}
                                 />
                             </div>
                             <div className='col-information'>
@@ -50,11 +57,11 @@ class ProductDetails extends Component {
                                 <p><b>Price:</b>$ {this.state.product_details.price}</p>
                                 <br></br>
                                 <p><b>Description:</b>
-                                {this.state.product_details.description}
+                                    {this.state.product_details.description}
                                 </p>
-                                <br></br>
+                                <br></br><br></br><br></br>
                                 <div className='center'>
-                                    <button className='btn-primary btn-contract' type='submit'>Order Now</button>
+                                    <Link to='/order' onClick={() => {this.ClickOrder()}} className='btn-primary btn-contract' type='submit'>Order Now</Link>
                                 </div>
                             </div>
                         </div>

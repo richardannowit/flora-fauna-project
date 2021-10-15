@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Route } from 'react-router';
 import $ from 'jquery';
 import './Menu.scss'
@@ -8,10 +8,9 @@ class Menu extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
-            nav: null,
             line: null,
-            active: null,
             pos: null,
             wid: null
         }
@@ -38,13 +37,18 @@ class Menu extends Component {
         }
         //store attribute to state
         this.setState({
-            nav: nav,
             line: line,
-            active: active,
             pos: pos,
             wid: wid
         });
         //End Initiate Animation for Menu
+    }
+
+    ClearLocalStorage = () => {
+        try {
+            localStorage.clear();
+            localStorage.setItem('check_load_all', true);
+        } catch (e) { }
     }
 
     RenderItemMenu = (to, exact, name) => {
@@ -52,12 +56,14 @@ class Menu extends Component {
             <Route
                 path={to}
                 exact={exact}
-                children={({match}) => {
+                children={({ match }) => {
                     return (
-                        <li className={match ? "active" : ""}>
-                            <Link 
-                                onMouseEnter={(e) => this.AnimationClickTabItem(e)}
+                        <li 
+                        className={match ? "active" : ""}
+                        >
+                            <Link
                                 to={to}
+                                onClick={() => this.ClearLocalStorage()}
                             >{name}</Link>
                         </li>
                     );
@@ -68,66 +74,62 @@ class Menu extends Component {
         )
     }
 
-    AnimationClickTabItem(e) {
+    componentDidUpdate() {
         //get attribute for aniamtion
-        let nav = this.state.nav;
+        let nav = $('nav');
         let line = this.state.line;
         let pos = this.state.pos;
         let wid = this.state.wid;
-        //Animation for Menu
-        nav.find('ul li a').mousedown(function (e) {
-            e.preventDefault();
-            if (!$(this).parent().hasClass('active') && !nav.hasClass('animate')) {
+        let active = nav.find('.active');
+        let position = active.position();
+
+        if (active.length && pos !== position.left) {
+                let width = active.width();
 
                 nav.addClass('animate');
 
-                var _this = $(this);
-
-                nav.find('ul li').removeClass('active');
-
-                var position = _this.parent().position();
-                var width = _this.parent().width();
-
-                if (position.left >= pos) {
+                if (position.left > pos) {
                     line.animate({
                         width: ((position.left - pos) + width)
-                    }, 300, function () {
+                    }, 300, () => {
                         line.animate({
                             width: width,
                             left: position.left
-                        }, 150, function () {
+                        }, 150, () => {
                             nav.removeClass('animate');
-                        });
-                        _this.parent().addClass('active');
+                        })
                     });
                 } else {
                     line.animate({
                         left: position.left,
                         width: ((pos - position.left) + wid)
-                    }, 300, function () {
+                    }, 300, () => {
                         line.animate({
                             width: width
-                        }, 150, function () {
+                        }, 150, () => {
                             nav.removeClass('animate');
-                        });
-                        _this.parent().addClass('active');
-                    });
+                        })
+                    })
                 }
 
-                pos = position.left;
-                wid = width;
-            }
-        });
+                this.setState({
+                    pos: position.left,
+                    wid: width
+                });
+        }
     }
+
+
 
     render() {
         return (
             <nav className="menu text-right">
                 <ul>
-                    {this.RenderItemMenu("/", true, "Home")}
-                    {this.RenderItemMenu("/categories", false, "Categories")}
-                    {this.RenderItemMenu("/products", false, "Foods")}
                     {this.RenderItemMenu("/contract", false, "Contract")}
+                    {this.RenderItemMenu("/products", false, "Foods")}
+                    {this.RenderItemMenu("/categories", false, "Categories")}
+                    {this.RenderItemMenu("/", true, "Home")}
+                    <div className="clearfix"></div>
                 </ul>
             </nav>
         );
