@@ -15,8 +15,8 @@ const userRouter = require('./routes/user')
 connect();
 const app = express()
 
-
-app.use(cors()) 
+app.use(express.static('public'))
+app.use(cors())
 
 //localhost:3000 --> http://localhost:8000
 

@@ -7,7 +7,7 @@ class Form extends React.Component {
         this.state = {
             id: '',
             category_name: '',
-            image_name: null,
+            file: null,
         }
         this.btnAddImg = React.createRef()
     }
@@ -46,17 +46,14 @@ class Form extends React.Component {
     //Submit form
     handleSubmit = async (e)=>{
         e.preventDefault()
-        const image_name = new FormData()
-        image_name.append('image_name', this.state.image)
+        const formData = new FormData()
+        formData.append('file', this.state.image)
+        formData.append('category_name', this.state.category_name)
         let data = []
-        let data_submit = {
-            ...this.state,
-            image_name
-        }
         if(this.props.method.match(/post/i)){
-            data = await postCategory(data_submit, localStorage.getItem('accessToken'))
+            data = await postCategory(formData, localStorage.getItem('accessToken'))
         }else {
-            data = await putCategory(this.state.id, data_submit, localStorage.getItem('accessToken'))
+            data = await putCategory(this.state.id, formData, localStorage.getItem('accessToken'))
         }
         this.props.onSubmit(data.data, this.props.method, this.state.id)
         alert(data.message)
@@ -82,7 +79,7 @@ class Form extends React.Component {
                                 <p>Image:</p>
                                 <div className='upload-file'>
                                     <button ref={this.btnAddImg}>Choose image</button>
-                                    <input type='file' name='image_name' onChange={this.handleChangeFile}/>
+                                    <input type='file' name='file' onChange={this.handleChangeFile}/>
                                 </div>
                             </div>
                             <div className='elm elm-col'>

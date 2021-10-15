@@ -1,112 +1,142 @@
-const upload  = require('../helpers/upload.helper');
+const upload = require('../helpers/upload.helper');
 const food = require('../models/Food');
+const category = require('../models/Category')
 
 
 module.exports.viewFood = async (req, res) => {
     try {
         const foods = await food.viewFood();
-        if(foods){
+        if (foods) {
             res.status(200).json({
                 data: foods
             });
         }
-        else{
+        else {
             res.json({
                 message: "Can't not find food"
             })
         }
-      
-    }catch(err) {
+
+    } catch (err) {
         console.error(err);
     }
 }
 
 module.exports.findFood = async (req, res) => {
     const search = req.params.search;
-    try{
+    try {
         const foods = await food.findFood(`%${search}%`);
         // const foods = await food.findFood(`%${search}%`);
 
-        if(foods.length > 0){
+        if (foods.length > 0) {
             res.status(200).json({
                 data: foods
             });
-        }else{
+        } else {
             res.status(200).json({
-                data:[]
+                data: []
             })
         }
-    }catch(err) {
-      console.log(err);
+    } catch (err) {
+        console.log(err);
     }
 }
 
 
 module.exports.findFoodID = async (req, res) => {
     const search = req.params.search;
-    try{
+    try {
         const foods = await food.findFoodID(`%${search}%`);
         // const foods = await food.findFood(`%${search}%`);
 
-        if(foods.length > 0){
+        if (foods.length > 0) {
             res.status(200).json({
                 data: foods
             });
-        }else{
+        } else {
             res.status(200).json({
-                data:[]
+                data: []
             })
         }
-    }catch(err) {
-      console.log(err);
+    } catch (err) {
+        console.log(err);
     }
 }
 
 
-module.exports.delete= async (req, res) => {
+module.exports.delete = async (req, res) => {
     const id = req.params.id;
-    try{
+    try {
         const foods = await food.delete(id);
         res.status(200).json({
             message: 'Food delete successfull'
         })
-    }catch(err) {
+    } catch (err) {
         console.log(err);
     }
 }
 
 
-module.exports.addFood = async (req, res) => {
+module.exports.create = async (req, res) => {
     try {
-        const { food_name,price, description, image_name} = req.body;
-
-        if (!(food_name && price && description && image_name)) {
-            res.status(400).json({
-                message: "All input is required"
-            });
-        }
-
-        const oldFood = await food.findFood(food_name);
-
-        if (oldFood) {
-            return res.status(409).json({
-                message: "Food already Exist. Please enter another food name"
-            });
-        }
-        let path = req.file.path.split('\\').slice(2).join('\\');
-        const newFood = await food.createFood({
-            food_name,
-            price,
-            description,
-            image_name
+        let category_id = await category.findByName(req.body.category_name);
+        let image_name = req.file ? req.file.filename : "";
+        const data = await food.create({
+            'food_name': req.body.food_name,
+            'price': req.body.price,
+            'description': req.body.description,
+            'active': req.body.active,
+            'category_id': category_id.id,
+            'image_name': image_name
         });
-
-        // return new user
-        res.status(201).json({
-            message: 'Food created successfull'
+        res.status(200).json({
+            data: data,
+            message: 'Food added successfull'
         });
-    } catch (err) {
-        console.log(err);
+    } catch (error) {
+        res.status(500).json({
+            message: "Server error"
+        })
     }
+
+
+}
+
+module.exports.update = async (req, res) => {
+    const id = req.params.id;
+    let food_name = req.body.food_name;
+    let price = req.body.price;
+    let description = req.body.description;
+    let active = req.body.active;
+    let category_id = await category.findByName(req.body.category_name);
+
+    let image_name = req.file ? req.file.filename : "";
+
+    let newCategory = {
+        food_name,
+        price,
+        description,
+        active
+    };
+    if (image_name != "") {
+        newCategory = {
+            ...newCategory,
+            image_name
+        }
+    }
+    if (category_id != undefined) {
+        newCategory = {
+            ...newCategory,
+            'category_id': category_id.id
+        }
+    }
+    // console.log(newCategory);
+    await food.update(newCategory, id);
+    const data = await food.findById(id);
+    res.status(200).json({
+        data: data,
+        message: 'Food update successfull'
+    });
+
 }
 

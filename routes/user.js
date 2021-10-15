@@ -12,6 +12,7 @@ router.get('/username/:search', userController.findUserName);//search
 
 router.get('/user_id/:search', userController.findUserID);//search
 
+router.put('/:id', userController.update);
 router.delete('/:id', userController.delete);
 
 

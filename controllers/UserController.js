@@ -1,21 +1,21 @@
-const upload  = require('../helpers/upload.helper');
+const upload = require('../helpers/upload.helper');
 const user = require('../models/User');
 
 
 module.exports.viewUser = async (req, res) => {
     try {
         const users = await user.viewUser();
-        if(users){
+        if (users) {
             res.status(200).json({
                 data: users
             });
         }
-        else{
+        else {
             res.json({
                 message: "Can't not find food"
             })
         }
-    }catch(err) {
+    } catch (err) {
         console.error(err);
     }
 }
@@ -23,53 +23,73 @@ module.exports.viewUser = async (req, res) => {
 //search User by username
 module.exports.findUserName = async (req, res) => {
     const search = req.params.search;
-    try{
+    try {
         const users = await user.findUserName(`%${search}%`);
         // const foods = await food.findFood(`%${search}%`);
 
-        if(users){
+        if (users) {
             res.status(200).json({
                 data: users
             });
-        }else{
+        } else {
             res.status(200).json({
-                data:[]
+                data: []
             })
         }
-    }catch(err) {
-      console.log(err);
+    } catch (err) {
+        console.log(err);
     }
 }
 
 //search User by ID
 module.exports.findUserID = async (req, res) => {
     const search = req.params.search;
-    try{
+    try {
         const users = await user.findUserID(`${search}`);
         // const foods = await food.findFood(`%${search}%`);
-        if(users){
+        if (users) {
             res.status(200).json({
                 data: users
             });
-        }else{
+        } else {
             res.status(200).json({
-                data:[]
+                data: []
             })
         }
-    }catch(err) {
-      console.log(err);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+module.exports.update = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const updateUser = {
+            username: req.body.username,
+            password: req.body.password,
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            email: req.body.email,
+            phone: req.body.phone_number
+        }
+        await user.update(updateUser, id);
+        res.status(200).json({
+            message: 'User update successfull'
+        })
+    } catch (err) {
+        console.log(err);
     }
 }
 
 //delete User by id
-module.exports.delete= async (req, res) => {
+module.exports.delete = async (req, res) => {
     const id = req.params.id;
-    try{
+    try {
         const users = await user.delete(id);
         res.status(200).json({
             message: 'User delete successfull'
         })
-    }catch(err) {
+    } catch (err) {
         console.log(err);
     }
 }
