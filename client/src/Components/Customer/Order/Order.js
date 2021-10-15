@@ -137,7 +137,7 @@ class Order extends Component {
             customer_address: customer_address
         }
         const result = await postOrder(data);
-        if (result.data) {
+        if (result) {
             //set data nofication
             data['image_name'] = this.state.product.image_name;
             data['food_name'] = this.state.product.food_name;
