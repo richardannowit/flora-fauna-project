@@ -17,7 +17,8 @@ class App extends Component {
       IdCategory: null,
       ClickProductsItem: true,
       ContentSearch: null,
-      ProductDetails: null
+      ProductDetails: null,
+      id_product: null
     };
   }
 
@@ -52,6 +53,13 @@ class App extends Component {
     });
   }
 
+  HandleOrder = (id_product) => {
+    this.setState({
+      id_product: id_product
+    });
+    localStorage.clear();
+  }
+
   render() {
     return (
       <div>
@@ -67,6 +75,7 @@ class App extends Component {
                     ClickCategoryItem={this.ClickCategoryItem}
                     HandleSearch={this.HandleSearch}
                     ClickDetails={this.ClickDetails}
+                    HandleOrder={this.HandleOrder}
                   ></Home>
                 );
               }}
@@ -90,16 +99,24 @@ class App extends Component {
                     ClickProductsItem={this.state.ClickProductsItem}
                     ContentSearch={this.state.ContentSearch}
                     ClickDetails={this.ClickDetails}
+                    HandleOrder={this.HandleOrder}
                   ></Products>
                 );
               }}
             ></Route>
             <Route path='/contract' component={ContractPage}></Route>
-            <Route path='/order' component={OrderPage}></Route>
+            <Route path='/order' render={() => {
+              return (
+                <OrderPage
+                  id_product={this.state.id_product}
+                ></OrderPage>
+              );
+            }}></Route>
             <Route path='/productDetails' render={() => {
               return (
                 <ProductDetailsPage
                   ProductDetails={this.state.ProductDetails}
+                  HandleOrder={this.HandleOrder}
                 ></ProductDetailsPage>
               );
             }}

@@ -42,10 +42,21 @@ module.exports.findFoodID = (search) => {
     })
 }
 
+module.exports.findById = (id) => {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT foods.*, categories.category_name FROM foods INNER JOIN categories ON foods.category_id = categories.id WHERE foods.id = ?', id, (error, result) => {
+            if (error) {
+                reject(error);
+            } else {
+                result = JSON.parse(JSON.stringify(result))
+                resolve(result[0]);
+            }
+        });
+    })
+}
 
 
-
-module.exports.createFood = function createFood(newFood) {
+module.exports.create = (newFood) => {
 
     return new Promise((resolve, reject) => {
         connection.query("INSERT INTO foods SET ?", newFood, function (error, result) {
@@ -53,7 +64,23 @@ module.exports.createFood = function createFood(newFood) {
                 reject(error);
             }
             else {
-                resolve(result);
+                resolve(newFood);
+            }
+        });
+    })
+
+}
+
+module.exports.update = (food, id) => {
+
+    return new Promise((resolve, reject) => {
+        let sql = "UPDATE foods SET ? where id=?";
+        connection.query(sql, [food, id], function (error, result) {
+            if (error) {
+                reject(error);
+            }
+            else {
+                resolve(food);
             }
         });
     })
