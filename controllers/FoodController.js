@@ -110,3 +110,37 @@ module.exports.addFood = async (req, res) => {
     }
 }
 
+
+module.exports.sortQuantity = async (req, res) => {
+    const limit = req.query.limit;
+    const temp = parseInt(limit, 10);
+    try{
+        if(limit){
+            const foods = await food.sortQuantity(temp);
+            if(foods != null){
+                res.status(200).json({
+                    data: foods
+                });
+            }else{
+                res.status(200).json({
+                    data:[]
+                })
+            }
+        }else{
+            const foods = await food.viewFood();
+            if(foods){
+                res.status(200).json({
+                    data: foods
+                });
+            }
+            else{
+                res.json({
+                    message: "Can't not find food"
+                })
+            }
+        }
+    
+    }catch(err) {
+        console.log(err);
+    }
+}

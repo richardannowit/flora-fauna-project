@@ -73,3 +73,18 @@ module.exports.delete = (iddelete) => {
     })
 }
 
+
+
+// get sort by quantity purchased
+
+module.exports.sortQuantity = (limit) =>{
+    return new Promise((resolve, reject)=>{
+        connection.query("SELECT f.*, cn.* FROM foods as f LEFT JOIN (SELECT o.food_id, COUNT(*) as cnt FROM orders as o GROUP BY o.food_id) AS cn on cn.food_id = f.id ORDER BY `cn`.`cnt` DESC LIMIT ?", limit, function (error, result){
+            if (error) {
+                reject(error);
+            }else{
+                resolve(result);
+            }
+        })
+    })
+}
