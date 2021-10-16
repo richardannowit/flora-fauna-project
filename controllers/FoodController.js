@@ -99,7 +99,7 @@ module.exports.create = async (req, res) => {
     try {
         let category_id = await category.findByName(req.body.category_name);
         let image_name = req.file ? req.file.filename : "";
-        const data = await food.create({
+        let data = await food.create({
             'food_name': req.body.food_name,
             'price': req.body.price,
             'description': req.body.description,
@@ -107,6 +107,10 @@ module.exports.create = async (req, res) => {
             'category_id': category_id.id,
             'image_name': image_name
         });
+        data = {
+            ...data,
+            'category_name': req.body.category_name
+        }
         res.status(200).json({
             data: data,
             message: 'Food added successfull'
