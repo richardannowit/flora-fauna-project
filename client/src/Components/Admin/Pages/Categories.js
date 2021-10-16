@@ -11,7 +11,8 @@ class Categories extends React.Component {
             category_data_update: {},
             categories: [],
             search: [],
-            offset: 0
+            offset: 0,
+            loading: 0
         }
         this.category = React.createRef()
     }
@@ -20,6 +21,7 @@ class Categories extends React.Component {
         document.title = 'Admin | Categories Manage'
         const categories = await getCategories(10 , this.state.offset)
         await this.setState({categories: categories.data})
+        this.setState({loading: 1})
     }
 
     //Set state to show added form
@@ -115,6 +117,7 @@ class Categories extends React.Component {
                     history={this.props.history}
                     offset={this.state.offset} 
                     onSetOffset={this.handleSetOffset}
+                    loading={this.state.loading}
                 />
             </div>
         )

@@ -16,7 +16,7 @@ export default async function connectAPI(method, url, token=null, data=null){
 
 
 //API FOOD
-async function getFoods(limit, offset) {
+async function getFoods(limit=100000, offset=0) {
     const res = await connectAPI('get', `/foods?limit=${limit}&position=${offset}&sort=id`)
     return res
 } 
@@ -44,7 +44,7 @@ async function deleteFood(food_id, token=null) {
 
 
 //API CATEGORIES
-async function getCategories(limit, offset=null){
+async function getCategories(limit=10000, offset=0){
     const res = await connectAPI('get', `/categories?limit=${limit}&position=${offset}&sort=id`)
     return res
 }
@@ -72,8 +72,8 @@ async function deleteCategory(category_id, token=null) {
 
 
 //API USERS
-async function getUsers() {
-    const res = await connectAPI('get', '/users')
+async function getUsers(limit=100000, offset=0) {
+    const res = await connectAPI('get', `/users?limit=${limit}&position=${offset}`)
     return res
 }
 
@@ -102,8 +102,8 @@ async function deleteUser(user_id, token=null) {
 
 
 //API ORDERS
-async function getOrders(){
-    const res = await connectAPI('get', '/orders')
+async function getOrders(limit=10000, offset=0){
+    const res = await connectAPI('get', `/orders?limit=${limit}&position=${offset}`)
     return res
 }
 
@@ -114,6 +114,11 @@ async function getOrdersByName(customer_name) {
 
 async function getOrderStatistic(year, token=null){
     const res = await connectAPI('get', `/orders/statistic/${year}`, token)
+    return res
+}
+
+async function postActiveOrders(data, token=null) {
+    const res = await connectAPI('post', `/orders/active/`, data, token)
     return res
 }
 
@@ -177,7 +182,8 @@ export {
 export {
     getOrders,
     getOrdersByName,
-    getOrderStatistic
+    getOrderStatistic,
+    postActiveOrders
 }
 
 

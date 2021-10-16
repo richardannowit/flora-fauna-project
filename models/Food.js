@@ -86,7 +86,7 @@ module.exports.create = (newFood) => {
                 result = JSON.parse(JSON.stringify(result))
                 let res = {
                     ...newFood,
-                    'id:': result.insertId
+                    'id': result.insertId
                 }
                 resolve(res);
             }

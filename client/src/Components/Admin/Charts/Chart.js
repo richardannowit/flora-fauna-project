@@ -6,6 +6,7 @@ export default function Chart(props) {
 
     const [year] = useState([2020, 2021, 2022, 2023, 2024, 2025])
 
+    //Get year
     const getOptionYear = (value)=>{
         props.onSubmitChart(value)
     }

@@ -14,7 +14,8 @@ class AdminManager extends React.Component {
             activeUpdateForm: false,
             activeChangePasswordForm: false,
             users: [],
-            offset: 0
+            offset: 0,
+            loading: 0
         }
         this.users = React.createRef()
     }
@@ -22,8 +23,9 @@ class AdminManager extends React.Component {
     //Load data
     async componentDidMount() {
         document.title = 'Admin | Admins Manage'
-        const users = await getUsers()
-        await this.setState({users: users.data})
+        const users = await getUsers(10, this.state.offset)
+        this.setState({users: users.data})
+        this.setState({loading: 1})
     }
 
     //Set state to Show added form
@@ -58,7 +60,7 @@ class AdminManager extends React.Component {
     handleSubmit = (user, method)=>{
         const {users} = this.state
         if(method.match(/post/i)) 
-            users.push(user)
+            users.unshift(user)
         else {
             const idx = users.findIndex(elm => elm.id === user.id)
             users[idx] = user
@@ -82,12 +84,14 @@ class AdminManager extends React.Component {
     }
 
     async componentDidUpdate(prevProps, prevState) {
-        // if(prevState.offset !== this.state.offset) {
-        //     const users = await getUsers(10, this.state.offset)
-        //     await this.setState({
-        //         foods: [...this.state.users, ...users.data]
-        //     })
-        // }
+        if(prevState.offset !== this.state.offset) {
+            const users = await getUsers(10, this.state.offset)
+            if(users.data)
+                await this.setState({
+                    foods: [...this.state.users, ...users.data]
+                })
+            else console.log(users.message)
+        }
     }
 
     render() {
@@ -117,6 +121,7 @@ class AdminManager extends React.Component {
                     onShowMemberForm={this.showAddMemberForm}
                     offset = {this.state.offset}
                     onSetOffset={this.handleSetOffset}
+                    loading={this.state.loading}
                 />
             </div>
         )

@@ -34,7 +34,7 @@ class Table extends React.Component {
                         <p>{food.price}</p>
                     </td>
                     <td>
-                        <p>{food.active === 1 ? 'Yes' : 'No'}</p>
+                        <p>{parseInt(food.active) === 1 ? 'Yes' : 'No'}</p>
                     </td>
                     <td>
                         <button className='btn btn-update' onClick={()=>{this.onShowUpdateFoodForm(food)}}><i className="fas fa-pen"></i> Update</button>
@@ -77,7 +77,6 @@ class Table extends React.Component {
 
 
     //Update offset add more data
-    
     handleUpdatePosition = async (e)=>{
         e.target.innerHTML = 'Loading...'
         setTimeout(()=>{
@@ -114,7 +113,8 @@ class Table extends React.Component {
                         {this.getData()}
                     </tbody>
                 </table>
-                {this.props.foods.length === 0 ? <p className='no-data'>No data found!</p> : <button className='food-see-more' onClick={this.handleUpdatePosition}>See more</button>}
+                {this.props.foods.length === 0 && <p className='no-data'>{this.props.loading ? 'No data found!' : 'Loading..'}</p>}
+                {this.props.foods.length !== 0 && <button className='food-see-more' onClick={this.handleUpdatePosition}>See more</button>}
             </div>
         );
     }

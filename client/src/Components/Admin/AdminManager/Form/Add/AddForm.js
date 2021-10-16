@@ -83,9 +83,9 @@ class Form extends React.Component {
         }
 
         if(!regexp_phone.test(this.state.user.phone_number)){
-            if(name === 'phone'){
+            if(name === 'phone_number'){
                 validPhone = 0
-                this.error_phone_number.current.innerHTML = 'The number phone is consist of 10-11 numbers.'
+                this.error_phone_number.current.innerHTML = 'The number number is consist of 10-11 numbers.'
             }
         }else {
             validPhone = 1

@@ -108,7 +108,7 @@ module.exports.create = (category) => {
                 result = JSON.parse(JSON.stringify(result))
                 let res = {
                     ...category,
-                    'id:': result.insertId
+                    'id': result.insertId
                 }
                 resolve(res);
             }

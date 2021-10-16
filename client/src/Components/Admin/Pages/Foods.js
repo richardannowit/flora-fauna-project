@@ -11,7 +11,8 @@ class Foods extends React.Component {
             offset: 0,
             food_data_update: {},
             foods:[],
-            categories:[]
+            categories:[],
+            loading: 0
         }
         this.food = React.createRef()
     }
@@ -23,6 +24,7 @@ class Foods extends React.Component {
         await this.setState({foods: foods.data})
         const categories = await getCategories(10000, 0)
         this.setState({categories: categories.data})
+        this.setState({loading: 1})
     }
 
     //Set state to show added form
@@ -71,7 +73,7 @@ class Foods extends React.Component {
     handleSearch = async (food_name)=>{
         let food;
         if(food_name === '')
-            food = await getFoods(10, this.state.offset)
+            food = await getFoods()
         else
             food = await getFoodByName(food_name)
         await this.setState({foods: food.data})
@@ -117,6 +119,7 @@ class Foods extends React.Component {
                     foods={this.state.foods}
                     offset={this.state.offset}
                     onSetOffset={this.handleSetOffset}
+                    loading={this.state.loading}
                 />
             </div>
         )

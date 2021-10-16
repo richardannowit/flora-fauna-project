@@ -57,7 +57,6 @@ class Table extends React.Component {
     }
 
     //Update offset add more data
-
     handleUpdatePosition = async (e)=>{
         e.target.innerHTML = 'Loading...'
         setTimeout(()=>{
@@ -89,7 +88,8 @@ class Table extends React.Component {
                         {this.getData()}
                     </tbody>
                 </table>
-                {this.props.categories.length === 0  ? <p className='no-data'>No data found!</p> : <button className='categories-see-more' onClick={this.handleUpdatePosition}>See more</button>}
+                {this.props.categories.length === 0 && <p className='no-data'>{this.props.loading ? 'No data found!' : 'Loading..'}</p>}
+                {this.props.categories.length !== 0 && <button className='categories-see-more' onClick={this.handleUpdatePosition}>See more</button>}
             </div>
         )
     }

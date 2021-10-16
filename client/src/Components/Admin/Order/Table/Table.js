@@ -1,5 +1,6 @@
 import React from 'react'
 import './Table.scss'
+import {postActiveOrders}from '../../API/ConnectAPI'
 
 class Table extends React.Component {
 
@@ -7,7 +8,8 @@ class Table extends React.Component {
         super(props)
         this.state ={
             search: '',
-            offset: 0
+            offset: 0,
+            changeActive: ''
         }
     }
 
@@ -43,7 +45,7 @@ class Table extends React.Component {
                         <p>{parseInt(order.quantity)*parseInt(order.price)}</p>
                     </td>
                     <td>
-                        <select>
+                        <select value={order.active} onChange={this.handleChangeSelect}>
                             <option value='waiting'>waiting</option>
                             <option value='delivering'>delivering</option>
                             <option value='success'>success</option>
@@ -57,6 +59,13 @@ class Table extends React.Component {
         })
     }
 
+    //Submit active
+    handleChangeSelect= async (e)=>{
+        const {value} = e.target
+        const active = await postActiveOrders(value, localStorage.getItem('accessToken'))
+        console.log(active.message)
+    }
+
     //Update input form
     handleChange = async (e) =>{
         const  {value, name} =  e.target
@@ -67,7 +76,6 @@ class Table extends React.Component {
     }
 
     //Update offset add more data
-    
     handleUpdatePosition = async (e)=>{
         e.target.innerHTML = 'Loading...'
         setTimeout(()=>{
@@ -105,7 +113,8 @@ class Table extends React.Component {
                         {this.getData()}
                     </tbody>
                 </table>
-                {this.props.orders.length === 0 ? <p className='no-data'>No data found!</p> : <button className='orders-see-more' onClick={this.handleUpdatePosition}>See more</button>}
+                {this.props.orders.length === 0 && <p className='no-data'>{this.props.loading ? 'No data found!' : 'Loading..'}</p>}
+                {this.props.orders.length !== 0 && <button className='orders-see-more' onClick={this.handleUpdatePosition}>See more</button>}
             </div>
         );
     }

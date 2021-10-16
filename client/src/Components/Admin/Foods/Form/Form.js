@@ -79,19 +79,21 @@ class Form extends React.Component {
             let data = []
             if(this.props.method.match(/post/i)) {
                 data = await postFood(formData, localStorage.getItem('accessToken'))
-            }else
+                this.props.onSubmit(data.data, this.props.method, this.state.id)
+                await this.setState({
+                    id: '',
+                    food_name: '',
+                    price: 0,
+                    description: '',
+                    active: 0 ,
+                    file: null,
+                    category: ''
+                })
+            }else{
                 data = await putFood(this.state.id, formData, localStorage.getItem('accessToken'))
+                this.props.onSubmit(data.data, this.props.method, this.state.id)
+            }
             alert(data.message)
-            this.props.onSubmit(data.data, this.props.method, this.state.id)
-            await this.setState({
-                id: '',
-                food_name: '',
-                price: 0,
-                description: '',
-                active: 0 ,
-                file: null,
-                category: ''
-            })
         }
     }
 
