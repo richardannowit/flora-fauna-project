@@ -7,6 +7,7 @@ class Table extends React.Component {
         super(props)
         this.state ={
             search: '',
+            offset : 0
         }
     }
 
@@ -60,6 +61,7 @@ class Table extends React.Component {
         if(bool){
             const delete_food = await deleteFood(id, localStorage.getItem('accessToken'))
             console.log(delete_food.message)
+            this.props.onDelete(id)
         }
         
     }
@@ -71,6 +73,18 @@ class Table extends React.Component {
             [name]: value
         })
         this.props.onSearch(this.state.search)
+    }
+
+
+    //Update offset add more data
+    
+    handleUpdatePosition = async (e)=>{
+        e.target.innerHTML = 'Loading...'
+        setTimeout(()=>{
+            e.target.innerHTML = 'See more'
+        }, 1000)
+        await this.setState({offset: this.props.offset+11})
+        this.props.onSetOffset(this.state.offset)
     }
 
     render() {
@@ -100,7 +114,7 @@ class Table extends React.Component {
                         {this.getData()}
                     </tbody>
                 </table>
-                {this.props.foods.length === 0 && <p className='no-data'>No data found!</p>}
+                {this.props.foods.length === 0 ? <p className='no-data'>No data found!</p> : <button className='food-see-more' onClick={this.handleUpdatePosition}>See more</button>}
             </div>
         );
     }

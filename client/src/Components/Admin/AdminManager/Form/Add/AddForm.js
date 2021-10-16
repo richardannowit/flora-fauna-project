@@ -13,7 +13,7 @@ class Form extends React.Component {
                 first_name: '',
                 last_name: '',
                 email:'',
-                phone: ''
+                phone_number: ''
             },
             confirm_password: '',
             isInvalid: 0
@@ -55,7 +55,7 @@ class Form extends React.Component {
             }
         }else if(existUser.data.length > 0) {
                 validUsername = 0
-                this.error_username.current.innerHTML = 'Username is Existed'
+                this.error_username.current.innerHTML = 'Username is existed'
             }
         else {
                 validUsername = 1
@@ -82,7 +82,7 @@ class Form extends React.Component {
             this.error_email.current.innerHTML = ''
         }
 
-        if(!regexp_phone.test(this.state.user.phone)){
+        if(!regexp_phone.test(this.state.user.phone_number)){
             if(name === 'phone'){
                 validPhone = 0
                 this.error_phone_number.current.innerHTML = 'The number phone is consist of 10-11 numbers.'
@@ -120,12 +120,12 @@ class Form extends React.Component {
             first_name: '',
             last_name: '',
             email:'',
-            phone: ''
+            phone_number: ''
         }
         if(this.state.isInvalid){
             const user = await userRegister(this.state.user, localStorage.getItem('accessToken'))
             this.props.onSubmit(user.data, method)
-            alert('Add Successfully')
+            alert(user.message)
             await this.setState({user: object})
             await this.setState({confirm_password: ''})     
         }
@@ -155,7 +155,7 @@ class Form extends React.Component {
                             </div>
                             <div className='elm'>
                                 <p>Phone number:</p>
-                                <input type='text' name='phone' required value={this.state.user.phone} onChange={this.handleChange}/>
+                                <input type='text' name='phone_number' required value={this.state.user.phone_number} onChange={this.handleChange}/>
                                 <p className='error-message' ref={this.error_phone_number}></p>
                             </div>
                             <div className='elm'>

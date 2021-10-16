@@ -6,12 +6,12 @@ class UpdateForm extends React.Component {
         super(props)
         this.state = {
             user: {
-                phone: '',
+                phone_number: '',
                 last_name: '',
                 first_name: '',
                 email: '',
             },
-            invalid: 0
+            invalid: 1
         }
 
         this.error_phone = React.createRef()
@@ -19,7 +19,7 @@ class UpdateForm extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({user: this.props.data_user})
+        this.setState({user: {...this.props.data_user, phone_number: this.props.data_user.phone}})
     }
 
     //Hide updated form
@@ -44,7 +44,7 @@ class UpdateForm extends React.Component {
             this.error_email.current.innerHTML = ''
         }
 
-        if(!regexp_phone.test(this.state.user.phone)){
+        if(!regexp_phone.test(this.state.user.phone_number)){
             if(name === 'phone'){
                 validPhone = 0
                 this.error_phone.current.innerHTML = 'The phone number is consist of 10-11 numbers.'
@@ -67,15 +67,8 @@ class UpdateForm extends React.Component {
         if(this.state.invalid){
             const put = await putUser(localStorage.getItem('id'), this.state.user, localStorage.getItem('accessToken')) 
             console.log(put.message)
+            alert(put.message)
         }
-        const user = {
-            phone: '',
-            last_name: '',
-            first_name: '',
-            email: '',
-        }
-        await this.setState({user})
-
     }
 
     render(){
@@ -87,7 +80,7 @@ class UpdateForm extends React.Component {
                         <form onSubmit={this.handleSubmit} encType='multipart/form-data'>
                             <div className='elm'>
                                 <p>Phone number:</p>
-                                <input type='text' name='phone' required value={this.state.user.phone} onChange={this.handleChange}/>
+                                <input type='text' name='phone_number' required value={this.state.user.phone_number} onChange={this.handleChange}/>
                                 <p className='error-message' ref={this.error_phone}></p>
                             </div>
                             <div className='elm'>

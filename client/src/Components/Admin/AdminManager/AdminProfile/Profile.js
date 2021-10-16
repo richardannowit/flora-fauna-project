@@ -22,7 +22,7 @@ export default function Profile(props) {
     const handleShowUpdateMemberForm = ()=>{
         props.onShowUpdateMemberForm()
     }
-
+    
     //Show  user's changed password form
     const handleShowChangePasswordForm = ()=>{
         props.onShowChangePasswordForm()

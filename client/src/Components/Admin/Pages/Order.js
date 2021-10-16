@@ -5,14 +5,15 @@ class Order extends React.Component {
     constructor(props) {
         super(props)
         this.state ={
-            orders: []
+            orders: [],
+            offset: 0
         }
     }
 
     //Load data
     async componentDidMount() {
         document.title = 'Admin | Orders Manage'
-        const orders = await getOrders(localStorage.getItem('accessToken'))
+        const orders = await getOrders()
         this.setState({orders: orders.data ? orders.data: []})
     }
 
@@ -20,10 +21,24 @@ class Order extends React.Component {
     handleSearch = async (customer_name)=>{
         let orders
         if(customer_name === '')
-            orders = await getOrders(localStorage.getItem('accessToken'))
+            orders = await getOrders()
         else
-            orders = await getOrdersByName(customer_name, localStorage.getItem('accessToken'))
+            orders = await getOrdersByName(customer_name)
         await this.setState({orders: orders.data})
+    }
+
+    //handle set offset 
+    handleSetOffset = async (offset)=>{
+        await this.setState({offset: offset})
+    }
+
+    async componentDidUpdate(prevProps, prevState) {
+        // if(prevState.offset !== this.state.offset) {
+        //     const orders = await getOrders(10, this.state.offset)
+        //     await this.setState({
+        //         foods: [...this.state.orders, ...orders.data]
+        //     })
+        // }
     }
 
     render() {

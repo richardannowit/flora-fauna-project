@@ -13,7 +13,8 @@ class AdminManager extends React.Component {
             activeAddForm: false,
             activeUpdateForm: false,
             activeChangePasswordForm: false,
-            users: []
+            users: [],
+            offset: 0
         }
         this.users = React.createRef()
     }
@@ -21,7 +22,7 @@ class AdminManager extends React.Component {
     //Load data
     async componentDidMount() {
         document.title = 'Admin | Admins Manage'
-        const users = await getUsers(localStorage.getItem('accessToken'))
+        const users = await getUsers()
         await this.setState({users: users.data})
     }
 
@@ -69,10 +70,24 @@ class AdminManager extends React.Component {
     handleSearch = async (username)=>{
         let users
         if(username === ''){
-            users = await getUsers(localStorage.getItem('accessToken'))
+            users = await getUsers()
         }else
-            users = await getUserByName(username, localStorage.getItem('accessToken'))
+            users = await getUserByName(username)
         await this.setState({users: users.data})
+    }
+
+    //handle set offset 
+    handleSetOffset = async (offset)=>{
+        await this.setState({offset: offset})
+    }
+
+    async componentDidUpdate(prevProps, prevState) {
+        // if(prevState.offset !== this.state.offset) {
+        //     const users = await getUsers(10, this.state.offset)
+        //     await this.setState({
+        //         foods: [...this.state.users, ...users.data]
+        //     })
+        // }
     }
 
     render() {
@@ -100,6 +115,8 @@ class AdminManager extends React.Component {
                     onSearch={this.handleSearch} 
                     users={this.state.users} 
                     onShowMemberForm={this.showAddMemberForm}
+                    offset = {this.state.offset}
+                    onSetOffset={this.handleSetOffset}
                 />
             </div>
         )

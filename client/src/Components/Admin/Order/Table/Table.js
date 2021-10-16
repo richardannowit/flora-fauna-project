@@ -6,7 +6,8 @@ class Table extends React.Component {
     constructor(props) {
         super(props)
         this.state ={
-            search: ''
+            search: '',
+            offset: 0
         }
     }
 
@@ -65,6 +66,17 @@ class Table extends React.Component {
         this.props.onSearch(this.state.search)
     }
 
+    //Update offset add more data
+    
+    handleUpdatePosition = async (e)=>{
+        e.target.innerHTML = 'Loading...'
+        setTimeout(()=>{
+            e.target.innerHTML = 'See more'
+        }, 1000)
+        await this.setState({offset: this.props.offset+11})
+        this.props.onSetOffset(this.state.offset)
+    }
+
     render() {
         return (
             <div className='table-orders'>
@@ -93,8 +105,7 @@ class Table extends React.Component {
                         {this.getData()}
                     </tbody>
                 </table>
-                {this.props.orders.length === 0 && <p className='no-data'>No data found!</p>}
-                {/* <p>See more</p> */}
+                {this.props.orders.length === 0 ? <p className='no-data'>No data found!</p> : <button className='orders-see-more' onClick={this.handleUpdatePosition}>See more</button>}
             </div>
         );
     }

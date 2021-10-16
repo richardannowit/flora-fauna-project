@@ -28,7 +28,7 @@ class ChangePassword extends React.Component {
                 id: localStorage.getItem('id'),
             }
             const data = await userChangePassword(data_submit, localStorage.getItem('accessToken'))
-            console.log(data.message)
+            alert(data.message)
         }
     }
 

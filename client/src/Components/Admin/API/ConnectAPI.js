@@ -16,13 +16,13 @@ export default async function connectAPI(method, url, token=null, data=null){
 
 
 //API FOOD
-async function getFoods(token=null) {
-    const res = await connectAPI('get', '/foods', token)
+async function getFoods(limit, offset) {
+    const res = await connectAPI('get', `/foods?limit=${limit}&position=${offset}&sort=id`)
     return res
 } 
 
-async function getFoodByName(food_name, token=null) {
-    const res = await connectAPI('get', `/foods/food_name/${food_name}`, token)
+async function getFoodByName(food_name) {
+    const res = await connectAPI('get', `/foods/food_name/${food_name}`)
     return res
 }
 
@@ -44,13 +44,13 @@ async function deleteFood(food_id, token=null) {
 
 
 //API CATEGORIES
-async function getCategories(token=null){
-    const res = await connectAPI('get', '/categories', token)
+async function getCategories(limit, offset=null){
+    const res = await connectAPI('get', `/categories?limit=${limit}&position=${offset}&sort=id`)
     return res
 }
 
-async function getCategoriesByName(category_name, token=null) {
-    const res = await connectAPI('get', `/categories/categories_name/${category_name}`, token)
+async function getCategoriesByName(category_name) {
+    const res = await connectAPI('get', `/categories/categories_name/${category_name}`)
     return res
 }
 
@@ -72,18 +72,18 @@ async function deleteCategory(category_id, token=null) {
 
 
 //API USERS
-async function getUsers(token=null) {
-    const res = await connectAPI('get', '/users', token)
+async function getUsers() {
+    const res = await connectAPI('get', '/users')
     return res
 }
 
-async function getUserByName(username, token=null) {
-    const res = await connectAPI('get', `/users/username/${username}`, token)
+async function getUserByName(username) {
+    const res = await connectAPI('get', `/users/username/${username}`)
     return res
 }
 
-async function getUserById(user_id, token=null) {
-    const res = await connectAPI('get', `/users/user_id/${user_id}`, token)
+async function getUserById(user_id) {
+    const res = await connectAPI('get', `/users/user_id/${user_id}`)
     return res
 }
 
@@ -102,13 +102,13 @@ async function deleteUser(user_id, token=null) {
 
 
 //API ORDERS
-async function getOrders(token=null){
-    const res = await connectAPI('get', '/orders', token)
+async function getOrders(){
+    const res = await connectAPI('get', '/orders')
     return res
 }
 
-async function getOrdersByName(customer_name, token=null) {
-    const res = await connectAPI('get', `/orders/customer_name/${customer_name}`, token)
+async function getOrdersByName(customer_name) {
+    const res = await connectAPI('get', `/orders/customer_name/${customer_name}`)
     return res
 }
 

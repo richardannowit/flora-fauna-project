@@ -71,7 +71,6 @@ class Form extends React.Component {
         if(this.state.invalid){
             const formData = new FormData()
             formData.append('file', this.state.file)
-            console.log(this.state.file)
             formData.append('food_name', this.state.food_name)
             formData.append('price', this.state.price)
             formData.append('description', this.state.description)
@@ -83,7 +82,6 @@ class Form extends React.Component {
             }else
                 data = await putFood(this.state.id, formData, localStorage.getItem('accessToken'))
             alert(data.message)
-            console.log(data)
             this.props.onSubmit(data.data, this.props.method, this.state.id)
             await this.setState({
                 id: '',
