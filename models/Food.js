@@ -5,7 +5,7 @@ module.exports.sortById = (limit, offset) => {
     return new Promise((resolve, reject) => {
         let sql = `SELECT foods.*, categories.category_name 
                 FROM foods INNER JOIN categories ON foods.category_id = categories.id 
-                ORDER BY foods.id LIMIT ? OFFSET ?`;
+                ORDER BY foods.id DESC LIMIT ? OFFSET ?`;
         connection.query(sql, [limit, offset], function (error, result) {
             if (error) {
                 reject(error);
@@ -83,7 +83,12 @@ module.exports.create = (newFood) => {
                 reject(error);
             }
             else {
-                resolve(newFood);
+                result = JSON.parse(JSON.stringify(result))
+                let res = {
+                    ...newFood,
+                    'id:': result.insertId
+                }
+                resolve(res);
             }
         });
     })

@@ -4,7 +4,11 @@ const user = require('../models/User');
 
 module.exports.viewUser = async (req, res) => {
     try {
-        const users = await user.viewUser();
+        let limit = req.query.limit ?? '100000000';
+        let offset = req.query.position ?? '0';
+        limit = parseInt(limit);
+        offset = parseInt(offset);
+        const users = await user.viewUser(limit, offset);
         if (users) {
             res.status(200).json({
                 data: users

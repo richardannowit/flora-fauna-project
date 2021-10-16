@@ -2,12 +2,17 @@ const { connection } = require("../config/database");
 
 
 
-module.exports.viewOrder = function viewFood(){
-    return new Promise((resolve, reject)=>{
-        connection.query("SELECT foods.*, orders.* FROM orders INNER JOIN foods ON orders.food_id = foods.id ORDER BY orders.id;", function(error, result){
+module.exports.viewOrder = (limit, offset) => {
+    return new Promise((resolve, reject) => {
+        const sql = `SELECT foods.*, orders.* 
+                    FROM orders 
+                    INNER JOIN foods 
+                    ON orders.food_id = foods.id 
+                    ORDER BY orders.id DESC LIMIT ? OFFSET ?`;
+        connection.query(sql, [limit, offset], function (error, result) {
             if (error) {
                 reject(error);
-            }else{
+            } else {
                 if (result.length > 0) {
                     resolve(result);
                 } else {
@@ -20,12 +25,12 @@ module.exports.viewOrder = function viewFood(){
 
 
 //search orders by customer_name
-module.exports.findOrder = (search)=>{
-    return new Promise((resolve, reject)=>{
-        connection.query("SELECT foods.*, orders.* FROM orders INNER JOIN foods ON orders.food_id = foods.id WHERE customer_name LIKE ?", search, function (error, result){
-            if(error){
+module.exports.findOrder = (search) => {
+    return new Promise((resolve, reject) => {
+        connection.query("SELECT foods.*, orders.* FROM orders INNER JOIN foods ON orders.food_id = foods.id WHERE customer_name LIKE ?", search, function (error, result) {
+            if (error) {
                 reject(error);
-            }else{
+            } else {
                 if (result.length > 0) {
                     resolve(result);
                 } else {
@@ -36,12 +41,12 @@ module.exports.findOrder = (search)=>{
     })
 }
 
-module.exports.statistical = (year, month) =>{
+module.exports.statistical = (year, month) => {
     return new Promise((resolve, reject) => {
-        connection.query("SELECT (SUM((orders.quantity*foods.price)/1000)) as total FROM orders INNER JOIN foods ON orders.food_id = foods.id WHERE YEAR(orders.order_date) = ? AND MONTH(orders.order_date) = ?", [year, month], function (error, result){
+        connection.query("SELECT (SUM((orders.quantity*foods.price)/1000)) as total FROM orders INNER JOIN foods ON orders.food_id = foods.id WHERE YEAR(orders.order_date) = ? AND MONTH(orders.order_date) = ?", [year, month], function (error, result) {
             if (error) {
                 reject(error);
-            }else{
+            } else {
                 if (result.length > 0) {
                     resolve(result[0]);
                 } else {
@@ -50,6 +55,6 @@ module.exports.statistical = (year, month) =>{
             }
         });
     });
-} 
+}
 
 
