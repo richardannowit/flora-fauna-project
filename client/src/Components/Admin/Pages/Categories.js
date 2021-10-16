@@ -47,7 +47,7 @@ class Categories extends React.Component {
     handleSubmit = (category,method, id)=>{
         const {categories} = this.state
         if(method.match(/post/i)) 
-            categories.push(category)
+            categories.unshift(category)
         else {
             const idx = categories.findIndex(elm => elm.id === id)
             categories[idx] = category

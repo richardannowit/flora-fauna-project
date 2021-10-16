@@ -6,7 +6,7 @@ class UpdateForm extends React.Component {
         super(props)
         this.state = {
             user: {
-                phone_number: '',
+                phone: '',
                 last_name: '',
                 first_name: '',
                 email: '',
@@ -14,7 +14,7 @@ class UpdateForm extends React.Component {
             invalid: 0
         }
 
-        this.error_phone_number = React.createRef()
+        this.error_phone = React.createRef()
         this.error_email = React.createRef()
     }
 
@@ -44,14 +44,14 @@ class UpdateForm extends React.Component {
             this.error_email.current.innerHTML = ''
         }
 
-        if(!regexp_phone.test(this.state.user.phone_number)){
-            if(name === 'phone_number'){
+        if(!regexp_phone.test(this.state.user.phone)){
+            if(name === 'phone'){
                 validPhone = 0
-                this.error_phone_number.current.innerHTML = 'The number phone is consist of 10-11 numbers.'
+                this.error_phone.current.innerHTML = 'The phone number is consist of 10-11 numbers.'
             }
         }else {
             validPhone = 1
-            this.error_phone_number.current.innerHTML = ''
+            this.error_phone.current.innerHTML = ''
         }
 
         if(validEmail && validPhone){
@@ -66,10 +66,10 @@ class UpdateForm extends React.Component {
         e.preventDefault()
         if(this.state.invalid){
             const put = await putUser(localStorage.getItem('id'), this.state.user, localStorage.getItem('accessToken')) 
-            console.log(put)
+            console.log(put.message)
         }
         const user = {
-            phone_number: '',
+            phone: '',
             last_name: '',
             first_name: '',
             email: '',
@@ -87,8 +87,8 @@ class UpdateForm extends React.Component {
                         <form onSubmit={this.handleSubmit} encType='multipart/form-data'>
                             <div className='elm'>
                                 <p>Phone number:</p>
-                                <input type='text' name='phone_number' required value={this.state.user.phone_number} onChange={this.handleChange}/>
-                                <p className='error-message' ref={this.error_phone_number}></p>
+                                <input type='text' name='phone' required value={this.state.user.phone} onChange={this.handleChange}/>
+                                <p className='error-message' ref={this.error_phone}></p>
                             </div>
                             <div className='elm'>
                                 <p>Email:</p>

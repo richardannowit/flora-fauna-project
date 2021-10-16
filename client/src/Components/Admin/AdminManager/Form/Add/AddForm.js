@@ -13,10 +13,10 @@ class Form extends React.Component {
                 first_name: '',
                 last_name: '',
                 email:'',
-                phone_number: ''
+                phone: ''
             },
             confirm_password: '',
-            isInvalid: 1
+            isInvalid: 0
         }
         this.error_confirm_password = React.createRef()
         this.error_username = React.createRef()
@@ -82,8 +82,8 @@ class Form extends React.Component {
             this.error_email.current.innerHTML = ''
         }
 
-        if(!regexp_phone.test(this.state.user.phone_number)){
-            if(name === 'phone_number'){
+        if(!regexp_phone.test(this.state.user.phone)){
+            if(name === 'phone'){
                 validPhone = 0
                 this.error_phone_number.current.innerHTML = 'The number phone is consist of 10-11 numbers.'
             }
@@ -120,7 +120,7 @@ class Form extends React.Component {
             first_name: '',
             last_name: '',
             email:'',
-            phone_number: ''
+            phone: ''
         }
         if(this.state.isInvalid){
             const user = await userRegister(this.state.user, localStorage.getItem('accessToken'))
@@ -155,7 +155,7 @@ class Form extends React.Component {
                             </div>
                             <div className='elm'>
                                 <p>Phone number:</p>
-                                <input type='text' name='phone_number' required value={this.state.user.phone_number} onChange={this.handleChange}/>
+                                <input type='text' name='phone' required value={this.state.user.phone} onChange={this.handleChange}/>
                                 <p className='error-message' ref={this.error_phone_number}></p>
                             </div>
                             <div className='elm'>

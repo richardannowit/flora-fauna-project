@@ -99,6 +99,8 @@ async function deleteUser(user_id, token=null) {
 
 
 
+
+
 //API ORDERS
 async function getOrders(token=null){
     const res = await connectAPI('get', '/orders', token)
@@ -127,11 +129,17 @@ async function userRegister(data, token=null) {
     return res
 }
 
+async function userChangePassword(data, token=null){
+    const res = await connectAPI('post', '/auth/change-password', token, data)
+    return res
+}
+
 
 //EXPORT AUTH API
 export {
     userLogin,
     userRegister,
+    userChangePassword,
 }
 
 
