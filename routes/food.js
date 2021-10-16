@@ -18,6 +18,7 @@ var upload = multer({ storage: storage })
 
 
 router.get('/', foodController.viewFood);
+router.get('/:id', foodController.findById);
 
 router.get('/food_name/:search', foodController.findFood);//search
 router.get('/id_category/:search', foodController.findFoodID);//search

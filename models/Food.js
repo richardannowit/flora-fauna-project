@@ -1,9 +1,12 @@
 const { connection } = require("../config/database");
 
 
-module.exports.viewFood = function viewFood() {
+module.exports.sortById = (limit, offset) => {
     return new Promise((resolve, reject) => {
-        connection.query("SELECT foods.*, categories.category_name FROM foods INNER JOIN categories ON foods.category_id = categories.id ORDER BY foods.id;", function (error, result) {
+        let sql = `SELECT foods.*, categories.category_name 
+                FROM foods INNER JOIN categories ON foods.category_id = categories.id 
+                ORDER BY foods.id LIMIT ? OFFSET ?`;
+        connection.query(sql, [limit, offset], function (error, result) {
             if (error) {
                 reject(error);
             } else {
@@ -12,6 +15,22 @@ module.exports.viewFood = function viewFood() {
                 } else {
                     resolve(null);
                 }
+            }
+        })
+    })
+}
+
+module.exports.sortByQuantity = (limit, offset) => {
+    return new Promise((resolve, reject) => {
+        const sql = `SELECT f.*, cn.* 
+                    FROM foods as f 
+                    LEFT JOIN (SELECT o.food_id, COUNT(*) as cnt FROM orders as o GROUP BY o.food_id) AS cn 
+                    ON cn.food_id = f.id ORDER BY cn.cnt DESC LIMIT ? OFFSET ?`
+        connection.query(sql, [limit, offset], function (error, result) {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(result);
             }
         })
     })
@@ -99,4 +118,5 @@ module.exports.delete = (iddelete) => {
         });
     })
 }
+
 
