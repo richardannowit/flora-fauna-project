@@ -10,15 +10,18 @@ class Categories extends React.Component {
             activeUpdateCategory: false,
             category_data_update: {},
             categories: [],
-            search: []
+            search: [],
+            offset: 0,
+            loading: 0
         }
         this.category = React.createRef()
     }
 
     async componentDidMount() {
         document.title = 'Admin | Categories Manage'
-        const categories = await getCategories(localStorage.getItem('accessToken'))
+        const categories = await getCategories(10 , this.state.offset)
         await this.setState({categories: categories.data})
+        this.setState({loading: 1})
     }
 
     //Set state to show added form
@@ -47,12 +50,12 @@ class Categories extends React.Component {
     handleSubmit = (category,method, id)=>{
         const {categories} = this.state
         if(method.match(/post/i)) 
-            categories.push(category)
+            categories.unshift(category)
         else {
             const idx = categories.findIndex(elm => elm.id === id)
             categories[idx] = category
         }
-        this.setState({categories: categories})
+        this.setState({categories})
     }
 
     //Delete
@@ -60,18 +63,35 @@ class Categories extends React.Component {
         const {categories} = this.state
         const idx = categories.findIndex(elm => elm.id === id)
         categories.splice(idx, 1)
-        this.setState({categories: categories})
+        this.setState({categories})
     }
 
     //Search engine
     handleSearch = async (category_name)=>{
         let categories
         if(category_name===''){
-            categories = await getCategories(localStorage.getItem('accessToken'))
+            categories = await getCategories()
         }else{
-            categories = await getCategoriesByName(category_name, localStorage.getItem('accessToken'))
+            categories = await getCategoriesByName(category_name)
         }
         await this.setState({categories: categories.data})
+    }
+
+    //handle set offset 
+    handleSetOffset = async (offset)=>{
+        await this.setState({offset: offset})
+    }
+
+    async componentDidUpdate(prevProps, prevState) {
+        if(prevState.offset !== this.state.offset) {
+           const categories = await getCategories(10, this.state.offset)
+           if(categories.data) {
+                await this.setState({
+                    categories: [...this.state.categories, ...categories.data]
+                })
+           }else console.log(categories.message)
+
+        }
     }
 
     render() {
@@ -95,6 +115,9 @@ class Categories extends React.Component {
                     onClickToUpdateCategory={this.showUpdateCategory} 
                     categories={this.state.categories}
                     history={this.props.history}
+                    offset={this.state.offset} 
+                    onSetOffset={this.handleSetOffset}
+                    loading={this.state.loading}
                 />
             </div>
         )

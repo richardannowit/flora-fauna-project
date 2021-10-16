@@ -5,25 +5,45 @@ class Order extends React.Component {
     constructor(props) {
         super(props)
         this.state ={
-            orders: []
+            orders: [],
+            offset: 0,
+            loading: 0
         }
     }
 
     //Load data
     async componentDidMount() {
         document.title = 'Admin | Orders Manage'
-        const orders = await getOrders(localStorage.getItem('accessToken'))
+        const orders = await getOrders(20, this.state.offset)
         this.setState({orders: orders.data ? orders.data: []})
+        this.setState({loading: 1})
     }
 
     //Search engine
     handleSearch = async (customer_name)=>{
         let orders
         if(customer_name === '')
-            orders = await getOrders(localStorage.getItem('accessToken'))
+            orders = await getOrders()
         else
-            orders = await getOrdersByName(customer_name, localStorage.getItem('accessToken'))
+            orders = await getOrdersByName(customer_name)
         await this.setState({orders: orders.data})
+    }
+
+    //handle set offset 
+    handleSetOffset = async (offset)=>{
+        await this.setState({offset})
+    }
+
+    async componentDidUpdate(prevProps, prevState) {
+        if(prevState.offset !== this.state.offset) {
+            const orders = await getOrders(10, this.state.offset)
+            if(orders.data) {
+                await this.setState({
+                    orders: [...this.state.orders, ...orders.data]
+                })
+            }else 
+                console.log(orders.message)
+        }
     }
 
     render() {
@@ -32,6 +52,9 @@ class Order extends React.Component {
                 <Table 
                     onSearch={this.handleSearch} 
                     orders={this.state.orders}
+                    loading={this.state.loading}
+                    offset={this.state.offset}
+                    onSetOffset={this.handleSetOffset}
                 />
             </div>
         )

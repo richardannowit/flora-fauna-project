@@ -8,9 +8,11 @@ class Foods extends React.Component {
         this.state = {
             activeAddFoodsForm: false,
             activeUpdateFoodsForm: false,
+            offset: 0,
             food_data_update: {},
             foods:[],
-            categories:[]
+            categories:[],
+            loading: 0
         }
         this.food = React.createRef()
     }
@@ -18,10 +20,11 @@ class Foods extends React.Component {
     //Load data
     async componentDidMount() {
         document.title = 'Admin | Foods Manage'
-        const foods= await getFoods(localStorage.getItem('accessToken'))
+        const foods= await getFoods(10, this.state.offset)
         await this.setState({foods: foods.data})
-        const categories = await getCategories(localStorage.getItem('accessToken'))
+        const categories = await getCategories(10000, 0)
         this.setState({categories: categories.data})
+        this.setState({loading: 1})
     }
 
     //Set state to show added form
@@ -50,7 +53,7 @@ class Foods extends React.Component {
     handleSubmit = (food, method, id='')=>{
         const {foods} = this.state
         if(method.match(/post/i)){
-            foods.push(food)
+            foods.unshift(food)
         }else {
             const idx = foods.findIndex(element=>element.id === id)
             foods[idx] = food
@@ -70,10 +73,26 @@ class Foods extends React.Component {
     handleSearch = async (food_name)=>{
         let food;
         if(food_name === '')
-            food = await getFoods(localStorage.getItem('accessToken'))
+            food = await getFoods()
         else
-            food = await getFoodByName(food_name, localStorage.getItem('accessToken'))
+            food = await getFoodByName(food_name)
         await this.setState({foods: food.data})
+    }
+
+    //handle set offset 
+    handleSetOffset = async (offset)=>{
+        await this.setState({offset: offset})
+    }
+
+    async componentDidUpdate(prevProps, prevState) {
+        if(prevState.offset !== this.state.offset) {
+            const foods = await getFoods(10, this.state.offset)
+            if(foods.data)
+                await this.setState({
+                    foods: [...this.state.foods, ...foods.data]
+                })
+            else console.log(foods.message)
+        }
     }
 
     render() {
@@ -98,6 +117,9 @@ class Foods extends React.Component {
                     onShowAddFoodForm={this.onShowAddFoodForm} 
                     onShowUpdateFoodForm={this.onShowUpdateFoodForm} 
                     foods={this.state.foods}
+                    offset={this.state.offset}
+                    onSetOffset={this.handleSetOffset}
+                    loading={this.state.loading}
                 />
             </div>
         )

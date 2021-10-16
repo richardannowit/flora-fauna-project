@@ -1,26 +1,28 @@
 import React from 'react'
 import './Profile.scss'
 import {useHistory} from 'react-router-dom'
+import { deleteUser } from '../../API/ConnectAPI'
 
 export default function Profile(props) {
 
     const history = useHistory()
 
     //Delete user
-    const handleDelete = ()=>{
+    const handleDelete = async ()=>{
         const bool = window.confirm('Are you sure you want to delete?')
         if(bool){
+            const data = await deleteUser(localStorage.getItem('id'), localStorage.getItem('accessToken')) 
+            alert(data.message)
             localStorage.removeItem('accessToken')
             history.push('/login')
         }
-
     }
 
     //Show user's updated form
     const handleShowUpdateMemberForm = ()=>{
         props.onShowUpdateMemberForm()
     }
-
+    
     //Show  user's changed password form
     const handleShowChangePasswordForm = ()=>{
         props.onShowChangePasswordForm()
