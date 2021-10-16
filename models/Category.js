@@ -3,7 +3,7 @@ const { connection } = require("../config/database");
 //view all Categories
 module.exports.sortById = (limit, offset) => {
     return new Promise((resolve, reject) => {
-        const sql = "SELECT * FROM categories ORDER BY id LIMIT ? OFFSET ?";
+        const sql = "SELECT * FROM categories ORDER BY id DESC LIMIT ? OFFSET ?";
         connection.query(sql, [limit, offset], function (error, result) {
             if (error) {
                 reject(error);
@@ -105,7 +105,12 @@ module.exports.create = (category) => {
             if (error) {
                 reject(error);
             } else {
-                resolve(category);
+                result = JSON.parse(JSON.stringify(result))
+                let res = {
+                    ...category,
+                    'id:': result.insertId
+                }
+                resolve(res);
             }
         });
     })
