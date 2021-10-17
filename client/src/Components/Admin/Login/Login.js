@@ -10,6 +10,7 @@ export default function Login(props){
 
     let history = useHistory()
 
+    //Change input
     const handleChange = (e)=>{
         const {name, value} = e.target
         let data = user
@@ -20,6 +21,7 @@ export default function Login(props){
         setUser(data)
     }
 
+    //Submit form
     const handleSubmit = async (e)=>{
         e.preventDefault()
         const login = await userLogin(user)

@@ -5,11 +5,13 @@ import './Menu.scss'
 export default function Menu(props){
     const history = useHistory()
 
+    //Handel logout
     const handleLogout = (e)=>{
         localStorage.removeItem('accessToken')
         history.push('/login')
     }
 
+    //Match router with item menu
     const ListItemLink = (to, exact, label) =>{
         return (
           <Route

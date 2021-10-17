@@ -13,7 +13,9 @@ class AdminManager extends React.Component {
             activeAddForm: false,
             activeUpdateForm: false,
             activeChangePasswordForm: false,
-            users: []
+            users: [],
+            offset: 0,
+            loading: 0
         }
         this.users = React.createRef()
     }
@@ -21,8 +23,9 @@ class AdminManager extends React.Component {
     //Load data
     async componentDidMount() {
         document.title = 'Admin | Admins Manage'
-        const users = await getUsers(localStorage.getItem('accessToken'))
-        await this.setState({users: users.data})
+        const users = await getUsers(10, this.state.offset)
+        this.setState({users: users.data})
+        this.setState({loading: 1})
     }
 
     //Set state to Show added form
@@ -57,7 +60,7 @@ class AdminManager extends React.Component {
     handleSubmit = (user, method)=>{
         const {users} = this.state
         if(method.match(/post/i)) 
-            users.push(user)
+            users.unshift(user)
         else {
             const idx = users.findIndex(elm => elm.id === user.id)
             users[idx] = user
@@ -69,10 +72,26 @@ class AdminManager extends React.Component {
     handleSearch = async (username)=>{
         let users
         if(username === ''){
-            users = await getUsers(localStorage.getItem('accessToken'))
+            users = await getUsers()
         }else
-            users = await getUserByName(username, localStorage.getItem('accessToken'))
+            users = await getUserByName(username)
         await this.setState({users: users.data})
+    }
+
+    //handle set offset 
+    handleSetOffset = async (offset)=>{
+        await this.setState({offset: offset})
+    }
+
+    async componentDidUpdate(prevProps, prevState) {
+        if(prevState.offset !== this.state.offset) {
+            const users = await getUsers(10, this.state.offset)
+            if(users.data)
+                await this.setState({
+                    foods: [...this.state.users, ...users.data]
+                })
+            else console.log(users.message)
+        }
     }
 
     render() {
@@ -100,6 +119,9 @@ class AdminManager extends React.Component {
                     onSearch={this.handleSearch} 
                     users={this.state.users} 
                     onShowMemberForm={this.showAddMemberForm}
+                    offset = {this.state.offset}
+                    onSetOffset={this.handleSetOffset}
+                    loading={this.state.loading}
                 />
             </div>
         )

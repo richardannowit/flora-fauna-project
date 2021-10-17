@@ -47,6 +47,7 @@ class Home extends React.Component {
         }
     }
 
+    //Get chart data
     handleSubmitChart = async (value)=>{
         const ordersStatistic = await getOrderStatistic(value, localStorage.getItem('accessToken'))
         const data = ordersStatistic.data
@@ -66,10 +67,11 @@ class Home extends React.Component {
         await this.setState({ordersTotal: data.reduce((previousValue, currentValue, )=>previousValue+=currentValue, 0)*1000})
     }
 
+    //Set default value
     async componentDidMount() {
         document.title = 'Admin | Home'
-        const category = await getCategories(localStorage.getItem('accessToken'))
-        const food = await getFoods(localStorage.getItem('accessToken'))
+        const category = await getCategories()
+        const food = await getFoods()
         this.setState({food_active_quantity: food.data.length > 0 ? food.data.reduce((pre, current)=> current.active !== 0 ? pre=pre+1 : pre, 0): 0})
         this.setState({category_quantity: category.data.length, food_quantity: food.data.length})
     }

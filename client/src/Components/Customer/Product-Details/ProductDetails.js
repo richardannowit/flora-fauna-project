@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './ProductDetails.scss';
 
 class ProductDetails extends Component {
@@ -27,6 +28,12 @@ class ProductDetails extends Component {
         return { undefined }
     }
 
+    ClickOrder = () => {
+        //handle order
+        const id_product = this.state.product_details.id;
+        this.props.HandleOrder(id_product);
+    }
+
     render() {
         return (
             <>
@@ -52,9 +59,9 @@ class ProductDetails extends Component {
                                 <p><b>Description:</b>
                                     {this.state.product_details.description}
                                 </p>
-                                <br></br>
+                                <br></br><br></br><br></br>
                                 <div className='center'>
-                                    <button className='btn-primary btn-contract' type='submit'>Order Now</button>
+                                    <Link to='/order' onClick={() => {this.ClickOrder()}} className='btn-primary btn-contract' type='submit'>Order Now</Link>
                                 </div>
                             </div>
                         </div>

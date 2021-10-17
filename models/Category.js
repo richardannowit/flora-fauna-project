@@ -1,9 +1,10 @@
 const { connection } = require("../config/database");
 
 //view all Categories
-module.exports.viewCategories = function viewCategories() {
+module.exports.sortById = (limit, offset) => {
     return new Promise((resolve, reject) => {
-        connection.query("SELECT * FROM categories", function (error, result) {
+        const sql = "SELECT * FROM categories ORDER BY id DESC LIMIT ? OFFSET ?";
+        connection.query(sql, [limit, offset], function (error, result) {
             if (error) {
                 reject(error);
             } else {
@@ -12,6 +13,22 @@ module.exports.viewCategories = function viewCategories() {
                 } else {
                     resolve(null);
                 }
+            }
+        })
+    })
+}
+module.exports.sortByFood = (limit, offset) => {
+    return new Promise((resolve, reject) => {
+        const sql = `SELECT c.*, cn.cnt 
+                    FROM categories as c 
+                    LEFT JOIN (SELECT f.category_id, COUNT(*) as cnt FROM foods as f GROUP BY f.category_id) AS cn 
+                    ON cn.category_id = c.id 
+                    ORDER BY cn.cnt DESC LIMIT ? OFFSET ?`
+        connection.query(sql, [limit, offset], function (error, result) {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(result);
             }
         })
     })
@@ -80,15 +97,31 @@ module.exports.delete = (iddelete) => {
 
 // get sort by food
 
-module.exports.sortFood = (limit) =>{
-    return new Promise((resolve, reject)=>{
-        connection.query("SELECT c.*, cn.* FROM categories as c LEFT JOIN (SELECT f.category_id, COUNT(*) as cnt FROM foods as f GROUP BY f.category_id) AS cn on cn.category_id ORDER BY cn.cnt DESC LIMIT ?", limit, function (error, result){
+module.exports.create = (category) => {
+    return new Promise((resolve, reject) => {
+        connection.query('INSERT INTO categories SET ?', category, (error, result) => {
             if (error) {
                 reject(error);
-            }else{
-                resolve(result);
+            } else {
+                result = JSON.parse(JSON.stringify(result))
+                let res = {
+                    ...category,
+                    'id': result.insertId
+                }
+                resolve(res);
             }
-        })
+        });
     })
 }
-
+module.exports.update = (category, id) => {
+    return new Promise((resolve, reject) => {
+        let sql = "UPDATE categories SET ? where id=?";
+        connection.query(sql, [category, id], (error, result) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(category);
+            }
+        });
+    })
+}

@@ -5,7 +5,12 @@ const category = require('../models/Category')
 
 module.exports.viewFood = async (req, res) => {
     try {
-        const foods = await food.viewFood();
+        let limit = req.query.limit ?? '100000000';
+        let offset = req.query.position ?? '0';
+        limit = parseInt(limit);
+        offset = parseInt(offset);
+        let sort = req.query.sort;
+        const foods = sort === 'id' ? await food.sortById(limit, offset) : await food.sortByQuantity(limit, offset);
         if (foods) {
             res.status(200).json({
                 data: foods
@@ -19,6 +24,19 @@ module.exports.viewFood = async (req, res) => {
 
     } catch (err) {
         console.error(err);
+    }
+}
+
+module.exports.findById = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const foods = await food.findById(id);
+        res.status(200).json({
+            data: foods,
+            message: 'Find successfull'
+        })
+    } catch (err) {
+        console.log(err);
     }
 }
 
@@ -81,7 +99,7 @@ module.exports.create = async (req, res) => {
     try {
         let category_id = await category.findByName(req.body.category_name);
         let image_name = req.file ? req.file.filename : "";
-        const data = await food.create({
+        let data = await food.create({
             'food_name': req.body.food_name,
             'price': req.body.price,
             'description': req.body.description,
@@ -89,6 +107,10 @@ module.exports.create = async (req, res) => {
             'category_id': category_id.id,
             'image_name': image_name
         });
+        data = {
+            ...data,
+            'category_name': req.body.category_name
+        }
         res.status(200).json({
             data: data,
             message: 'Food added successfull'
@@ -138,39 +160,4 @@ module.exports.update = async (req, res) => {
         message: 'Food update successfull'
     });
 
-}
-
-
-module.exports.sortQuantity = async (req, res) => {
-    const limit = req.query.limit;
-    const temp = parseInt(limit, 10);
-    try{
-        if(limit){
-            const foods = await food.sortQuantity(temp);
-            if(foods != null){
-                res.status(200).json({
-                    data: foods
-                });
-            }else{
-                res.status(200).json({
-                    data:[]
-                })
-            }
-        }else{
-            const foods = await food.viewFood();
-            if(foods){
-                res.status(200).json({
-                    data: foods
-                });
-            }
-            else{
-                res.json({
-                    message: "Can't not find food"
-                })
-            }
-        }
-    
-    }catch(err) {
-        console.log(err);
-    }
 }

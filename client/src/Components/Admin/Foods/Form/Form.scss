@@ -10,8 +10,8 @@
     box-sizing: border-box;
     .add-food {
         width: 450px;
-        height: 580px;
-        margin: 100px auto;
+        height: 600px;
+        margin: 80px auto;
         border-radius: 5px;
         overflow: hidden;
         background-color: #f1f2f6;
@@ -95,6 +95,7 @@
                 }
 
                 .elm-files {
+                    height: 22%;
                     .upload-file {
                         width: 70%;
                         margin: 0 auto;
@@ -128,6 +129,12 @@
                             padding: 0;
                             opacity: 0;
                         }
+                    }
+                    .error-image {
+                        color: red;
+                        height: 20px;
+                        transform: translateY(32px);
+                        font-size: 15px;
                     }
 
                 }

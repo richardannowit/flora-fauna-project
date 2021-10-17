@@ -55,9 +55,11 @@ User.createUser = function createUser(newUser) {
 module.exports = User;
 
 //view all User
-module.exports.viewUser = function viewUser() {
+module.exports.viewUser = (limit, offset) => {
     return new Promise((resolve, reject) => {
-        connection.query("SELECT id, username, first_name, last_name, email, phone FROM users ", function (error, result) {
+        const sql = `SELECT id, username, first_name, last_name, email, phone 
+                    FROM users ORDER BY id DESC LIMIT ? OFFSET ?`;
+        connection.query(sql, [limit, offset], function (error, result) {
             if (error) {
                 reject(error);
             } else {
@@ -74,7 +76,7 @@ module.exports.viewUser = function viewUser() {
 // search user by username
 module.exports.findUserName = (search) => {
     return new Promise((resolve, reject) => {
-        connection.query("SELECT * FROM users WHERE username LIKE ?", search, (error, result) => {
+        connection.query("SELECT id, username, first_name, last_name, email, phone  FROM users WHERE username LIKE ?", search, (error, result) => {
             if (error) {
                 reject(error);
             } else {
@@ -91,7 +93,7 @@ module.exports.findUserName = (search) => {
 // search user by ID
 module.exports.findUserID = (search) => {
     return new Promise((resolve, reject) => {
-        connection.query("SELECT * FROM users WHERE id LIKE ?", search, (error, result) => {
+        connection.query("SELECT id, username, first_name, last_name, email, phone FROM users WHERE id LIKE ?", search, (error, result) => {
             if (error) {
                 reject(error);
             } else {
