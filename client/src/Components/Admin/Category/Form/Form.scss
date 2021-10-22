@@ -130,7 +130,12 @@
                             opacity: 0;
                         }
                     }
-
+                    .error-image {
+                        position: relative;
+                        color: red;
+                        transform: translateY(40px);
+                        font-size: 15px;
+                    }
                 }
 
                 .elm-col {

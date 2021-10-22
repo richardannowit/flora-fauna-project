@@ -4,7 +4,12 @@ const uploadHelper = require('../helpers/upload.helper')
 
 module.exports.viewCategories = async (req, res) => {
     try {
-        const categories = await category.viewCategories();
+        let limit = req.query.limit ?? '100000000';
+        let offset = req.query.position ?? '0';
+        limit = parseInt(limit);
+        offset = parseInt(offset);
+        let sort = req.query.sort;
+        const categories = sort === 'id' ? await category.sortById(limit, offset) : await category.sortByFood(limit, offset);
         if (categories) {
             res.status(200).json({
                 data: categories
@@ -40,9 +45,10 @@ module.exports.findCategory = async (req, res) => {
 
 module.exports.create = async (req, res) => {
     try {
+        let image_name = req.file ? req.file.filename : "";
         const data = await category.create({
             'category_name': req.body.category_name,
-            'image_name': req.file.filename
+            'image_name': image_name
         });
         res.status(200).json({
             data: data,
@@ -101,3 +107,8 @@ module.exports.delete = async (req, res) => {
         console.log(err);
     }
 }
+
+
+
+
+

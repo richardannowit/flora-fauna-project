@@ -8,8 +8,10 @@ class Form extends React.Component {
             id: '',
             category_name: '',
             file: null,
+            invalid: 1
         }
         this.btnAddImg = React.createRef()
+        this.error_image = React.createRef()
     }
 
     //Updating state if updated form show  
@@ -39,29 +41,42 @@ class Form extends React.Component {
     //Update image file
     handleChangeFile = async (e)=>{
         const file = e.target.files[0]
+        const type = file.type.split('/').splice(0, 1)[0]
         this.btnAddImg.current.innerHTML = file.name
-        await this.setState({image: file})
+        if(type === 'image') {
+            this.setState({invalid: 1})
+            this.error_image.current.innerHTML = ''
+            await this.setState({file})
+        }else {
+            this.setState({invalid: 0})
+            this.error_image.current.innerHTML = 'Invalid image.'
+        }
+        
     }
 
     //Submit form
     handleSubmit = async (e)=>{
         e.preventDefault()
-        const formData = new FormData()
-        formData.append('file', this.state.image)
-        formData.append('category_name', this.state.category_name)
-        let data = []
-        if(this.props.method.match(/post/i)){
-            data = await postCategory(formData, localStorage.getItem('accessToken'))
-        }else {
-            data = await putCategory(this.state.id, formData, localStorage.getItem('accessToken'))
+        if(this.state.invalid) {
+            const formData = new FormData()
+            formData.append('file', this.state.file)
+            formData.append('category_name', this.state.category_name)
+            let data = []
+            if(this.props.method.match(/post/i)){
+                data = await postCategory(formData, localStorage.getItem('accessToken'))
+            }else {
+                data = await putCategory(this.state.id, formData, localStorage.getItem('accessToken'))
+            }
+            console.log(data)
+            this.props.onSubmit(data.data, this.props.method, this.state.id)
+            alert(data.message)
+            await this.setState({
+                id: '',
+                category_name: '',
+                file: null,
+                invalid: 1
+            })
         }
-        this.props.onSubmit(data.data, this.props.method, this.state.id)
-        alert(data.message)
-        await this.setState({
-            id: '',
-            category_name: '',
-            image_name: null,
-        })
     }
 
     render() {
@@ -81,6 +96,7 @@ class Form extends React.Component {
                                     <button ref={this.btnAddImg}>Choose image</button>
                                     <input type='file' name='file' onChange={this.handleChangeFile}/>
                                 </div>
+                                <p className='error-image' ref={this.error_image}></p>
                             </div>
                             <div className='elm elm-col'>
                                 <input type='submit' className='btn' value={this.state.id === '' ? 'Add':'Update'}/>

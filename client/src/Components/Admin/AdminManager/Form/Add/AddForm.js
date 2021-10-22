@@ -16,7 +16,7 @@ class Form extends React.Component {
                 phone_number: ''
             },
             confirm_password: '',
-            isInvalid: 1
+            isInvalid: 0
         }
         this.error_confirm_password = React.createRef()
         this.error_username = React.createRef()
@@ -55,7 +55,7 @@ class Form extends React.Component {
             }
         }else if(existUser.data.length > 0) {
                 validUsername = 0
-                this.error_username.current.innerHTML = 'Username is Existed'
+                this.error_username.current.innerHTML = 'Username is existed'
             }
         else {
                 validUsername = 1
@@ -85,7 +85,7 @@ class Form extends React.Component {
         if(!regexp_phone.test(this.state.user.phone_number)){
             if(name === 'phone_number'){
                 validPhone = 0
-                this.error_phone_number.current.innerHTML = 'The number phone is consist of 10-11 numbers.'
+                this.error_phone_number.current.innerHTML = 'The number number is consist of 10-11 numbers.'
             }
         }else {
             validPhone = 1
@@ -125,7 +125,7 @@ class Form extends React.Component {
         if(this.state.isInvalid){
             const user = await userRegister(this.state.user, localStorage.getItem('accessToken'))
             this.props.onSubmit(user.data, method)
-            alert('Add Successfully')
+            alert(user.message)
             await this.setState({user: object})
             await this.setState({confirm_password: ''})     
         }
