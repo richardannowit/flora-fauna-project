@@ -47,10 +47,15 @@ async function getProductsByIdCategory (id_category) {
 
 async function postOrder (data) {
     //get status order
-    const result = await connectAPI('post', '/foods/order', data);
+    const result = await connectAPI('post', '/order', data);
     return result;
 }
 
+async function postMessage (data) {
+    //get status order
+    const result = await connectAPI('post', '/contract', data);
+    return result;
+}
 
 async function getCategories (limit) {
     //get products with limti
@@ -79,4 +84,9 @@ export {
 //export get categories
 export {
     getCategories
+}
+
+//export get contract
+export {
+    postMessage
 }
