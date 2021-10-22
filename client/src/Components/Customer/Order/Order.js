@@ -145,7 +145,7 @@ class Order extends Component {
             this.props.ShowNotification(true,"Order Successfully", data);
         } else {
             this.setState({
-                message: "Order failure"
+                message: "Order failed"
             });
         }
     }
