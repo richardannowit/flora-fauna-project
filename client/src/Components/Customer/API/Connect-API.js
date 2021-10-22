@@ -10,7 +10,6 @@ export default async function connectAPI (method, url, data) {
         data
     })
     .then(res => {
-        console.log(res.status);
         if (res.status === 200 || res.status === 201) {
             return res.data;
         }
