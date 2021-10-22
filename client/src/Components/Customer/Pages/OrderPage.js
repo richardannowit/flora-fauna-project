@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Order from '../Order/Order';
 import { getProductsById } from '../API/Connect-API';
-import Nofication from '../Order/notification/notification';
+import Notification from '../Order/notification/notification';
 
 class OrderPage extends Component {
 
@@ -46,7 +46,7 @@ class OrderPage extends Component {
     }
 
     ShowNotification = (check, notification, order_details) => {
-        //send data to nofication component
+        //send data to notification component
         if (check) {
             this.setState({
                 status_notification: "",
@@ -59,11 +59,11 @@ class OrderPage extends Component {
     render() {
         return (
             <>
-                <Nofication 
+                <Notification 
                     status_notification={this.state.status_notification}
                     order_details={this.state.order_details}
                     notification={this.state.notification}
-                ></Nofication>
+                ></Notification>
                 <Order
                     product={this.state.product}
                     ShowNotification={this.ShowNotification}
