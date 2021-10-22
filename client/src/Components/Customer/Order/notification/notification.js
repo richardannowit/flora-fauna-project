@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import './nofication.scss';
+import './notification.scss';
 
-class Nofication extends Component {
+class Notification extends Component {
 
     constructor (props) {
         super (props);
         
         this.state = {
-            nofication: "",
+            notification: "",
             total: 1,
             qty: 1,
             food_name: "",
@@ -25,7 +25,7 @@ class Nofication extends Component {
         if (nextProps.food_name !== prevState.food_name) {
             const order_details = nextProps.order_details;
             return ({
-                nofication: nextProps.nofication,
+                notification: nextProps.nofication,
                 image_name: order_details.image_name,
                 food_name: order_details.food_name,
                 total: order_details.total,
@@ -46,12 +46,12 @@ class Nofication extends Component {
 
     render() {
         return (
-            <div className={`background ${this.props.status_nofication}`}>
-                <div className="nofication">
+            <div className={`background ${this.props.status_notification}`}>
+                <div className="notification">
                     <h1 className="banner text-center">
-                        Nofication
+                        Notification
                     </h1>
-                    <div className="nofication-main text-center">
+                    <div className="notification-main text-center">
                         <h3 className="success">
                             {this.state.nofication}
                         </h3>
@@ -113,4 +113,4 @@ class Nofication extends Component {
     }
 }
 
-export default Nofication;
+export default Notification;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Order from '../Order/Order';
 import { getProductsById } from '../API/Connect-API';
-import Nofication from '../Order/nofication/nofication';
+import Notification from '../Order/notification/notification';
 
 class OrderPage extends Component {
 
@@ -19,8 +19,8 @@ class OrderPage extends Component {
                 category_id: null,
                 category_name: null
             },
-            status_nofication: "hide",
-            nofication: null,
+            status_notification: "hide",
+            notification: null,
             order_details: {
                 food_name: ""
             }
@@ -45,12 +45,12 @@ class OrderPage extends Component {
         localStorage.setItem('product', id_product);
     }
 
-    ShowNofication = (check, nofication, order_details) => {
-        //send data to nofication component
+    ShowNotification = (check, notification, order_details) => {
+        //send data to notification component
         if (check) {
             this.setState({
-                status_nofication: "",
-                nofication: nofication,
+                status_notification: "",
+                notification: notification,
                 order_details: order_details
             });
         }
@@ -59,14 +59,14 @@ class OrderPage extends Component {
     render() {
         return (
             <>
-                <Nofication 
-                    status_nofication={this.state.status_nofication}
+                <Notification 
+                    status_notification={this.state.status_notification}
                     order_details={this.state.order_details}
-                    nofication={this.state.nofication}
-                ></Nofication>
+                    notification={this.state.notification}
+                ></Notification>
                 <Order
                     product={this.state.product}
-                    ShowNofication={this.ShowNofication}
+                    ShowNotification={this.ShowNotification}
                 ></Order>
             </>
         );
