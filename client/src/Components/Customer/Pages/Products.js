@@ -51,12 +51,13 @@ class Products extends Component {
         //get list product
         const name_product = this.props.ContentSearch;
 
-        //because each until store a item
-        localStorage.clear()
-        //store data to localstore, beacause when reload web then data on state will be remove
-        localStorage.setItem('name_product', name_product);
-
         if (name_product) {
+            //because each until store a item
+            localStorage.clear()
+
+            //store data to localstore, beacause when reload web then data on state will be remove
+            localStorage.setItem('name_product', name_product);
+
             const products = await getProductsByName(name_product);
             this.setState({
                 ContentSearch: name_product,
@@ -69,11 +70,12 @@ class Products extends Component {
         //get list product by id category
         const id_category = this.props.IdCategory;
 
-        //because each until store a item
-        localStorage.clear();
-        //store data to localstore, beacause when reload web then data on state will be remove
-        localStorage.setItem('id_category', id_category);
         if (id_category) {
+            //because each until store a item
+            localStorage.clear();
+
+            //store data to localstore, beacause when reload web then data on state will be remove
+            localStorage.setItem('id_category', id_category);
             const products = await getProductsByIdCategory(id_category);
             this.setState({
                 Products: products.data
@@ -81,12 +83,19 @@ class Products extends Component {
             //die process
             return;
         }
+
+        const limit = 6;
+        const products = await getProducts(limit);
+        this.setState({
+            ContentSearch: "",
+            Products: products.data
+        });
+        localStorage.clear();
     }
 
     async componentDidUpdate(prevProps) {
         //run when use function search in here
-        if (prevProps.ContentSearch !== this.props.ContentSearch) {
-
+        if (prevProps.ContentSearch !== this.props.ContentSearch  && this.props.ContentSearch.length > 0) {
             const name_product = this.props.ContentSearch;
             //get list product
             const products = await getProductsByName(name_product);
@@ -118,7 +127,7 @@ class Products extends Component {
 
     componentWillUnmount() {
         //index.js:1 Warning: Can't perform a React state update on an unmounted component.
-        this.setState = (state,callback)=>{
+        this.setState = (state, callback) => {
             return;
         };
     }

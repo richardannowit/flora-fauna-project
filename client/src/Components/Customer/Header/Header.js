@@ -16,6 +16,7 @@ class Header extends Component {
                     </div>
                     <Menu
                     ClickProductItem={this.props.ClickProductItem}
+                    HandleSearch={this.props.HandleSearch}
                     ></Menu>
                     <div className="clearfix" />
                 </div>

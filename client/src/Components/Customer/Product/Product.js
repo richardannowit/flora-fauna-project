@@ -36,7 +36,7 @@ class Product extends Component {
         //two case
         //1: load by all products
         //2: load by search result
-        if (this.state.content_search) {
+        if (this.state.content_search.length === 0) {
             //case 1
             const limit = 6;
             const position = this.state.position;
@@ -54,7 +54,7 @@ class Product extends Component {
             const limit = 6;
             const position = this.state.position;
             const list_products = await getProductsByName(this.state.content_search ,limit, position);
-    
+            
             let new_list_products = this.state.Products;
             new_list_products.push(...list_products.data);
     

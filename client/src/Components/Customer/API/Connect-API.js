@@ -21,7 +21,7 @@ export default async function connectAPI (method, url, data) {
 async function getProducts (limit, position) {
     //get products with limti
     //if haven't limit then default limit = oo
-    const end_position = (position) ? position : 0;
+    const end_position = (position) ?? 0;
     if (limit) {
         const result = await connectAPI('get', `/foods/?limit=${limit}&position=${end_position}`);
         return result;
@@ -32,10 +32,10 @@ async function getProducts (limit, position) {
 
 async function getProductsByName (ContentSearch, limit, position) {
     //default limit = 6
-    const end_limit = (limit) ? limit : 6;
+    const end_limit = (limit) ?? 6;
     //default position = 0
-    const end_position = (position) ? position : 0;
-    const result = await connectAPI('get',`/foods/food_name/?search=${ContentSearch}&limit=${end_limit}&position=${end_position}`);
+    const end_position = (position) ?? 0;
+    const result = await connectAPI('get',`/foods/food_name/${ContentSearch}/?limit=${end_limit}&position=${end_position}`);
     return result;
 }
 
@@ -65,7 +65,7 @@ async function postMessage (data) {
 async function getCategories (limit, position) {
     //get products with limti
     //if haven't limit then default limit = oo
-    const end_position = (position) ? position : 0;
+    const end_position = (position) ?? 0;
     if (limit) {
         const result = await connectAPI('get', `/categories/?limit=${limit}&position=${end_position}`);
         return result;

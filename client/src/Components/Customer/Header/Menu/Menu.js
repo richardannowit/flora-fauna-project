@@ -49,6 +49,8 @@ class Menu extends Component {
             localStorage.clear();
             localStorage.setItem('check_load_all', true);
         } catch (e) { }
+        //clear content search
+        this.props.HandleSearch("");
     }
 
     RenderItemMenu = (to, exact, name) => {

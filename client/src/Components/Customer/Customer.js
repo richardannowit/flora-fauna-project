@@ -65,6 +65,7 @@ class App extends Component {
       <div>
         <Header
           ClickProductItem={this.ClickProductItem}
+          HandleSearch={this.HandleSearch}
         ></Header>
         <div style={{ width: '100%' }}>
           <Switch>
