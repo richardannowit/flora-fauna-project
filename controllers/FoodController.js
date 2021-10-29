@@ -41,10 +41,14 @@ module.exports.findById = async (req, res) => {
 }
 
 module.exports.findFood = async (req, res) => {
+    let limit = req.query.limit ?? '100000000';
+    let offset = req.query.position ?? '0';
+    limit = parseInt(limit);
+    offset = parseInt(offset);
+    let sort = req.query.sort;
     const search = req.params.search;
     try {
-        const foods = await food.findFood(`%${search}%`);
-        // const foods = await food.findFood(`%${search}%`);
+        const foods = await food.findFood(`%${search}%`, limit, offset, sort);
 
         if (foods.length > 0) {
             res.status(200).json({
@@ -65,7 +69,6 @@ module.exports.findFoodID = async (req, res) => {
     const search = req.params.search;
     try {
         const foods = await food.findFoodID(`%${search}%`);
-        // const foods = await food.findFood(`%${search}%`);
 
         if (foods.length > 0) {
             res.status(200).json({
