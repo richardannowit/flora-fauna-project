@@ -97,8 +97,6 @@ module.exports.delete = (iddelete) => {
 
 // get sort by food
 
-
-
 module.exports.create = (category) => {
     return new Promise((resolve, reject) => {
         connection.query('INSERT INTO categories SET ?', category, (error, result) => {
