@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { getCategories } from '../API/Connect-API';
 import CategoryItem from './Category-Item/Category-Item';
 import './Category.scss';
 
@@ -7,37 +8,39 @@ class Category extends Component {
         super(props);
         this.state = {
             Categories: [],
-            position: 0
+            position: 0,
+            status_load_element: "hide"
         }
+    }
+
+    LoadMoreCategories = async () => {
+        //unction load more product
+        const limit = 6;
+        const position = this.state.position;
+        const list_categories = await getCategories(limit);
+
+        let new_list_categories = this.state.Categories;
+        new_list_categories.push(...list_categories.data);
+
+        this.setState({
+            Products: new_list_categories,
+            position: position + limit
+        });
     }
 
     static getDerivedStateFromProps(nextProps) {
         //Set all data
         if (nextProps.Categories) {
+            const status_load_element = (nextProps.status_load_element) ? nextProps.status_load_element : "hide";
             //get position
             const position = nextProps.Categories.length;
-            console.log(position);
             return {
                 Categories: nextProps.Categories,
-                position: position
+                position: position,
+                status_load_element: status_load_element
             }
         }
         return { undefined };
-    }
-
-    LoadMoreCategories = async () => {
-        //function load more product
-        // const limit = 6;
-        // const position = this.state.position;
-        // //const list_products = await getProducts(limit, position);
-
-        // //let new_list_categories = this.state.Products;
-        // new_list_categories.push(...list_products.data);
-
-        // this.setState({
-        //     Products: new_list_categories,
-        //     position: position
-        // });
     }
 
     render() {
@@ -56,8 +59,8 @@ class Category extends Component {
                         })}
                     </div>
                     <div className="clearfix" />
-                    <p className="text-center">
-                        <span className="pink pointer" onClick={this.LoadMoreProduct}>See All Foods</span>
+                    <p className={`text-center ${this.state.status_load_element}`}>
+                        <span className='pink pointer' onClick={this.LoadMoreProduct}>See More Categories</span>
                     </p>
                 </div>
             </section>

@@ -30,8 +30,12 @@ async function getProducts (limit, position) {
     return result;
 }
 
-async function getProductsByName (ContentSearch) {
-    const result = await connectAPI('get',`/foods/food_name/${ContentSearch}`);
+async function getProductsByName (ContentSearch, limit, position) {
+    //default limit = 6
+    const end_limit = (limit) ? limit : 6;
+    //default position = 0
+    const end_position = (position) ? position : 0;
+    const result = await connectAPI('get',`/foods/food_name/?search=${ContentSearch}&limit=${end_limit}&position=${end_position}`);
     return result;
 }
 
@@ -58,15 +62,16 @@ async function postMessage (data) {
     return result;
 }
 
-async function getCategories (limit) {
+async function getCategories (limit, position) {
     //get products with limti
     //if haven't limit then default limit = oo
+    const end_position = (position) ? position : 0;
     if (limit) {
-        const reuslt = await connectAPI('get', `/categories/?limit=${limit}`);
-        return reuslt;
+        const result = await connectAPI('get', `/categories/?limit=${limit}&position=${end_position}`);
+        return result;
     }
-    const reuslt = await connectAPI('get', '/categories');
-    return reuslt;
+    const result = await connectAPI('get', '/categories');
+    return result;
 }
 
 //export get products

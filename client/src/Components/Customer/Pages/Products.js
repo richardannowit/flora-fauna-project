@@ -134,6 +134,8 @@ class Products extends Component {
                     Products={this.state.Products}
                     ClickDetails={this.props.ClickDetails}
                     HandleOrder={this.props.HandleOrder}
+                    status_load_element="show"
+                    ContentSearch={this.state.ContentSearch}
                 ></Product>
             </>
         );

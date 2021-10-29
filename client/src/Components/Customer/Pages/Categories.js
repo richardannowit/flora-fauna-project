@@ -31,6 +31,7 @@ class Categories extends Component {
                 <Category
                 Categories={this.state.Categories}
                 ClickCategoryItem={this.props.ClickCategoryItem}
+                status_load_element="show"
                 ></Category>
             </>
         );

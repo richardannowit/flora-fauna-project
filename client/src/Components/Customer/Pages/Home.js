@@ -47,6 +47,7 @@ class Home extends Component {
                 Products={this.state.Products}
                 ClickDetails={this.props.ClickDetails}
                 HandleOrder={this.props.HandleOrder}
+                status_load_element="show"
                 ></Product>
             </>
         );
