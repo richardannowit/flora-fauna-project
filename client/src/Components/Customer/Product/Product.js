@@ -14,10 +14,10 @@ class Product extends Component {
         };
     }
 
-    static getDerivedStateFromProps(nextProps) {
-        if (nextProps.Products) {
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.Products.length !== prevState.Products.length) {
             //get status for component
-            const status_load_element = (nextProps.status_load_element) ? nextProps.status_load_element : "hide";
+            const status_load_element = (nextProps.status_load_element) ?? "hide";
             //get position
             const position = nextProps.Products.length;
             //load product in category name
@@ -43,6 +43,14 @@ class Product extends Component {
             const list_products = await getProducts(limit, position);
     
             let new_list_products = this.state.Products;
+
+            if (list_products.data.length === 0) {
+                //if It's over element then don't show element load more product
+                this.setState({
+                    status_load_element: "hide"
+                });
+            }
+
             new_list_products.push(...list_products.data);
     
             this.setState({
@@ -56,6 +64,14 @@ class Product extends Component {
             const list_products = await getProductsByName(this.state.content_search ,limit, position);
             
             let new_list_products = this.state.Products;
+
+            if (list_products.data.length === 0) {
+                //if It's over element then don't show element load more product
+                this.setState({
+                    status_load_element: "hide"
+                });
+            }
+
             new_list_products.push(...list_products.data);
     
             this.setState({

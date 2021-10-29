@@ -17,7 +17,15 @@ class Category extends Component {
         //unction load more product
         const limit = 6;
         const position = this.state.position;
-        const list_categories = await getCategories(limit);
+        const list_categories = await getCategories(limit, position);
+
+        if (list_categories.data.length === 0) {
+            //if It's over element then don't show element load more categories
+            this.setState({
+                status_load_element: "hide"
+            });
+            return;
+        }
 
         let new_list_categories = this.state.Categories;
         new_list_categories.push(...list_categories.data);
@@ -28,10 +36,10 @@ class Category extends Component {
         });
     }
 
-    static getDerivedStateFromProps(nextProps) {
+    static getDerivedStateFromProps(nextProps, prevState) {
         //Set all data
-        if (nextProps.Categories) {
-            const status_load_element = (nextProps.status_load_element) ? nextProps.status_load_element : "hide";
+        if (nextProps.Categories.length !== prevState.Categories.length) {
+            const status_load_element = (nextProps.status_load_element) ?? "hide";
             //get position
             const position = nextProps.Categories.length;
             return {
@@ -60,7 +68,7 @@ class Category extends Component {
                     </div>
                     <div className="clearfix" />
                     <p className={`text-center ${this.state.status_load_element}`}>
-                        <span className='pink pointer' onClick={this.LoadMoreProduct}>See More Categories</span>
+                        <span className='pink pointer' onClick={this.LoadMoreCategories}>See More Categories</span>
                     </p>
                 </div>
             </section>
