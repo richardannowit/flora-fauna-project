@@ -76,7 +76,7 @@ module.exports.viewUser = (limit, offset) => {
 // search user by username
 module.exports.findUserName = (search) => {
     return new Promise((resolve, reject) => {
-        connection.query("SELECT * FROM users WHERE username LIKE ?", search, (error, result) => {
+        connection.query("SELECT id, username, first_name, last_name, email, phone  FROM users WHERE username LIKE ?", search, (error, result) => {
             if (error) {
                 reject(error);
             } else {
@@ -93,7 +93,7 @@ module.exports.findUserName = (search) => {
 // search user by ID
 module.exports.findUserID = (search) => {
     return new Promise((resolve, reject) => {
-        connection.query("SELECT * FROM users WHERE id LIKE ?", search, (error, result) => {
+        connection.query("SELECT id, username, first_name, last_name, email, phone FROM users WHERE id LIKE ?", search, (error, result) => {
             if (error) {
                 reject(error);
             } else {
