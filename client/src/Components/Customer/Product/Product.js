@@ -10,7 +10,7 @@ class Product extends Component {
             Products: [],
             position: 0,
             status_load_element: "hide",
-            content_search: false
+            content_search: ""
         };
     }
 
@@ -18,6 +18,7 @@ class Product extends Component {
         if (nextProps.Products.length !== prevState.Products.length) {
             //get status for component
             const status_load_element = (nextProps.status_load_element) ?? "hide";
+            const content_search = (nextProps.ContentSearch) ?? "";
             //get position
             const position = nextProps.Products.length;
             //load product in category name
@@ -25,7 +26,7 @@ class Product extends Component {
                 Products: nextProps.Products,
                 position: position,
                 status_load_element: status_load_element,
-                content_search: nextProps.ContentSearch
+                content_search: content_search
             }
         }
         return { undefined }
