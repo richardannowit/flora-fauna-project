@@ -18,15 +18,16 @@ export default async function connectAPI (method, url, data) {
     .catch(res => {});
 }
 
-async function getProducts (limit) {
+async function getProducts (limit, position) {
     //get products with limti
     //if haven't limit then default limit = oo
+    const end_position = (position) ? position : 0;
     if (limit) {
-        const reuslt = await connectAPI('get', `/foods/?limit=${limit}`);
-        return reuslt;
+        const result = await connectAPI('get', `/foods/?limit=${limit}&position=${end_position}`);
+        return result;
     }
-    const reuslt = await connectAPI('get', '/foods');
-    return reuslt;
+    const result = await connectAPI('get', '/foods');
+    return result;
 }
 
 async function getProductsByName (ContentSearch) {
