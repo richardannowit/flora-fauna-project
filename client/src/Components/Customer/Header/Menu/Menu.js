@@ -51,6 +51,7 @@ class Menu extends Component {
         } catch (e) { }
         //clear content search
         this.props.HandleSearch("");
+        this.props.ClickCategoryItem("");
     }
 
     RenderItemMenu = (to, exact, name) => {

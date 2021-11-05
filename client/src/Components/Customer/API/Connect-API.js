@@ -44,9 +44,11 @@ async function getProductsById (IdProduct) {
     return result;
 }
 
-async function getProductsByIdCategory (id_category) {
+async function getProductsByIdCategory (id_category, limit, position) {
     //get list products by id category
-    const result =  await connectAPI('get', `/foods/id_category/${id_category}`);
+    const end_limit = (limit) ?? 6;
+    const end_position = (position) ?? 0;
+    const result =  await connectAPI('get', `/foods?id_category=${id_category}&limit=${end_limit}&position=${end_position}`);
     return result;
 }
 
