@@ -10,7 +10,6 @@ export default async function connectAPI (method, url, data) {
         data
     })
     .then(res => {
-        console.log(res.status);
         if (res.status === 200 || res.status === 201) {
             return res.data;
         }
@@ -19,19 +18,24 @@ export default async function connectAPI (method, url, data) {
     .catch(res => {});
 }
 
-async function getProducts (limit) {
+async function getProducts (limit, position) {
     //get products with limti
     //if haven't limit then default limit = oo
+    const end_position = (position) ?? 0;
     if (limit) {
-        const reuslt = await connectAPI('get', `/foods/?limit=${limit}`);
-        return reuslt;
+        const result = await connectAPI('get', `/foods/?limit=${limit}&position=${end_position}`);
+        return result;
     }
-    const reuslt = await connectAPI('get', '/foods');
-    return reuslt;
+    const result = await connectAPI('get', '/foods');
+    return result;
 }
 
-async function getProductsByName (ContentSearch) {
-    const result = await connectAPI('get',`/foods/food_name/${ContentSearch}`);
+async function getProductsByName (ContentSearch, limit, position) {
+    //default limit = 6
+    const end_limit = (limit) ?? 6;
+    //default position = 0
+    const end_position = (position) ?? 0;
+    const result = await connectAPI('get',`/foods/food_name/${ContentSearch}/?limit=${end_limit}&position=${end_position}`);
     return result;
 }
 
@@ -48,20 +52,26 @@ async function getProductsByIdCategory (id_category) {
 
 async function postOrder (data) {
     //get status order
-    const result = await connectAPI('post', '/foods/order', data);
+    const result = await connectAPI('post', '/order', data);
     return result;
 }
 
+async function postMessage (data) {
+    //get status order
+    const result = await connectAPI('post', '/contract', data);
+    return result;
+}
 
-async function getCategories (limit) {
+async function getCategories (limit, position) {
     //get products with limti
     //if haven't limit then default limit = oo
+    const end_position = (position) ?? 0;
     if (limit) {
-        const reuslt = await connectAPI('get', `/categories/?limit=${limit}`);
-        return reuslt;
+        const result = await connectAPI('get', `/categories/?limit=${limit}&position=${end_position}`);
+        return result;
     }
-    const reuslt = await connectAPI('get', '/categories');
-    return reuslt;
+    const result = await connectAPI('get', '/categories');
+    return result;
 }
 
 //export get products
@@ -80,4 +90,9 @@ export {
 //export get categories
 export {
     getCategories
+}
+
+//export get contract
+export {
+    postMessage
 }

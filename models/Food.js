@@ -37,9 +37,23 @@ module.exports.sortByQuantity = (limit, offset) => {
 }
 
 
-module.exports.findFood = (search) => {
+module.exports.findFood = (search, limit, offset, sort) => {
     return new Promise((resolve, reject) => {
-        connection.query("SELECT foods.*, categories.category_name FROM foods INNER JOIN categories ON foods.category_id = categories.id  WHERE foods.food_name LIKE ?;", search, (error, result) => {
+        let sql = "";
+        if (sort !== 'id') {
+            sql = `SELECT f.*, cn.* 
+            FROM foods as f 
+            LEFT JOIN (SELECT o.food_id, COUNT(*) as cnt FROM orders as o GROUP BY o.food_id) AS cn
+            ON cn.food_id = f.id 
+            WHERE f.food_name LIKE ?
+            ORDER BY cn.cnt DESC LIMIT ? OFFSET ?`
+        } else {
+            sql = `SELECT foods.*, categories.category_name 
+            FROM foods INNER JOIN categories ON foods.category_id = categories.id 
+            WHERE foods.food_name LIKE ? 
+            ORDER BY foods.id DESC LIMIT ? OFFSET ?`
+        }
+        connection.query(sql, [search, limit, offset], (error, result) => {
             if (error) {
                 reject(error);
             } else {

@@ -138,14 +138,14 @@ class Order extends Component {
         }
         const result = await postOrder(data);
         if (result) {
-            //set data nofication
+            //set data notification
             data['image_name'] = this.state.product.image_name;
             data['food_name'] = this.state.product.food_name;
             data['total'] = this.state.total;
-            this.props.ShowNofication(true,"Order Successfully", data);
+            this.props.ShowNotification(true,"Order Successfully", data);
         } else {
             this.setState({
-                message: "Order failure"
+                message: "Order failed"
             });
         }
     }
