@@ -69,7 +69,7 @@ class Table extends React.Component {
     render() {
         return (
             <div className='table-categories'>
-                <p className='label-category'>Categories Manager</p>
+                <p className='label-category'>Categories Management</p>
                 <div className='add-and-search'>
                     <button className='add-category' onClick={this.onClickAddCategory}>Add Category</button>
                     <div className='search-box'>
