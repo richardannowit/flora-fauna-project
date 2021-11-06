@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Table from '../Contract/Table/Table'
-import {getContracts} from '../API/ConnectAPI'
+import Table from '../Contact/Table/Table'
+import {getContacts} from '../API/ConnectAPI'
 
  class Contract extends Component {
     constructor(props) {
@@ -15,7 +15,7 @@ import {getContracts} from '../API/ConnectAPI'
     //Load data
     async componentDidMount() {
         document.title = 'Admin | Orders Manage'
-        const contracts = await getContracts(20, this.state.offset)
+        const contracts = await getContacts(20, this.state.offset)
         this.setState({contracts: contracts && contracts.data ? contracts.data: []})
         this.setState({loading: 1})
     }
@@ -27,7 +27,7 @@ import {getContracts} from '../API/ConnectAPI'
 
     async componentDidUpdate(prevProps, prevState) {
         if(prevState.offset !== this.state.offset) {
-            const contracts = await getContracts(10, this.state.offset)
+            const contracts = await getContacts(10, this.state.offset)
             if(contracts.data) {
                 await this.setState({
                     orders: [...this.state.contracts, ...contracts.data]

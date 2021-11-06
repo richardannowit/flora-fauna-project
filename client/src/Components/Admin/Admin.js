@@ -8,7 +8,7 @@ import Order from './Pages/Order'
 import NotFound from './Pages/NotFound'
 import Header from './Header/Header'
 import Footer from './Footer/Footer'
-import Contract from './Pages/Contract'
+import Contact from './Pages/Contact'
 import {getUserById} from  './API/ConnectAPI'
 class Admin extends React.Component {
     constructor(props) {
@@ -51,7 +51,7 @@ class Admin extends React.Component {
                         <Route path='/admin/admin-manager'>
                             <AdminManager user={this.state.user}/>
                         </Route>
-                        <Route path='/admin/contracts' component={Contract}/>
+                        <Route path='/admin/contracts' component={Contact}/>
                         <Route path='' component={NotFound}/>
                     </Switch>
                 </div>

@@ -123,8 +123,8 @@ async function postActiveOrders(data, token=null) {
 }
 
 //API CONTRACT
-async function getContracts(limit=100000, offset=0) {
-    const res = await connectAPI('get', `/api/contracts?limit=${limit}&position=${offset}`)
+async function getContacts(limit=100000, offset=0) {
+    const res = await connectAPI('get', `/contact?limit=${limit}&position=${offset}`)
     return res
 }
 
@@ -194,7 +194,7 @@ export {
 
 //EXPORT contracts
 export {
-    getContracts
+    getContacts
 }
 
 
