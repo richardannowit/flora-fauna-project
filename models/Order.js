@@ -58,3 +58,19 @@ module.exports.statistical = (year, month) => {
 }
 
 
+module.exports.create = (category) => {
+    return new Promise((resolve, reject) => {
+        connection.query('INSERT INTO orders SET ?', category, (error, result) => {
+            if (error) {
+                reject(error);
+            } else {
+                result = JSON.parse(JSON.stringify(result))
+                let res = {
+                    ...category,
+                    'id': result.insertId
+                }
+                resolve(res);
+            }
+        });
+    })
+}
