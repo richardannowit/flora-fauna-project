@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Contract from '../Contract/Contract';
-import Notification from '../Contract/notification/notification';
+import Contract from '../Contact/Contact';
+import Notification from '../Contact/notification/notification';
 
 class ContractPage extends Component {
 

@@ -33,14 +33,14 @@ class OrderPage extends Component {
         if (local_id_product) {
             const product = await getProductsById(local_id_product);
             this.setState({
-                product: product.data[0]
+                product: product.data
             });
             return;
         }
         const id_product = this.props.id_product;
         const product = await getProductsById(id_product);
         this.setState({
-            product: product.data[0]
+            product: product.data
         });
         localStorage.setItem('product', id_product);
     }

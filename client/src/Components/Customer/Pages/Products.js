@@ -8,6 +8,7 @@ class Products extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id_category: "",
             ContentSearch: "",
             Products: []
         };
@@ -32,6 +33,7 @@ class Products extends Component {
             if (id_category) {
                 const products = await getProductsByIdCategory(id_category);
                 this.setState({
+                    id_category: id_category,
                     Products: products.data
                 });
                 //die process
@@ -78,6 +80,7 @@ class Products extends Component {
             localStorage.setItem('id_category', id_category);
             const products = await getProductsByIdCategory(id_category);
             this.setState({
+                id_category: id_category,
                 Products: products.data
             });
             //die process
@@ -94,6 +97,14 @@ class Products extends Component {
     }
 
     async componentDidUpdate(prevProps) {
+        //clear id category
+        try {
+            if (this.props.IdCategory.length === 0 && this.props.IdCategory !== this.state.id_category) {
+                this.setState({
+                    id_category: ""
+                });
+            }
+        } catch (e) {}
         //run when use function search in here
         if (prevProps.ContentSearch !== this.props.ContentSearch  && this.props.ContentSearch.length > 0) {
             const name_product = this.props.ContentSearch;
@@ -145,6 +156,7 @@ class Products extends Component {
                     HandleOrder={this.props.HandleOrder}
                     status_load_element="show"
                     ContentSearch={this.state.ContentSearch}
+                    id_category={this.state.id_category}
                 ></Product>
             </>
         );

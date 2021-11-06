@@ -40,25 +40,27 @@ async function getProductsByName (ContentSearch, limit, position) {
 }
 
 async function getProductsById (IdProduct) {
-    const result = await connectAPI('get', `/foods/id/${IdProduct}`);
+    const result = await connectAPI('get', `/foods/${IdProduct}`);
     return result;
 }
 
-async function getProductsByIdCategory (id_category) {
+async function getProductsByIdCategory (id_category, limit, position) {
     //get list products by id category
-    const result =  await connectAPI('get', `/foods/id_category/${id_category}`);
+    const end_limit = (limit) ?? 6;
+    const end_position = (position) ?? 0;
+    const result =  await connectAPI('get', `/foods?id_category=${id_category}&limit=${end_limit}&position=${end_position}`);
     return result;
 }
 
 async function postOrder (data) {
     //get status order
-    const result = await connectAPI('post', '/order', data);
+    const result = await connectAPI('post', '/orders', data);
     return result;
 }
 
 async function postMessage (data) {
     //get status order
-    const result = await connectAPI('post', '/contract', data);
+    const result = await connectAPI('post', '/contact', data);
     return result;
 }
 
