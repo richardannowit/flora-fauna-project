@@ -69,8 +69,6 @@ module.exports.update = async (req, res) => {
     const id = req.params.id;
     try {
         const updateUser = {
-            username: req.body.username,
-            password: req.body.password,
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             email: req.body.email,

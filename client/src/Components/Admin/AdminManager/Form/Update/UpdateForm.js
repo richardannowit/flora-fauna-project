@@ -19,8 +19,9 @@ class UpdateForm extends React.Component {
     }
 
     //set phone number
-    componentDidMount() {
-        this.setState({user: {...this.props.data_user, phone_number: this.props.data_user.phone}})
+    async componentDidMount() {
+        let {data_user} = this.props
+        await this.setState({user: {...data_user, phone_number: String(this.props.data_user.phone)}})
     }
 
     //Hide updated form
@@ -66,12 +67,8 @@ class UpdateForm extends React.Component {
     handleSubmit = async (e)=>{
         e.preventDefault()
         if(this.state.invalid){
-            console.log(this.state.user)
             const put = await putUser(localStorage.getItem('id'), this.state.user, localStorage.getItem('accessToken')) 
-            console.log(this.state.invalid)
-            console.log('successful')
             alert(put.message)
-
         }
     }
 

@@ -65,7 +65,7 @@ class Table extends React.Component {
     render() {
         return (
             <div className='table-managers'>
-                <p className='label-manager'>Manage User</p>
+                <p className='label-manager'>Users Management</p>
                 <div className='add-and-search'>
                     <button className='add-user' onClick={this.handleShowMemberForm}>Add Member</button>
                     <div className='search-box'>

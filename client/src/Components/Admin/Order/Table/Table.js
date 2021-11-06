@@ -88,7 +88,7 @@ class Table extends React.Component {
     render() {
         return (
             <div className='table-orders'>
-                <p className='label-order'>Manage Orders</p>
+                <p className='label-order'>Orders Management</p>
                 <div className='add-and-search'>
                     <div className='search-box'>
                         <input type='text' className='search-item' name='search' value={this.state.search} onChange={this.handleChange} placeholder='Click to search by customer name'/>
@@ -116,7 +116,7 @@ class Table extends React.Component {
                 {this.props.orders.length === 0 && <p className='no-data'>{this.props.loading ? 'No data found!' : 'Loading..'}</p>}
                 {this.props.orders.length !== 0 && <button className='orders-see-more' onClick={this.handleUpdatePosition}>See more</button>}
             </div>
-        );
+        )
     }
 }
 

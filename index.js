@@ -11,6 +11,7 @@ const foodRouter = require('./routes/food')
 const categoryRouter = require('./routes/category')
 const orderRouter = require('./routes/order')
 const userRouter = require('./routes/user')
+const contactRouter = require('./routes/contact')
 
 connect();
 const app = express()
@@ -24,6 +25,8 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+app.use(express.json())
+
 app.use('/api/users', userRouter)
 
 app.use('/api/orders', orderRouter)
@@ -35,6 +38,10 @@ app.use('/api/foods', foodRouter)
 app.use('/api/auth', authRouter)
 
 app.use('/api/home', homeRouter)
+
+app.use('/api/contact', contactRouter)
+
+
 
 
 const PORT = process.env.PORT || 8000

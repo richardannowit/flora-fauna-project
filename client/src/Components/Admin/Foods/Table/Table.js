@@ -90,7 +90,7 @@ class Table extends React.Component {
 
         return (
             <div className='table-foods'>
-                <p className='label-food'>Manage Foods</p>
+                <p className='label-food'>Foods Management</p>
                 <div className='add-and-search'>
                     <button className='add-food' onClick={this.onShowAddFoodForm}>Add Food</button>
                     <div className='search-box'>

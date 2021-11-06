@@ -102,7 +102,7 @@ async function deleteUser(user_id, token=null) {
 
 
 //API ORDERS
-async function getOrders(limit=10000, offset=0){
+async function getOrders(limit=100000, offset=0){
     const res = await connectAPI('get', `/orders?limit=${limit}&position=${offset}`)
     return res
 }
@@ -119,6 +119,12 @@ async function getOrderStatistic(year, token=null){
 
 async function postActiveOrders(data, token=null) {
     const res = await connectAPI('post', `/orders/active/`, data, token)
+    return res
+}
+
+//API CONTRACT
+async function getContracts(limit=100000, offset=0) {
+    const res = await connectAPI('get', `/api/contracts?limit=${limit}&position=${offset}`)
     return res
 }
 
@@ -184,6 +190,11 @@ export {
     getOrdersByName,
     getOrderStatistic,
     postActiveOrders
+}
+
+//EXPORT contracts
+export {
+    getContracts
 }
 
 
