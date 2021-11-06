@@ -7,10 +7,11 @@ module.exports.viewFood = async (req, res) => {
     try {
         let limit = req.query.limit ?? '100000000';
         let offset = req.query.position ?? '0';
+        let category = parseInt(req.query.category) ?? -1;
         limit = parseInt(limit);
         offset = parseInt(offset);
         let sort = req.query.sort;
-        const foods = sort === 'id' ? await food.sortById(limit, offset) : await food.sortByQuantity(limit, offset);
+        const foods = sort === 'id' ? await food.sortById(limit, offset, category) : await food.sortByQuantity(limit, offset, category);
         if (foods) {
             res.status(200).json({
                 data: foods

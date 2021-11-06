@@ -1,11 +1,17 @@
 const { connection } = require("../config/database");
 
 
-module.exports.sortById = (limit, offset) => {
+module.exports.sortById = (limit, offset, category) => {
     return new Promise((resolve, reject) => {
+        let categoryQuery = "";
+        if (category !== -1) {
+            categoryQuery = ` WHERE foods.category_id=${category} `;
+        }
         let sql = `SELECT foods.*, categories.category_name 
                 FROM foods INNER JOIN categories ON foods.category_id = categories.id 
+                ${categoryQuery}
                 ORDER BY foods.id DESC LIMIT ? OFFSET ?`;
+        console.log(sql);
         connection.query(sql, [limit, offset], function (error, result) {
             if (error) {
                 reject(error);
@@ -20,12 +26,17 @@ module.exports.sortById = (limit, offset) => {
     })
 }
 
-module.exports.sortByQuantity = (limit, offset) => {
+module.exports.sortByQuantity = (limit, offset, category) => {
     return new Promise((resolve, reject) => {
+        let categoryQuery = "";
+        if (category !== -1) {
+            categoryQuery = `WHERE f.category_id=${category} `;
+        }
         const sql = `SELECT f.*, cn.* 
                     FROM foods as f 
                     LEFT JOIN (SELECT o.food_id, COUNT(*) as cnt FROM orders as o GROUP BY o.food_id) AS cn 
-                    ON cn.food_id = f.id ORDER BY cn.cnt DESC LIMIT ? OFFSET ?`
+                    ON cn.food_id = f.id ${categoryQuery} ORDER BY cn.cnt DESC LIMIT ? OFFSET ?`
+        console.log(sql);
         connection.query(sql, [limit, offset], function (error, result) {
             if (error) {
                 reject(error);
