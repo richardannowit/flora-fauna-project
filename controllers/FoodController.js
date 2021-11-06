@@ -7,7 +7,8 @@ module.exports.viewFood = async (req, res) => {
     try {
         let limit = req.query.limit ?? '100000000';
         let offset = req.query.position ?? '0';
-        let category = parseInt(req.query.category) ?? -1;
+        let _category = req.query.category ?? "-1";
+        let category = parseInt(_category);
         limit = parseInt(limit);
         offset = parseInt(offset);
         let sort = req.query.sort;
