@@ -70,3 +70,27 @@ module.exports.statistical = async (req, res) => {
         console.error(err);
     }
 }
+
+
+module.exports.create = async (req, res) => {
+    try {
+        const data = await order.create({
+            'food_id': parseInt(req.body.food_id),
+            'quantity': parseInt(req.body.quantity),
+            'customer_name': req.body.customer_name,
+            'customer_phone_number': req.body.customer_phone_number,
+            'customer_email': req.body.customer_email,
+            'customer_address': req.body.customer_address,
+        });
+        res.status(200).json({
+            data: data,
+            message: 'Order added successfull'
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Server error"
+        })
+    }
+
+}
