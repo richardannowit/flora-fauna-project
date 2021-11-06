@@ -43,7 +43,7 @@ class ProductDetails extends Component {
                         <div className='details'>
                             <div className='col-img'>
                                 <img
-                                    src={this.state.product_details.image_name}
+                                    src={`http://localhost:8000/uploads/${this.state.product_details.image_name}`}
                                     alt={this.state.product_details.image_name}
                                     className="img-curve"
                                     onError={e => { this.handleNoImage(e) }}
