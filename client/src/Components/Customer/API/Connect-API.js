@@ -54,13 +54,13 @@ async function getProductsByIdCategory (id_category, limit, position) {
 
 async function postOrder (data) {
     //get status order
-    const result = await connectAPI('post', '/order', data);
+    const result = await connectAPI('post', '/orders', data);
     return result;
 }
 
 async function postMessage (data) {
     //get status order
-    const result = await connectAPI('post', '/contract', data);
+    const result = await connectAPI('post', '/contact', data);
     return result;
 }
 

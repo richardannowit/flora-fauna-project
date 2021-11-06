@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './notification.scss';
 
 class Notification extends Component {
 
-    constructor (props) {
-        super (props);
-        
+    constructor(props) {
+        super(props);
+
         this.state = {
             notification: "",
             total: 1,
@@ -20,12 +20,12 @@ class Notification extends Component {
         }
     }
 
-    static getDerivedStateFromProps (nextProps, prevState) {
+    static getDerivedStateFromProps(nextProps, prevState) {
         //set data
         if (nextProps.food_name !== prevState.food_name) {
             const order_details = nextProps.order_details;
             return ({
-                notification: nextProps.nofication,
+                notification: nextProps.notification,
                 image_name: order_details.image_name,
                 food_name: order_details.food_name,
                 total: order_details.total,
@@ -53,7 +53,7 @@ class Notification extends Component {
                     </h1>
                     <div className="notification-main text-center">
                         <h3 className="success">
-                            {this.state.nofication}
+                            {this.state.notification}
                         </h3>
                         <fieldset>
                             <legend>Order Food</legend>
@@ -77,7 +77,7 @@ class Notification extends Component {
                                     <b>Total:</b>
                                     <p>{this.state.total} đ</p>
                                 </div>
-                                
+
                             </div>
 
                             <div className="order-details">
@@ -97,11 +97,11 @@ class Notification extends Component {
                                     <b>Address:</b>
                                     <p>{this.state.customer_address}</p>
                                 </div>
-                                
+
                             </div>
                         </fieldset>
                         <div className="group-btn">
-                            <Link 
+                            <Link
                                 className="btn btn-primary"
                                 to="/"
                             >Keep Ordering</Link>

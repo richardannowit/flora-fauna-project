@@ -6,7 +6,7 @@ import Social from './Social/Social';
 import Home from './Pages/Home';
 import Categories from './Pages/Categories';
 import Products from './Pages/Products';
-import ContractPage from './Pages/ContractPage';
+import ContactPage from './Pages/ContactPage';
 import OrderPage from './Pages/OrderPage';
 import ProductDetailsPage from './Pages/ProductDetailsPage';
 
@@ -106,7 +106,7 @@ class App extends Component {
                 );
               }}
             ></Route>
-            <Route path='/contract' component={ContractPage}></Route>
+            <Route path='/contact' component={ContactPage}></Route>
             <Route path='/order' render={() => {
               return (
                 <OrderPage

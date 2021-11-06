@@ -128,7 +128,7 @@ class Menu extends Component {
         return (
             <nav className="menu text-right">
                 <ul>
-                    {this.RenderItemMenu("/contract", false, "Contract")}
+                    {this.RenderItemMenu("/contact", false, "Contact")}
                     {this.RenderItemMenu("/products", false, "Foods")}
                     {this.RenderItemMenu("/categories", false, "Categories")}
                     {this.RenderItemMenu("/", true, "Home")}
