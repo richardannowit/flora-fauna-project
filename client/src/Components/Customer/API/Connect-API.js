@@ -40,7 +40,7 @@ async function getProductsByName (ContentSearch, limit, position) {
 }
 
 async function getProductsById (IdProduct) {
-    const result = await connectAPI('get', `/foods/id/${IdProduct}`);
+    const result = await connectAPI('get', `/foods/${IdProduct}`);
     return result;
 }
 
