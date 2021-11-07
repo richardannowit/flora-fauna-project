@@ -97,6 +97,11 @@ async function deleteUser(user_id, token=null) {
     return res
 }
 
+async function userChangePassword(data, token=null){
+    const res = await connectAPI('post', '/user/change-password', token, data)
+    return res
+}
+
 
 
 
@@ -117,8 +122,8 @@ async function getOrderStatistic(year, token=null){
     return res
 }
 
-async function postActiveOrders(data, token=null) {
-    const res = await connectAPI('post', `/orders/active/`, data, token)
+async function putActiveOrders(id, data, token=null) {
+    const res = await connectAPI('put', `/orders/${id}`, data, token)
     return res
 }
 
@@ -137,11 +142,6 @@ async function userLogin(data, token=null){
 
 async function userRegister(data, token=null) {
     const res = await connectAPI('post', '/auth/register', token, data)
-    return res
-}
-
-async function userChangePassword(data, token=null){
-    const res = await connectAPI('post', '/auth/change-password', token, data)
     return res
 }
 
@@ -189,7 +189,7 @@ export {
     getOrders,
     getOrdersByName,
     getOrderStatistic,
-    postActiveOrders
+    putActiveOrders
 }
 
 //EXPORT contracts

@@ -12,14 +12,18 @@ class Categories extends React.Component {
             categories: [],
             search: [],
             offset: 0,
-            loading: 0
+            limit: 10,
+            loading: 0,
+            activeSeeMoreButton: 1
         }
         this.category = React.createRef()
     }
 
     async componentDidMount() {
         document.title = 'Admin | Categories Manage'
-        const categories = await getCategories(10 , this.state.offset)
+        const categories = await getCategories(this.state.limit , this.state.offset)
+        if(!categories.data || categories.data.length < 10)
+            this.setState({activeSeeMoreButton: 0})
         await this.setState({categories: categories.data})
         this.setState({loading: 1})
     }
@@ -84,12 +88,14 @@ class Categories extends React.Component {
 
     async componentDidUpdate(prevProps, prevState) {
         if(prevState.offset !== this.state.offset) {
-           const categories = await getCategories(10, this.state.offset)
-           if(categories.data) {
+            const categories = await getCategories(10, this.state.offset)
+            if(!categories.data || categories.data.length < 10)
+                this.setState({activeSeeMoreButton: 0})
+            if(categories.data) {
                 await this.setState({
                     categories: [...this.state.categories, ...categories.data]
                 })
-           }else console.log(categories.message)
+            }else console.log(categories.message)
 
         }
     }
@@ -118,6 +124,8 @@ class Categories extends React.Component {
                     offset={this.state.offset} 
                     onSetOffset={this.handleSetOffset}
                     loading={this.state.loading}
+                    activeSeeMoreButton = {this.state.activeSeeMoreButton}
+                    limit={this.state.limit}
                 />
             </div>
         )

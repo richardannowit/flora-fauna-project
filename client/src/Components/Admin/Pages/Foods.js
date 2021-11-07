@@ -9,10 +9,12 @@ class Foods extends React.Component {
             activeAddFoodsForm: false,
             activeUpdateFoodsForm: false,
             offset: 0,
+            limit: 10,
             food_data_update: {},
             foods:[],
             categories:[],
-            loading: 0
+            loading: 0,
+            activeSeeMoreButton: 1
         }
         this.food = React.createRef()
     }
@@ -20,7 +22,9 @@ class Foods extends React.Component {
     //Load data
     async componentDidMount() {
         document.title = 'Admin | Foods Manage'
-        const foods= await getFoods(10, this.state.offset)
+        const foods= await getFoods(this.state.limit, this.state.offset)
+        if(!foods.data || foods.data.length < 10)
+            this.setState({activeSeeMoreButton: 0})
         await this.setState({foods: foods.data})
         const categories = await getCategories(10000, 0)
         this.setState({categories: categories.data})
@@ -87,6 +91,9 @@ class Foods extends React.Component {
     async componentDidUpdate(prevProps, prevState) {
         if(prevState.offset !== this.state.offset) {
             const foods = await getFoods(10, this.state.offset)
+            console.log(foods.data)
+            if(!foods.data || foods.data.length < 10)
+                this.setState({activeSeeMoreButton: 0})
             if(foods.data)
                 await this.setState({
                     foods: [...this.state.foods, ...foods.data]
@@ -120,6 +127,8 @@ class Foods extends React.Component {
                     offset={this.state.offset}
                     onSetOffset={this.handleSetOffset}
                     loading={this.state.loading}
+                    activeSeeMoreButton={this.state.activeSeeMoreButton}
+                    limit={this.state.limit}
                 />
             </div>
         )

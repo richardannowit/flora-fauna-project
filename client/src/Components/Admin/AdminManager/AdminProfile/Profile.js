@@ -22,11 +22,6 @@ export default function Profile(props) {
     const handleShowUpdateMemberForm = ()=>{
         props.onShowUpdateMemberForm()
     }
-    
-    //Show  user's changed password form
-    const handleShowChangePasswordForm = ()=>{
-        props.onShowChangePasswordForm()
-    }
 
     return (
         <div className='admin-profile'>
@@ -37,7 +32,6 @@ export default function Profile(props) {
             <p className='text profile-phone'>Email: {props.user.email}</p>
             <div className='profile-action'>
                 <button className='profile-btn' onClick={handleShowUpdateMemberForm}><i className="fas fa-pen"></i> Update Profile</button>
-                <button className='profile-btn' onClick={handleShowChangePasswordForm}><i className="fas fa-pen"></i> Change Password</button>
                 <button className='profile-btn profile-btn-delete' onClick={handleDelete}><i className="fas fa-eraser"></i> Delete Account</button>
             </div>
         </div>

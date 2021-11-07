@@ -1,6 +1,7 @@
 import React from 'react'
 import './Table.scss'
-import {postActiveOrders}from '../../API/ConnectAPI'
+import {putActiveOrders}from '../../API/ConnectAPI'
+import $ from 'jquery'
 
 class Table extends React.Component {
 
@@ -9,7 +10,7 @@ class Table extends React.Component {
         this.state ={
             search: '',
             offset: 0,
-            changeActive: ''
+            changeActive: '',
         }
     }
 
@@ -45,8 +46,8 @@ class Table extends React.Component {
                         <p>{parseInt(order.quantity)*parseInt(order.price)}</p>
                     </td>
                     <td>
-                        <select value={order.active} onChange={this.handleChangeSelect}>
-                            <option value='waiting'>waiting</option>
+                        <select value={order.active} id={order.id} onChange={this.handleChangeSelect}>
+                            <option value='waiting' >waiting</option>
                             <option value='delivering'>delivering</option>
                             <option value='success'>success</option>
                         </select>
@@ -61,8 +62,8 @@ class Table extends React.Component {
 
     //Submit active
     handleChangeSelect= async (e)=>{
-        const {value} = e.target
-        const active = await postActiveOrders(value, localStorage.getItem('accessToken'))
+        const {value, id} = e.target
+        const active = await putActiveOrders(id, {active: value}, localStorage.getItem('accessToken'))
         console.log(active.message)
     }
 
@@ -80,9 +81,15 @@ class Table extends React.Component {
         e.target.innerHTML = 'Loading...'
         setTimeout(()=>{
             e.target.innerHTML = 'See more'
-        }, 1000)
-        await this.setState({offset: this.props.offset+11})
+        }, 500)
+        await this.setState({offset: this.props.offset === 0 ? this.props.limit : this.props.offset+10})
         this.props.onSetOffset(this.state.offset)
+    }
+
+    componentDidUpdate(prevProps) {
+        if(this.props.activeSeeMoreButton === 0) {
+            $('.orders-see-more').css('visibility', 'hidden')
+        }
     }
 
     render() {

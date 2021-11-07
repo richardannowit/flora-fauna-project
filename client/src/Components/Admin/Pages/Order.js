@@ -7,14 +7,18 @@ class Order extends React.Component {
         this.state ={
             orders: [],
             offset: 0,
-            loading: 0
+            limit: 20,
+            loading: 0,
+            activeSeeMoreButton: 1
         }
     }
 
     //Load data
     async componentDidMount() {
         document.title = 'Admin | Orders Manage'
-        const orders = await getOrders(20, this.state.offset)
+        const orders = await getOrders(this.state.limit, this.state.offset)
+        if(!orders.data || orders.data.length < 10)
+            this.setState({activeSeeMoreButton: 0})
         this.setState({orders: orders.data ? orders.data: []})
         this.setState({loading: 1})
     }
@@ -37,6 +41,8 @@ class Order extends React.Component {
     async componentDidUpdate(prevProps, prevState) {
         if(prevState.offset !== this.state.offset) {
             const orders = await getOrders(10, this.state.offset)
+            if(!orders.data || orders.data.length < 10)
+                this.setState({activeSeeMoreButton: 0})
             if(orders.data) {
                 await this.setState({
                     orders: [...this.state.orders, ...orders.data]
@@ -55,6 +61,8 @@ class Order extends React.Component {
                     loading={this.state.loading}
                     offset={this.state.offset}
                     onSetOffset={this.handleSetOffset}
+                    activeSeeMoreButton={this.state.activeSeeMoreButton}
+                    limit={this.state.limit}
                 />
             </div>
         )
