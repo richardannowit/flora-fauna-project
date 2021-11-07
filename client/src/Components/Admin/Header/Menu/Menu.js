@@ -33,7 +33,7 @@ export default function Menu(props){
                     {ListItemLink('/admin/admin-manager', false, 'Member Manage')}
                     {ListItemLink('/admin/categories', false, 'Categories Manage')}
                     {ListItemLink('/admin/foods', false, 'Foods Manage')}
-                    {ListItemLink('/admin/contracts', false, 'Contract Manage')}
+                    {ListItemLink('/admin/contracts', false, 'Contacts Manage')}
                     {ListItemLink('/admin/orders', false, 'Orders Manage')}
                     <li>
                         <p className='menu-elm' onClick={handleLogout}>Logout</p>

@@ -3,7 +3,6 @@ import Table from '../AdminManager/Table/Table'
 import Add from '../AdminManager/Form/Add/AddForm'
 import Update from '../AdminManager/Form/Update/UpdateForm'
 import Profile from '../AdminManager/AdminProfile/Profile'
-import ChangePassword from '../AdminManager/Form/ChangePasword/ChangePassword'
 import {getUsers, getUserByName} from '../API/ConnectAPI'
 class AdminManager extends React.Component {
 
@@ -15,7 +14,9 @@ class AdminManager extends React.Component {
             activeChangePasswordForm: false,
             users: [],
             offset: 0,
-            loading: 0
+            limit:10,
+            loading: 0,
+            activeSeeMoreButton: 1
         }
         this.users = React.createRef()
     }
@@ -23,7 +24,9 @@ class AdminManager extends React.Component {
     //Load data
     async componentDidMount() {
         document.title = 'Admin | Admins Manage'
-        const users = await getUsers(10, this.state.offset)
+        const users = await getUsers(this.state.limit, this.state.offset)
+        if(!users.data || users.data.length < 10)
+            this.setState({activeSeeMoreButton: 0})
         this.setState({users: users.data})
         this.setState({loading: 1})
     }
@@ -83,12 +86,15 @@ class AdminManager extends React.Component {
         await this.setState({offset: offset})
     }
 
+    //see more data
     async componentDidUpdate(prevProps, prevState) {
         if(prevState.offset !== this.state.offset) {
             const users = await getUsers(10, this.state.offset)
+            if(!users.data || users.data.length < 10)
+                this.setState({activeSeeMoreButton: 0})
             if(users.data)
                 await this.setState({
-                    foods: [...this.state.users, ...users.data]
+                    users: [...this.state.users, ...users.data]
                 })
             else console.log(users.message)
         }
@@ -107,9 +113,6 @@ class AdminManager extends React.Component {
                                                 onSubmit={this.handleSubmit} 
                                                 data_user={this.props.user}
                                                 />}
-                {this.state.activeChangePasswordForm && <ChangePassword 
-                                                        onHideChangePasswordForm= {this.hideMemberForm} 
-                                                        />}
                 <Profile 
                     onShowUpdateMemberForm={this.showUpdateMemberForm} 
                     onShowChangePasswordForm={this.onShowChangePasswordForm} 
@@ -122,6 +125,8 @@ class AdminManager extends React.Component {
                     offset = {this.state.offset}
                     onSetOffset={this.handleSetOffset}
                     loading={this.state.loading}
+                    activeSeeMoreButton={this.state.activeSeeMoreButton}
+                    limit={this.state.limit}
                 />
             </div>
         )

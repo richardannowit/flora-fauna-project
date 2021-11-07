@@ -1,5 +1,5 @@
 import React from 'react'
-
+import $ from 'jquery'
 import './Table.scss'
 
 class Table extends React.Component {
@@ -40,16 +40,22 @@ class Table extends React.Component {
         e.target.innerHTML = 'Loading...'
         setTimeout(()=>{
             e.target.innerHTML = 'See more'
-        }, 1000)
-        await this.setState({offset: this.props.offset+11})
+        }, 500)
+        await this.setState({offset: this.props.offset === 0 ? this.props.limit : this.props.offset+10})
         this.props.onSetOffset(this.state.offset)
+    }
+
+    componentDidUpdate(prevProps) {
+        if(this.props.activeSeeMoreButton === 0) {
+            $('.contracts-see-more').css('visibility', 'hidden')
+        }
     }
 
     
     render() {
         return (
             <div className='table-contracts'>
-                <p className='label-contract'>Contracts Management</p>
+                <p className='label-contract'>Contacts Management</p>
                 <table>
                     <tbody>
                         <tr className='header'>
@@ -63,7 +69,7 @@ class Table extends React.Component {
                     </tbody>
                 </table>
                 {this.props.contracts.length === 0 && <p className='no-data'>{this.props.loading ? 'No data found!' : 'Loading..'}</p>}
-                {this.props.contracts.length !== 0 && <button className='orders-see-more' onClick={this.handleUpdatePosition}>See more</button>}
+                {this.props.contracts.length !== 0 && <button className='contracts-see-more' onClick={this.handleUpdatePosition}>See more</button>}
             </div>
         )
     }
