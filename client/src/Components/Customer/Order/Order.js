@@ -161,7 +161,7 @@ class Order extends Component {
                             <legend>Selected Food</legend>
                             <div className="product-menu-img">
                                 <img
-                                    src={this.state.product.image_name}
+                                    src={`http://localhost:8000/uploads/${this.state.product.image_name}`}
                                     alt={this.state.product.food_name}
                                     onError={e => { this.handleNoImage(e) }}
                                     className="img-responsive img-curve" />
