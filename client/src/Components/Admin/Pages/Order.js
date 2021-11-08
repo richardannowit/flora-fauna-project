@@ -26,8 +26,10 @@ class Order extends React.Component {
     //Search engine
     handleSearch = async (customer_name)=>{
         let orders
-        if(customer_name === '')
-            orders = await getOrders()
+        if(customer_name === ''){
+            orders = await getOrders(this.state.limit, 0)
+            await this.setState({offset: 0})
+        }
         else
             orders = await getOrdersByName(customer_name)
         await this.setState({orders: orders.data})
