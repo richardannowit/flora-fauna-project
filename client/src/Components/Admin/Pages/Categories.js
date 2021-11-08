@@ -22,8 +22,6 @@ class Categories extends React.Component {
     async componentDidMount() {
         document.title = 'Admin | Categories Manage'
         const categories = await getCategories(this.state.limit , this.state.offset)
-        if(!categories.data || categories.data.length < 10)
-            this.setState({activeSeeMoreButton: 0})
         await this.setState({categories: categories.data})
         this.setState({loading: 1})
     }
@@ -76,8 +74,10 @@ class Categories extends React.Component {
         if(category_name===''){
             categories = await getCategories(this.state.limit, 0)  
             await this.setState({offset: 0})
+            await this.setState({activeSeeMoreButton: 1})
         }else{
             categories = await getCategoriesByName(category_name)
+            await this.setState({activeSeeMoreButton: 0})
         }
         await this.setState({categories: categories.data})
     }

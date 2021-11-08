@@ -62,7 +62,7 @@ class Table extends React.Component {
         e.target.innerHTML = 'Loading...'
         setTimeout(()=>{
             e.target.innerHTML = 'See more'
-        }, 500)
+        }, 700)
         await this.setState({offset: this.props.offset === 0 ? this.props.limit : this.props.offset+10})
         this.props.onSetOffset(this.state.offset)
     }
@@ -71,6 +71,8 @@ class Table extends React.Component {
         console.log(this.props.activeSeeMoreButton)
         if(this.props.activeSeeMoreButton === 0) {
             $('.categories-see-more').css('visibility', 'hidden')
+        }else {
+            $('.categories-see-more').css('visibility', 'visible')
         }
     }
 
