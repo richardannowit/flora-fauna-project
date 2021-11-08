@@ -16,7 +16,7 @@ module.exports.viewContact = async (req, res) => {
         }
         else {
             res.json({
-                message: "Can't not find category"
+                message: "Can't not find contact"
             })
         }
     } catch (err) {
@@ -45,6 +45,24 @@ module.exports.create = async (req, res) => {
 
 }
 
+module.exports.searchName = async (req, res) => {
+    let search = req.params.name;
+    try {
+        const searchName = await contact.searchName(`%${search}%`);
+        if(searchName){
+            res.status(200).json({
+                data: searchName
+            });
+        }else{
+            res.json({
+                message: "Can't not find contact"
+            })
+        }
+    }catch(err){
+        console.log(err);
+    }
+
+}
 
 
 
