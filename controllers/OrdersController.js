@@ -94,3 +94,25 @@ module.exports.create = async (req, res) => {
     }
 
 }
+
+module.exports.update = async (req, res) => {
+    try {
+        const id = req.params.id;
+        let status = req.body.status;
+
+        updateOrder = {
+            status
+        }
+        await order.update(updateOrder, id);
+        const data = await order.findById(id);
+        res.status(200).json({
+            data: data,
+            message: 'Order update successfull'
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: "Server error"
+        })
+    }
+
+}
