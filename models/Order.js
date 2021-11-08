@@ -74,3 +74,30 @@ module.exports.create = (category) => {
         });
     })
 }
+
+module.exports.update = (category, id) => {
+    return new Promise((resolve, reject) => {
+        let sql = "UPDATE orders SET ? where id=?";
+        connection.query(sql, [category, id], (error, result) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(category);
+            }
+        });
+    })
+}
+
+
+module.exports.findById = (id) => {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT * FROM orders WHERE id = ?', id, (error, result) => {
+            if (error) {
+                reject(error);
+            } else {
+                result = JSON.parse(JSON.stringify(result))
+                resolve(result[0]);
+            }
+        });
+    })
+}
