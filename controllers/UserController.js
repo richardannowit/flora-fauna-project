@@ -16,7 +16,7 @@ module.exports.viewUser = async (req, res) => {
         }
         else {
             res.json({
-                message: "Can't not find food"
+                message: "Can't not find users"
             })
         }
     } catch (err) {
