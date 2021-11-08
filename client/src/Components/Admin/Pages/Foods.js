@@ -23,8 +23,6 @@ class Foods extends React.Component {
     async componentDidMount() {
         document.title = 'Admin | Foods Manage'
         const foods= await getFoods(this.state.limit, this.state.offset)
-        if(!foods.data || foods.data.length < 10)
-            this.setState({activeSeeMoreButton: 0})
         await this.setState({foods: foods.data})
         const categories = await getCategories(10000, 0)
         this.setState({categories: categories.data})
@@ -79,11 +77,13 @@ class Foods extends React.Component {
         if(food_name === ''){
             food = await getFoods(this.state.limit, 0)
             await this.setState({offset: 0})
+            await this.setState({activeSeeMoreButton: 1})
         }    
-        else
+        else{
             food = await getFoodByName(food_name)
+            await this.setState({activeSeeMoreButton: 0})
+        }
         await this.setState({foods: food.data})
-        console.log(this.state.foods[0])
     }
 
     //handle set offset 

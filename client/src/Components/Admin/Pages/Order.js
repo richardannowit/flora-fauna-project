@@ -17,8 +17,6 @@ class Order extends React.Component {
     async componentDidMount() {
         document.title = 'Admin | Orders Manage'
         const orders = await getOrders(this.state.limit, this.state.offset)
-        if(!orders.data || orders.data.length < 10)
-            this.setState({activeSeeMoreButton: 0})
         this.setState({orders: orders.data ? orders.data: []})
         this.setState({loading: 1})
     }
@@ -29,9 +27,12 @@ class Order extends React.Component {
         if(customer_name === ''){
             orders = await getOrders(this.state.limit, 0)
             await this.setState({offset: 0})
+            await this.setState({activeSeeMoreButton: 1})
         }
-        else
+        else{
             orders = await getOrdersByName(customer_name)
+            await this.setState({activeSeeMoreButton: 0})
+        }   
         await this.setState({orders: orders.data})
     }
 

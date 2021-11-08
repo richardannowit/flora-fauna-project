@@ -25,8 +25,6 @@ class AdminManager extends React.Component {
     async componentDidMount() {
         document.title = 'Admin | Admins Manage'
         const users = await getUsers(this.state.limit, this.state.offset)
-        if(!users.data || users.data.length < 10)
-            this.setState({activeSeeMoreButton: 0})
         this.setState({users: users.data})
         this.setState({loading: 1})
     }
@@ -77,8 +75,12 @@ class AdminManager extends React.Component {
         if(username === ''){
             users = await getUsers(this.state.limit, 0)
             await this.setState({offset: 0})
-        }else
+            await this.setState({activeSeeMoreButton: 1}) 
+        }else{
             users = await getUserByName(username)
+            await this.setState({activeSeeMoreButton: 0}) 
+        }
+            
         await this.setState({users: users.data})
     }
 

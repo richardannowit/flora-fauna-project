@@ -58,14 +58,16 @@ class Table extends React.Component {
         e.target.innerHTML = 'Loading...'
         setTimeout(()=>{
             e.target.innerHTML = 'See more'
-        }, 500)
+        }, 700)
         await this.setState({offset: this.props.offset === 0 ? this.props.limit : this.props.offset+10})
         this.props.onSetOffset(this.state.offset)
     }
 
     componentDidUpdate(prevProps) {
-        if(this.props.activeSeeMoreButton !== prevProps.activeSeeMoreButton) {
+        if(this.props.activeSeeMoreButton === 0) {
             $('.users-see-more').css('visibility', 'hidden')
+        }else {
+            $('.users-see-more').css('visibility', 'visible')
         }
     }
 

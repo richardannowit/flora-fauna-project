@@ -32,7 +32,7 @@ class Table extends React.Component {
                         <p>{food.category_name}</p>
                     </td>
                     <td>
-                        <p>{food.price}</p>
+                        <p>{parseInt(food.price).toLocaleString('vi-VN')}</p>
                     </td>
                     <td>
                         <p>{parseInt(food.active) === 1 ? 'Yes' : 'No'}</p>
@@ -90,6 +90,8 @@ class Table extends React.Component {
     componentDidUpdate(prevProps) {
         if(this.props.activeSeeMoreButton === 0) {
             $('.food-see-more').css('visibility', 'hidden')
+        }else {
+            $('.food-see-more').css('visibility', 'visible')
         }
     }
 

@@ -64,18 +64,18 @@ class Form extends React.Component {
             let data = []
             if(this.props.method.match(/post/i)){
                 data = await postCategory(formData, localStorage.getItem('accessToken'))
+                await this.setState({
+                    id: '',
+                    category_name: '',
+                    file: null,
+                    invalid: 1
+                })
             }else {
                 data = await putCategory(this.state.id, formData, localStorage.getItem('accessToken'))
             }
             console.log(data)
             this.props.onSubmit(data.data, this.props.method, this.state.id)
             alert(data.message)
-            await this.setState({
-                id: '',
-                category_name: '',
-                file: null,
-                invalid: 1
-            })
         }
     }
 

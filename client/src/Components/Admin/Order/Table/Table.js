@@ -38,13 +38,13 @@ class Table extends React.Component {
                         <p>{order.food_name}</p>
                     </td>
                     <td>
-                        <p>{order.price}</p>
+                        <p>{parseInt(order.price).toLocaleString('vi-VN')}</p>
                     </td>
                     <td>
                         <p>{order.quantity}</p>
                     </td>
                     <td>
-                        <p>{parseInt(order.quantity)*parseInt(order.price)}</p>
+                        <p>{(parseInt(order.quantity)*parseInt(order.price)).toLocaleString('vi-VN')}</p>
                     </td>
                     <td>
                         <select value={order.status} id={order.id} onChange={this.handleChangeSelect}>
@@ -54,7 +54,7 @@ class Table extends React.Component {
                         </select>
                     </td>
                     <td>
-                        <p>{order.order_date}</p>
+                        <p>{`${order.order_date.split('T')[1].split('.')[0]}  ${order.order_date.split('T')[0].split('-').reverse().join('-')}`}</p>
                     </td>
                 </tr>
             )
@@ -83,7 +83,7 @@ class Table extends React.Component {
         e.target.innerHTML = 'Loading...'
         setTimeout(()=>{
             e.target.innerHTML = 'See more'
-        }, 500)
+        }, 700)
         await this.setState({offset: this.props.offset === 0 ? this.props.limit : this.props.offset+10})
         this.props.onSetOffset(this.state.offset)
     }
@@ -91,6 +91,8 @@ class Table extends React.Component {
     componentDidUpdate(prevProps) {
         if(this.props.activeSeeMoreButton === 0) {
             $('.orders-see-more').css('visibility', 'hidden')
+        }else {
+            $('.orders-see-more').css('visibility', 'visible')
         }
     }
 

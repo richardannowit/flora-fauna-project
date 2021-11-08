@@ -18,8 +18,6 @@ import {getContacts, getContactsByName} from '../API/ConnectAPI'
     async componentDidMount() {
         document.title = 'Admin | Contacts Manage'
         const contracts = await getContacts(this.state.limit, this.state.offset)
-        if(!contracts.data || contracts.data.length < 10)
-            this.setState({activeSeeMoreButton: 0})
         this.setState({contracts: contracts && contracts.data ? contracts.data: []})
         this.setState({loading: 1})
     }
@@ -48,8 +46,10 @@ import {getContacts, getContactsByName} from '../API/ConnectAPI'
         if(name === '') {
             contacts = await getContacts(this.state.limit, 0)
             await this.setState({offset: 0})
+            await this.setState({activeSeeMoreButton: 1}) 
         }else {
             contacts = await getContactsByName(name)
+            await this.setState({activeSeeMoreButton: 0}) 
         }
         await this.setState({contracts: contacts.data})
     }
