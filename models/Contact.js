@@ -34,3 +34,15 @@ module.exports.create = (category) => {
         });
     })
 }
+
+module.exports.searchName = (searchName) => {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT * FROM `contacts` WHERE contacts.name LIKE ?;', searchName, (error, result) => {
+            if(error) {
+                reject(error);
+            }else {
+                resolve(result);
+            }
+        })
+    })
+}
