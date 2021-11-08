@@ -32,10 +32,13 @@ module.exports.sortByQuantity = (limit, offset, category) => {
         if (category !== -1) {
             categoryQuery = `WHERE f.category_id=${category} `;
         }
-        const sql = `SELECT f.*, cn.* 
+        const sql = `SELECT f.*, cn.*, categories.category_name
                     FROM foods as f 
                     LEFT JOIN (SELECT o.food_id, COUNT(*) as cnt FROM orders as o GROUP BY o.food_id) AS cn 
-                    ON cn.food_id = f.id ${categoryQuery} ORDER BY cn.cnt DESC LIMIT ? OFFSET ?`
+                    ON cn.food_id = f.id 
+                    INNER JOIN categories ON f.category_id = categories.id
+                    ${categoryQuery} 
+                    ORDER BY cn.cnt DESC LIMIT ? OFFSET ?`
         console.log(sql);
         connection.query(sql, [limit, offset], function (error, result) {
             if (error) {
@@ -52,10 +55,11 @@ module.exports.findFood = (search, limit, offset, sort) => {
     return new Promise((resolve, reject) => {
         let sql = "";
         if (sort !== 'id') {
-            sql = `SELECT f.*, cn.* 
+            sql = `SELECT f.*, cn.*, categories.category_name 
             FROM foods as f 
             LEFT JOIN (SELECT o.food_id, COUNT(*) as cnt FROM orders as o GROUP BY o.food_id) AS cn
             ON cn.food_id = f.id 
+            INNER JOIN categories ON f.category_id = categories.id
             WHERE f.food_name LIKE ?
             ORDER BY cn.cnt DESC LIMIT ? OFFSET ?`
         } else {
