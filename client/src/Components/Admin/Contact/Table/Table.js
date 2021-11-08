@@ -7,6 +7,7 @@ class Table extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            search: '',
             offset: 0,
         }
     }
@@ -51,11 +52,23 @@ class Table extends React.Component {
         }
     }
 
+    handleChange = async (e)=>{
+        const {value} = e.target
+        await this.setState({search: value})
+        this.props.onSearch(this.state.search)
+    }
+
     
     render() {
         return (
             <div className='table-contracts'>
                 <p className='label-contract'>Contacts Management</p>
+                <div className='add-and-search'>
+                    <div className='search-box'>
+                        <input type='text' className='search-item' name='search' value={this.state.search} onChange={this.handleChange} placeholder='Click to search by customer name'/>
+                        <i className='fas fa-search search-item'></i>
+                    </div>
+                </div>
                 <table>
                     <tbody>
                         <tr className='header'>

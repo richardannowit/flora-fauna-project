@@ -74,7 +74,8 @@ class Categories extends React.Component {
     handleSearch = async (category_name)=>{
         let categories
         if(category_name===''){
-            categories = await getCategories()
+            categories = await getCategories(this.state.limit, 0)  
+            await this.setState({offset: 0})
         }else{
             categories = await getCategoriesByName(category_name)
         }
