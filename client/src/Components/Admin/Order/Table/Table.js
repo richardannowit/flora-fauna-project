@@ -11,6 +11,7 @@ class Table extends React.Component {
             search: '',
             offset: 0,
             changeActive: '',
+            status: ''
         }
     }
 
@@ -46,7 +47,7 @@ class Table extends React.Component {
                         <p>{parseInt(order.quantity)*parseInt(order.price)}</p>
                     </td>
                     <td>
-                        <select value={order.active} id={order.id} onChange={this.handleChangeSelect}>
+                        <select value={order.status} id={order.id} onChange={this.handleChangeSelect}>
                             <option value='waiting' >waiting</option>
                             <option value='delivering'>delivering</option>
                             <option value='success'>success</option>
@@ -63,8 +64,9 @@ class Table extends React.Component {
     //Submit active
     handleChangeSelect= async (e)=>{
         const {value, id} = e.target
-        const active = await putActiveOrders(id, {active: value}, localStorage.getItem('accessToken'))
-        console.log(active.message)
+        const active = await putActiveOrders(id, {status: value}, localStorage.getItem('accessToken'))
+        e.target.value = value
+        console.log(active)
     }
 
     //Update input form
@@ -114,7 +116,7 @@ class Table extends React.Component {
                             <th className='food-price-th'>Price</th>
                             <th className='food-quantity-th'>Quantity</th>
                             <th className='food-total-th'>Total</th>
-                            <th className='active-th'>Active</th>
+                            <th className='active-th'>Status</th>
                             <th className='date-th'>Date</th>
                         </tr>
                         {this.getData()}

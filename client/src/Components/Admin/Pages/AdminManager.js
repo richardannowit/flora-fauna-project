@@ -75,7 +75,8 @@ class AdminManager extends React.Component {
     handleSearch = async (username)=>{
         let users
         if(username === ''){
-            users = await getUsers()
+            users = await getUsers(this.state.limit, 0)
+            await this.setState({offset: 0})
         }else
             users = await getUserByName(username)
         await this.setState({users: users.data})

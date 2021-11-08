@@ -123,13 +123,18 @@ async function getOrderStatistic(year, token=null){
 }
 
 async function putActiveOrders(id, data, token=null) {
-    const res = await connectAPI('put', `/orders/${id}`, data, token)
+    const res = await connectAPI('put', `/orders/${id}`, token, data)
     return res
 }
 
 //API CONTRACT
 async function getContacts(limit=100000, offset=0) {
     const res = await connectAPI('get', `/contact?limit=${limit}&position=${offset}`)
+    return res
+}
+
+async function getContactsByName(name) {
+    const res = await connectAPI('get', `/contact/search/${name}`)
     return res
 }
 
@@ -194,7 +199,8 @@ export {
 
 //EXPORT contracts
 export {
-    getContacts
+    getContacts,
+    getContactsByName
 }
 
 

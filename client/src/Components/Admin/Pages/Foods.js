@@ -76,11 +76,14 @@ class Foods extends React.Component {
     //Search engine
     handleSearch = async (food_name)=>{
         let food;
-        if(food_name === '')
-            food = await getFoods()
+        if(food_name === ''){
+            food = await getFoods(this.state.limit, 0)
+            await this.setState({offset: 0})
+        }    
         else
             food = await getFoodByName(food_name)
         await this.setState({foods: food.data})
+        console.log(this.state.foods[0])
     }
 
     //handle set offset 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Table from '../Contact/Table/Table'
-import {getContacts} from '../API/ConnectAPI'
+import {getContacts, getContactsByName} from '../API/ConnectAPI'
 
  class Contract extends Component {
     constructor(props) {
@@ -43,6 +43,17 @@ import {getContacts} from '../API/ConnectAPI'
         }
     }
 
+    handleSearch = async (name)=>{
+        let contacts
+        if(name === '') {
+            contacts = await getContacts(this.state.limit, 0)
+            await this.setState({offset: 0})
+        }else {
+            contacts = await getContactsByName(name)
+        }
+        await this.setState({contacts: contacts.data})
+    }
+
     render() {
         return (
             <div>
@@ -53,6 +64,7 @@ import {getContacts} from '../API/ConnectAPI'
                     onSetOffset={this.handleSetOffset}
                     activeSeeMoreButton={this.state.activeSeeMoreButton}
                     limit={this.state.limit}
+                    onSearch={this.handleSearch}
                 />
             </div>
         )
