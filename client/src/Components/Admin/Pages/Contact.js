@@ -51,7 +51,7 @@ import {getContacts, getContactsByName} from '../API/ConnectAPI'
         }else {
             contacts = await getContactsByName(name)
         }
-        await this.setState({contacts: contacts.data})
+        await this.setState({contracts: contacts.data})
     }
 
     render() {
