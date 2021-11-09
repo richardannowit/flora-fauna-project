@@ -4,6 +4,14 @@ import './Product-Item.scss'
 
 class ProductItem extends Component {
 
+    constructor (props) {
+        super(props);
+        this.state = {
+            price_text : "",
+            price: ""
+        };
+    }
+
     handleClickProduct = () => {
         this.props.ClickDetails(this.props.Information);
     }
@@ -18,6 +26,26 @@ class ProductItem extends Component {
         //handle order product
         const id_product = this.props.Information.id;
         this.props.HandleOrder(id_product);
+    }
+
+    static getDerivedStateFromProps (nextProps, prevState) {
+        if (nextProps.Information.price !== prevState.price) {
+
+            let price_text = String(nextProps.Information.price);
+
+            let i = price_text.length - 3;
+
+            while(i > 0) {
+                price_text = price_text.slice(0, i) + '.' + price_text.slice(i);
+                i -= 3;
+            }
+            
+            return {
+                price_text: price_text,
+                price: nextProps.Information.price
+            };
+        }
+        return {undefined};
     }
 
     render() {
@@ -41,7 +69,7 @@ class ProductItem extends Component {
                     >
                         <h4>{this.props.Information.food_name}</h4>
                     </Link>
-                    <p className="product-price">${this.props.Information.price}</p>
+                    <p className="product-price">{this.state.price_text} VND</p>
                     <p className="product-detail">{this.props.Information.description}</p>
                     <br />
                     <Link to="/order" onClick={() => {this.ClickOrder()}} className="btn btn-primary">Order Now</Link>
