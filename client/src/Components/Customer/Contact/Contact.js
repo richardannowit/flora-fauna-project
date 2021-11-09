@@ -11,40 +11,94 @@ class Contract extends Component {
             email: "",
             phone: "",
             message: "",
-            error: ""
+            error: "",
+            error_name: "",
+            error_email: "",
+            error_phone: "",
+            error_message: ""
         };
     }
 
     HandleInputName = (e) => {
         const name = e.target.value;
         this.setState({
-            name: name
+            name: name,
+            error_name: ""
         });
     }
 
     HandleInputEmail = (e) => {
         const email = e.target.value;
         this.setState({
-            email: email
+            email: email,
+            error_email: ""
         });
     }
 
     HandleInputPhone = (e) => {
         const phone = e.target.value;
         this.setState({
-            phone: phone
+            phone: phone,
+            error_phone: ""
         });
     }
 
     HandleInputMessage = (e) => {
         const message = e.target.value;
         this.setState({
-            message: message
+            message: message,
+            error_message: ""
         });
+    }
+
+    check_error = () => {
+        let result = true;
+
+        //check error
+        var error_name
+        if (!(this.state.name.length > 0)) {
+            error_name = "please fill your name";
+            result = false;
+        }
+
+        //check error
+        var error_phone;
+        if (!(/^0\d{9,10}$/.test(this.state.phone))) {
+            error_phone = "Please fill valid phone. Eg: 0942222222";
+            result = false;
+        }
+
+        //check error
+        var error_email;
+        if (!(/.+@gmail.com/.test(this.state.email))) {
+            error_email = "Please fill valid email. Eg: your_name@gmail.cpm";
+            result = false;
+        }
+
+        //check error
+        var error_message
+        if (!(this.state.message.length > 0)) {
+            error_message = "please fill your message";
+            result = false;
+        }
+
+        this.setState ({
+            error_name: error_name,
+            error_phone: error_phone,
+            error_email: error_email,
+            error_message: error_message
+        });
+
+        return result;
     }
 
     async HandleSubmit (e) {
         e.preventDefault();   
+
+        //check error
+        if (!this.check_error()) {
+            return;
+        }
         
         //set data and submit to server
         const data = {
@@ -66,7 +120,7 @@ class Contract extends Component {
     render() {
         return (
             <div className='contract'>
-                <h1>CONTRACT US</h1>
+                <h1>CONTACT US</h1>
                 <p className='description-contract'><i>Let us know your opinion</i></p>
                 <form onSubmit={e => this.HandleSubmit(e)}>
                     <h3 className="text-center error">{this.state.error}</h3>
@@ -76,26 +130,25 @@ class Contract extends Component {
                                 className='input-contract'
                                 type='text'
                                 name='name'
-                                required
                                 placeholder='Your Name *'
                                 onChange={e => this.HandleInputName(e)}
                             ></input>
+                             <div className="error format-order">{this.state.error_name}</div>
                             <input
                                 className='input-contract'
                                 type='email' name='email'
-                                required
                                 placeholder='Your Email *'
                                 onChange={e => this.HandleInputEmail(e)}
                             ></input>
+                             <div className="error format-order">{this.state.error_email}</div>
                             <input
                                 className='input-contract'
                                 type='text'
                                 name='Phone'
-                                required
                                 placeholder='Your Phone *'
-                                pattern="0[0-9]{9}"
                                 onChange={e => this.HandleInputPhone(e)}
                             ></input>
+                             <div className="error format-order">{this.state.error_phone}</div>
                         </div>
                         <div className='col-message'>
                             <textarea
@@ -103,9 +156,9 @@ class Contract extends Component {
                                 placeholder="Your Message *"
                                 data-sb-validations="required"
                                 data-sb-can-submit="no"
-                                required
                                 onChange={e => this.HandleInputMessage(e)}
                             ></textarea>
+                             <div className="error format-order">{this.state.error_message}</div>
                         </div>
                     </div>
                     <div className='center'>
@@ -113,7 +166,7 @@ class Contract extends Component {
                             className='btn-primary btn-contract' 
                             type='submit' 
                             name="submit" 
-                            value="submit"
+                            value="Submit"
                         ></input>
                     </div>
                 </form>

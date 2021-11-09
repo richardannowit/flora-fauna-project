@@ -106,7 +106,7 @@ class Products extends Component {
             }
         } catch (e) {}
         //run when use function search in here
-        if (prevProps.ContentSearch !== this.props.ContentSearch  && this.props.ContentSearch.length > 0) {
+        if (prevProps.ContentSearch !== this.props.ContentSearch && this.props.ContentSearch !== null && this.props.ContentSearch.length > 0) {
             const name_product = this.props.ContentSearch;
             //get list product
             const products = await getProductsByName(name_product);
