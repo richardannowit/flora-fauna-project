@@ -27,7 +27,7 @@ class Form extends React.Component {
                 price: this.props.data_food.price,
                 description: this.props.data_food.description, 
                 active:  this.props.data_food.active,
-                category_name: this.props.data_food.category
+                category_name: this.props.data_food.category_name
             })
         else{
             this.setState({
