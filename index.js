@@ -50,7 +50,7 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
-const PORT = process.env.APP_PORT || 8000
+const PORT = process.env.PORT || 80
 
 app.listen(PORT, () => {
     console.log(`Example app listening at http://localhost:${PORT}`)
