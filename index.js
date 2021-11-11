@@ -18,7 +18,7 @@ connect();
 const app = express()
 
 app.use(express.static('public'))
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'build')));
 app.use(cors())
 
 //localhost:3000 --> http://localhost:8000
@@ -47,7 +47,7 @@ app.use('/api/contact', contactRouter)
 
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 const PORT = process.env.PORT || 80
