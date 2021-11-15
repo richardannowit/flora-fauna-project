@@ -65,6 +65,8 @@ class Form extends React.Component {
         }
     }
 
+    //review image product
+
     //Submit form
     handleSubmit = async (e)=>{
         e.preventDefault()
